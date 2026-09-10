@@ -6,6 +6,14 @@ The whole platform runs on one Vercel project: the site, the admin, the cron pip
 
 Fork the repository on GitHub, then clone your fork. If you plan to keep your tuned config private, make your fork private: your real `config/*.json` and `config/prompts/*.md` files are gitignored by default, but you will eventually want to commit them so deployments carry them (see step 6).
 
+If you will push to a public fork, turn on the repo's pre-push hook once per clone. It runs [gitleaks](https://github.com/gitleaks/gitleaks) over the commits being pushed and refuses the push on a secret, a non-noreply author email, or a private-site identifier in added lines:
+
+```
+git config core.hooksPath .githooks
+```
+
+Install gitleaks first (`winget install Gitleaks.Gitleaks`, `brew install gitleaks`, or a release binary). The hook refuses to push without it.
+
 ## 2. Link the project
 
 ```
