@@ -118,6 +118,17 @@ a:hover {
 }
 
 /* ---------- header ---------- */
+/* every anchor jump (#sha256, #s-<story>, a legend heading) lands below the
+   sticky header with some air, instead of under it; mobile's header stacks
+   two rows and the front page adds a sticky section nav, so it needs more */
+html {
+  scroll-padding-top: 100px;
+}
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 160px;
+  }
+}
 .site-header {
   border-bottom: 1px solid var(--border);
   background: var(--surface);
@@ -520,21 +531,9 @@ a:hover {
   color: var(--warn);
 }
 
-/* a summary bullet jump lands here: the offset clears the sticky header
-   (~52px desktop) with breathing room, then a soft periwinkle wash fades so
-   the reader sees what they hit */
-.cluster,
-.week-review li {
-  scroll-margin-top: 72px;
-}
-/* mobile stacks a sticky section nav (top: 89px) under the taller two-row
-   header, so jumps must clear both */
-@media (max-width: 760px) {
-  .cluster,
-  .week-review li {
-    scroll-margin-top: 144px;
-  }
-}
+/* a summary bullet jump lands here (the root's scroll-padding clears the
+   sticky header), then a soft periwinkle wash fades so the reader sees
+   what they hit */
 .cluster:target,
 .week-review li:target {
   animation: jump-flash 2.5s ease-out;
@@ -1304,7 +1303,10 @@ body:has(.notfound) .main-nav {
 /* the day page's walk-the-archive arrows sit tight above the title */
 .month-nav.day-nav {
   margin: 0 0 8px;
+  max-width: none;
 }
+/* the day page's arrows flank an archive link, and a today link when the
+   page is not today; empty end spans keep the middle centered */
 /* month pager on the full daily archive: older on the right, newer on the left */
 .month-nav {
   display: flex;
@@ -1456,8 +1458,9 @@ body:has(.notfound) .main-nav {
   margin: 26px 0 10px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--border);
-  /* anchor targets land below the sticky header + Admin title + menu */
-  scroll-margin-top: 165px;
+  /* anchor targets land below the Admin title + menu (the root's
+     scroll-padding already clears the site header) */
+  scroll-margin-top: 70px;
 }
 /* the whole Admin title + menu block pins below the sticky site header */
 .admin-head {
@@ -1702,16 +1705,6 @@ select.select {
 }
 .updated-stamp {
   color: var(--muted);
-}
-.corrections {
-  margin-top: 18px;
-}
-.corrections ul {
-  list-style: none;
-  padding: 0;
-}
-.corrections .org {
-  word-break: break-all;
 }
 .edition-edit textarea {
   width: 100%;
@@ -3174,4 +3167,291 @@ a.filter-chip {
 .filter-chip.on {
   color: var(--fg);
   border-color: var(--fg-soft);
+}
+
+/* ---------- the day's onchain record ---------- */
+/* the day page's arrows flank an archive link, and a today link when the
+   page is not today; empty end spans keep the middle centered */
+.day-nav-mid .record-sep {
+  margin: 0 8px;
+}
+.updates {
+  margin-top: 6px;
+}
+.updates summary {
+  cursor: pointer;
+}
+.updates ul {
+  list-style: none;
+  padding: 0 0 0 12px;
+  margin: 6px 0 0;
+}
+.updates li {
+  margin: 3px 0;
+}
+.updates .upd-v {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  color: var(--muted);
+  margin-right: 4px;
+}
+.onchain-content {
+  margin: 8px 0 16px;
+}
+.onchain-content > summary {
+  cursor: pointer;
+}
+.day-colophon .onchain-content {
+  margin: 0;
+}
+.onchain-how {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+}
+.onchain-pre {
+  max-height: 420px;
+  overflow: auto;
+  font-size: 0.72rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px;
+  margin: 6px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+/* the small "?" beside the hash label, a link to what a hash is */
+.hash-help {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  line-height: 1.1em;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  font-size: 0.7em;
+  text-decoration: none;
+  color: var(--muted);
+  vertical-align: 1px;
+}
+.hash-help:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+/* in the record tab the mark sits beside the check words at their size,
+   free of the tab's tracking */
+.day-record-label .hash-help {
+  font-size: 0.9em;
+  letter-spacing: 0;
+  vertical-align: 0;
+}
+/* the day's record: blocks, seal, versions, boxed apart from the stories */
+.day-record {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 14px 10px;
+  margin: 22px 0 16px;
+  background: color-mix(in srgb, var(--fg) 3%, var(--bg));
+}
+/* two states: recording (a soft dashed edge and the pulsing dot) and sealed
+   (a firm edge and the filled seal), so the box itself says which */
+.day-record.live {
+  border-style: dashed;
+}
+.day-record.sealed {
+  border: 1.5px solid color-mix(in srgb, var(--fg) 45%, var(--border));
+}
+/* the words sit a pixel low in the tab; the seal is already centered, so
+   everything but the seal rises one pixel, the tab keeping its size */
+.day-record-label > :not(.seal-icon) {
+  position: relative;
+  top: -1px;
+}
+.day-record-label .seal-icon {
+  vertical-align: -1px;
+  color: var(--muted);
+  fill-opacity: 0;
+  transition:
+    fill-opacity 500ms ease,
+    color 500ms ease;
+}
+.day-record-label .seal-icon.sealed {
+  color: var(--link);
+  fill-opacity: 1;
+}
+.day-record.sealed .day-record-label {
+  border-color: color-mix(in srgb, var(--fg) 45%, var(--border));
+}
+.day-record-label.verified,
+.day-record.sealed .day-record-label.verified {
+  border-color: color-mix(in srgb, var(--link) 45%, transparent);
+}
+/* the check's words sit in a measured slot, so the tab glides between
+   "Verify" and "Verified (reset / recheck)" as the seal fills */
+.verify-slot {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  transition: width 500ms ease;
+}
+.verify-slot-inner {
+  display: inline-block;
+}
+.day-record-label .live-dot {
+  margin-right: 6px;
+  width: 7px;
+  height: 7px;
+}
+/* the record row: attestation · details · verify, with the details body
+   wrapping under the whole row when open (display: contents lifts the
+   summary and the body into the row's flex flow) */
+.record-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 6px;
+}
+.record-sep {
+  color: var(--muted);
+}
+.record-toggle {
+  color: var(--fg-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  font-size: inherit;
+}
+.record-body {
+  margin-top: 8px;
+}
+.record-body > div {
+  margin-top: 6px;
+}
+.day-record-label {
+  position: absolute;
+  top: -0.6em;
+  left: 10px;
+  padding: 0 6px;
+  /* a tab on the box edge in the box's own tint with a faint edge, so it
+     reads as part of the box rather than a patch of page color cut into it;
+     the edge warms to the link blue as the seal fills */
+  background: color-mix(in srgb, var(--fg) 3%, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: border-color 500ms ease;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.day-record .day-colophon {
+  margin-top: 0;
+}
+.day-record .updates {
+  margin-top: 4px;
+}
+/* the seal's reset: the word alone is the control, the parentheses are text */
+.verify-ok .verify-reset {
+  text-decoration: none;
+  border-bottom: 0;
+  color: var(--muted);
+}
+.verify-ok .verify-reset:hover {
+  color: var(--fg);
+}
+/* inside the record row the seal's parts join the row's flex flow: the
+   badge and Verified (reset) stay on the line, the match sentence, any
+   error, and the work log take the full width beneath */
+.verify-seal.inrow {
+  display: contents;
+}
+.verify-seal.inrow .verify-detail,
+.verify-seal.inrow .verify-bad,
+.verify-seal.inrow .verify-err,
+.verify-seal.inrow .verify-steps {
+  flex-basis: 100%;
+  /* after every row item, so the row itself never breaks around them */
+  order: 10;
+}
+.verify-seal.inrow .verify-steps {
+  order: 11;
+}
+/* one treatment for every control in the record: a quiet underline on
+   links and toggles alike; only the word Verified is plain text */
+.record-row a,
+.record-row .linklike,
+.record-row .record-toggle,
+.record-row .verify-ok .verify-reset,
+.record-row .verify-idle .verify-word,
+.record-row .verify-work-toggle .verify-word {
+  color: var(--fg-soft);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--fg-soft) 45%, transparent);
+  text-underline-offset: 2px;
+  border-bottom: 0;
+  font-size: inherit;
+}
+.record-row a:hover,
+.record-row .linklike:hover,
+.record-row .verify-ok .verify-reset:hover {
+  color: var(--fg);
+  text-decoration-color: var(--fg);
+}
+.record-row .verify-ok,
+.record-row .verify-idle,
+.record-row .verify-static {
+  text-decoration: none;
+}
+.record-row .verify-static {
+  color: var(--hover-mint);
+}
+.verify-detail {
+  color: var(--muted);
+}
+/* the record label holds the check; the hash line always shows */
+.day-record-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+}
+.day-record-label .verify-compact,
+.day-record-label .verify-reset {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.78rem;
+  color: var(--fg-soft);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--fg-soft) 45%, transparent);
+  text-underline-offset: 2px;
+  border-bottom: 0;
+}
+.day-record-label .verify-compact-done {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.78rem;
+}
+.day-record-label .verify-static {
+  color: var(--hover-mint);
+}
+.day-record-label .verify-bad .verify-static {
+  color: var(--danger, #c9564a);
+}
+.record-hash {
+  margin-top: 6px;
+}
+.record-verify {
+  margin-top: 8px;
+}
+.day-span {
+  margin: 4px 0 0;
+}
+/* where the day went out, under the record box and above the review */
+.day-posted {
+  margin: -6px 0 16px;
+}
+.day-posted.unboxed {
+  margin-top: 4px;
+}
+.onchain-from {
+  margin: 0 0 6px;
 }

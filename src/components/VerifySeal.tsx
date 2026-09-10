@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /** Browser-native sha256 of a string, hex. The same math as the freeze-time hasher. */
 export async function sha256Hex(text: string): Promise<string> {
@@ -34,11 +34,52 @@ export async function sealedRecord(uid: string): Promise<{ hash: string; sealedA
  * anything this site stores. The reader sees a check mark and a sentence; the
  * math underneath is the real thing, inspectable in devtools.
  */
-export function VerifySeal({ date, uid }: { date: string; uid: string }) {
+export interface VerifyResult {
+  state: "idle" | "working" | "ok" | "bad" | "error";
+  detail: string;
+  work: string[];
+}
+
+export function VerifySeal({
+  date,
+  uid,
+  label = "Verify this edition",
+  help = true,
+  row = false,
+  icon = true,
+  onState,
+  compact = false,
+  onResult,
+}: {
+  date: string;
+  uid: string;
+  label?: string;
+  help?: boolean;
+  /** inside the record row: Verified and its links stay on the row, the rest drops under it */
+  row?: boolean;
+  /** draw the seal icon here; the record box draws its own single icon instead */
+  icon?: boolean;
+  /** told every state change, so a parent can show the seal filling in */
+  onState?: (state: "idle" | "working" | "ok" | "bad" | "error") => void;
+  /** render only the check word and its links; the parent shows the report via onResult */
+  compact?: boolean;
+  onResult?: (r: VerifyResult) => void;
+}) {
   const [state, setState] = useState<"idle" | "working" | "ok" | "bad" | "error">("idle");
   const [detail, setDetail] = useState("");
   const [work, setWork] = useState<string[]>([]);
   const [showWork, setShowWork] = useState(false);
+  // the last settled outcome, shown through a recheck
+  const lastDone = useRef<"ok" | "bad" | "error">("ok");
+  useEffect(() => {
+    if (state === "ok" || state === "bad" || state === "error") lastDone.current = state;
+  }, [state]);
+  useEffect(() => {
+    onState?.(state);
+    onResult?.({ state, detail, work });
+    // the parent's callback identity may change every render; the state is what matters
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, detail, work]);
   // back to the untouched state, work log and all, so someone can be shown
   // the check from the start without reloading the page
   const reset = () => {
@@ -54,11 +95,16 @@ export function VerifySeal({ date, uid }: { date: string; uid: string }) {
     const runNumber = work.filter((l) => l.startsWith("run ")).length + 1;
     const lines: string[] = [`run ${runNumber} · ${new Date().toUTCString().slice(17, 25)} UTC`];
     const finish = () => setWork((prev) => [...prev, ...lines]);
+    // the fetches often finish in a couple hundred milliseconds, too fast to
+    // register as a check, so the checking state holds for at least 800ms;
+    // any longer and it reads as a spinner for show
+    const startedAt = Date.now();
     try {
       const [fileText, record] = await Promise.all([
         fetch(`/day/${date}/edition.json`).then((r) => r.text()),
         sealedRecord(uid),
       ]);
+      await new Promise((r) => setTimeout(r, Math.max(0, 800 - (Date.now() - startedAt))));
       lines.push(`fetched /day/${date}/edition.json · ${new TextEncoder().encode(fileText).length} bytes`);
       if (!record) {
         lines.push("could not reach base.easscan.org for the sealed hash");
@@ -104,28 +150,84 @@ export function VerifySeal({ date, uid }: { date: string; uid: string }) {
       <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
     </svg>
   );
+  if (compact) {
+    // the check word and its links only; the report is the parent's to show.
+    // A recheck keeps the done layout and swaps only the word, so nothing
+    // around it jumps while the check runs.
+    const rechecking = state === "working" && work.length > 0;
+    if (!rechecking && (state === "idle" || state === "working")) {
+      return (
+        <button type="button" className="linklike verify-compact" onClick={run} disabled={state === "working"}>
+          {state === "working" ? "checking…" : label === "Verify this edition" ? "Verify" : label}
+        </button>
+      );
+    }
+    const shown = rechecking ? lastDone.current : state;
+    return (
+      <span className={`verify-compact-done${shown === "ok" ? " verify-ok" : " verify-bad"}`}>
+        <span className="verify-static">{shown === "ok" ? "Verified" : "Failed"}</span> (
+        <button type="button" className="linklike verify-reset" onClick={reset} title="Back to the unverified state" disabled={rechecking}>
+          reset
+        </button>{" "}
+        /{" "}
+        <button type="button" className="linklike verify-reset" onClick={run} title="Run the check again" disabled={rechecking}>
+          {rechecking ? "checking…" : "recheck"}
+        </button>
+        )
+      </span>
+    );
+  }
   return (
-    <span className={`verify-seal${state === "ok" ? " sealed" : ""}`}>
+    <span className={`verify-seal${state === "ok" ? " sealed" : ""}${row ? " inrow" : ""}`}>
       {state === "ok" ? (
-        // only the word Verified re-runs the check; the sentence is plain text
-        <span className="verify-ok">
-          {seal}{" "}
-          <button type="button" className="linklike verify-word" onClick={run} title="Verify again">
-            Verified
-          </button>
-          . {detail}
-        </span>
+        // Verified is a fact, not a control: reset and check again are the
+        // links; the sentence with the match is its own line
+        <>
+          <span className="verify-ok">
+            {icon ? <>{seal} </> : null}<span className="verify-static">Verified</span>{" "}
+            (
+            <button type="button" className="linklike verify-reset" onClick={reset} title="Back to the unverified state">
+              reset
+            </button>
+            ,{" "}
+            <button type="button" className="linklike verify-reset" onClick={run} title="Run the check again">
+              check again
+            </button>
+            )
+          </span>
+          <span className="verify-detail">
+            {detail}
+            {work.length > 0 ? (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  className="linklike verify-work-toggle"
+                  onClick={() => setShowWork((s) => !s)}
+                  title="The steps each verify run took, newest last"
+                >
+                  <span className="verify-word">{showWork ? "hide" : "show"}</span> {showWork ? "▴" : "▾"}
+                </button>
+              </>
+            ) : null}
+          </span>
+        </>
       ) : (
         <button type="button" className="linklike verify-idle" onClick={run} disabled={state === "working"}>
-          {seal} <span className="verify-word">{state === "working" ? "checking…" : "Verify this edition"}</span>
+          {icon ? <>{seal} </> : null}<span className="verify-word">{state === "working" ? "checking…" : label}</span>
         </button>
-      )}{" "}
-      <a href="/verify" className="verify-help" title="How verification works (opens in a new tab)" target="_blank" rel="noopener">
-        ?
-      </a>
+      )}
+      {help ? (
+        <>
+          {" "}
+          <a href="/verify" className="verify-help" title="How verification works (opens in a new tab)" target="_blank" rel="noopener">
+            ?
+          </a>
+        </>
+      ) : null}
       {state === "bad" ? <span className="verify-bad"> ✗ {detail}</span> : null}
       {state === "error" ? <span className="verify-err"> {detail}</span> : null}
-      {work.length > 0 ? (
+      {work.length > 0 && state !== "ok" ? (
         <>
           {" "}
           <button
@@ -138,7 +240,7 @@ export function VerifySeal({ date, uid }: { date: string; uid: string }) {
           </button>
         </>
       ) : null}
-      {state !== "idle" && state !== "working" ? (
+      {state === "bad" || state === "error" ? (
         <>
           {" "}
           <button type="button" className="linklike verify-reset" onClick={reset} title="Back to the unverified state">

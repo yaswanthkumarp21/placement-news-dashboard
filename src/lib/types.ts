@@ -409,6 +409,8 @@ export interface SiteState {
     stale?: boolean;
     /** why the box was flagged stale, echoed into the next rewrite's history line */
     staleReason?: string;
+    /** story id to when its line first entered the box; a line younger than SUMMARY_STICKY_HOURS is never displaced */
+    lineSince?: Record<string, string>;
     /** newest first, last 10 times the text actually changed and why */
     history?: Array<{
       at: string;
@@ -549,6 +551,12 @@ export interface Submission {
 
 /** How long the editor-model front summary stays on the page before it reads as stale. */
 export const FRONT_SUMMARY_MAX_AGE_HOURS = 36;
+/**
+ * How long a line holds its place in the Latest in box once it enters. The
+ * editor and the rank comparison can only displace lines older than this, so
+ * the box settles instead of bouncing as scores drift between runs.
+ */
+export const SUMMARY_STICKY_HOURS = 2;
 
 export interface Snapshot {
   id: string; // YYMMDD-HHMM (UTC)
@@ -571,6 +579,8 @@ export interface DailyDigest {
   contentHash?: string;
   /** UID of the edition's EAS attestation on Base, once one has been made. */
   attestationUid?: string;
+  /** the attesting transaction, kept for the link to Basescan; bookkeeping, outside the hash */
+  attestationTx?: string;
   clusters: Cluster[]; // the day's top stories, pre-sorted by magnitude
   /** Hash of the digest's Farcaster cast, when it really posted. */
   castHash?: string;
@@ -611,6 +621,7 @@ export interface MonthlyDigest {
   contentHash?: string;
   /** UID of the edition's EAS attestation on Base, once one has been made. */
   attestationUid?: string;
+  attestationTx?: string;
   clusters: Cluster[]; // the month's top stories, importance first then magnitude
   /** The month's top podcast episodes, frozen playable (full items, ranked). */
   episodes?: MediaItem[];
@@ -634,6 +645,7 @@ export interface YearlyDigest {
   contentHash?: string;
   /** UID of the edition's EAS attestation on Base, once one has been made. */
   attestationUid?: string;
+  attestationTx?: string;
   clusters: Cluster[]; // the year's top stories, pooled from the monthly digests
   /** One podcast per month: each frozen month's top episode, in month order. */
   episodes?: MediaItem[];
@@ -652,6 +664,7 @@ export interface WeeklyDigest {
   contentHash?: string;
   /** UID of the edition's EAS attestation on Base, once one has been made. */
   attestationUid?: string;
+  attestationTx?: string;
   clusters: Cluster[]; // the week's top stories, importance first then magnitude
   /** The week's top podcast episodes, frozen playable (full items, ranked). */
   episodes?: MediaItem[];

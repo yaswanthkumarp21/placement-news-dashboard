@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { loadState } from "@/lib/state";
-import { dayLabel, monthLabel, monthsWithDays } from "../dayList";
+import { siteIdentity } from "@/lib/site";
+import { dayLabel, monthLabel, monthsWithDays, withGaps } from "../dayList";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,7 @@ export default async function AllDaysPage({
 }) {
   const { month } = await searchParams;
   const state = await loadState();
-  const months = monthsWithDays(state.dailyDigestDates ?? []);
+  const months = monthsWithDays(withGaps(state.dailyDigestDates ?? [], siteIdentity().firstDay));
 
   if (months.length === 0) {
     return (
@@ -46,9 +47,9 @@ export default async function AllDaysPage({
       <div className="prose">
         <h1>{monthLabel(current.month)}</h1>
         <ul>
-          {current.days.map((d) => (
-            <li key={d}>
-              <Link href={`/day/${d}`}>{dayLabel(d)}</Link>
+          {current.days.map(({ date: d, published }) => (
+            <li key={d} className={published ? undefined : "org"}>
+              {published ? <Link href={`/day/${d}`}>{dayLabel(d)}</Link> : `${dayLabel(d)} · not published`}
             </li>
           ))}
         </ul>

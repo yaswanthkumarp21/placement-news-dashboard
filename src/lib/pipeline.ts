@@ -1,6 +1,6 @@
 import { applyBotOverrides, effectiveFeeds, effectiveMarkets, loadSiteConfig, siteUrl } from "./config";
 import { buildWeeklyCast, monthLabel, monthlyTop, poolFromDailies, rankPool, sendDailyEmail, sendMonthlyEmail, sendWeeklyEmail, subjectRangeLabel, weeklyTop, WEEKLY_SEND_HOUR_UTC, yearlyTop } from "./digest";
-import { attestAvailable, attestEdition } from "./attest";
+import { attestAvailable, attestEditionFull } from "./attest";
 import { sendAdminEmail } from "./mail";
 import { enrichNewItems, extractChapters, extractDescriptionLinks, fetchAllFeeds, fetchMediaFeeds, fetchVideoManifest, fetchYoutubeDetails, isMediaFeed, isReleaseFeed, isYoutubeShort, normalizeHost, updateFeedHealth, youtubeVideoId, type CastLink, type FeedFetchResult, type MediaCandidate } from "./feeds";
 import { assessSourceCandidates, classifyAndCluster, compressTweetLines, dayInReview, gateMediaItems, heuristicFallback, llmAvailable, periodInReview, refreshFrontSummary, summarizeRelease, type EditorOutput, type SummaryBullet, matchChaptersToStories } from "./llm";
@@ -12,7 +12,7 @@ import { castRaw, postToFarcaster, farcasterPostedToday } from "./social/farcast
 import { postTextToX, postToX, xAutoPostedToday, xMonthlyCount, XCapError } from "./social/x";
 import { buildDailyComment, postDailyComment, redditPostFor } from "./social/reddit";
 import { loadDailyDigest, loadMonthlyDigest, loadState, loadWeeklyDigest, saveDailyDigest, saveDailyDigestVersion, saveMonthlyDigest, saveSnapshot, saveState, saveWeeklyDigest, saveYearlyDigest } from "./state";
-import { FRONT_SUMMARY_MAX_AGE_HOURS } from "./types";
+import { FRONT_SUMMARY_MAX_AGE_HOURS, SUMMARY_STICKY_HOURS } from "./types";
 import type { CandidateItem, Cluster, DailyDigest, MediaItem, MonthlyDigest, SiteState, WeeklyDigest, YearlyDigest } from "./types";
 import { ogTruncate } from "./og";
 import { withUtm, type UtmSource } from "./utm";
@@ -104,7 +104,7 @@ function digestContentHash(digest: object): string {
  * waits on a chain.
  */
 async function attestFrozenEdition(
-  digest: { contentHash?: string; attestationUid?: string; version?: number; supersedes?: string; supersedesUid?: string },
+  digest: { contentHash?: string; attestationUid?: string; attestationTx?: string; version?: number; supersedes?: string; supersedesUid?: string },
   edition: string,
   notes: string[]
 ): Promise<void> {
@@ -114,11 +114,13 @@ async function attestFrozenEdition(
     // stands on its own; a correction names the version and the hash and
     // attestation it replaces
     const label = (digest.version ?? 1) > 1 ? `${edition}#v${digest.version}` : edition;
-    digest.attestationUid = await attestEdition(label, digest.contentHash, {
+    const made = await attestEditionFull(label, digest.contentHash, {
       content: JSON.stringify(editionCore(digest)),
       ...(digest.supersedes ? { supersedesHex: digest.supersedes } : {}),
       ...(digest.supersedesUid ? { refUid: digest.supersedesUid } : {}),
     });
+    digest.attestationUid = made.uid;
+    digest.attestationTx = made.txHash;
     notes.push(`attested ${label} on Base (${digest.attestationUid.slice(0, 10)}…)`);
   } catch (err) {
     notes.push(`attestation failed for ${edition}: ${truncate(err instanceof Error ? err.message : String(err), 160)}`);
@@ -302,6 +304,11 @@ function carryForwardSummary(
     const c = ref && keep ? keep.state.clusters[ref] : undefined;
     return c && !c.killed ? score(c, keep!.cfg.ranking) : -1;
   };
+  // a line that entered the box recently holds its place whatever the editor
+  // or the rank comparison says, so the box settles instead of bouncing
+  const since = keep?.state.frontSummary?.lineSince ?? {};
+  const sticky = (ref: string | null): boolean =>
+    Boolean(keep && ref && since[ref] && hoursAgo(since[ref]) < SUMMARY_STICKY_HOURS);
   // the stories a section's lines actually cite (line refs plus phrase refs)
   const refsFor = (lines: typeof newLines, section: string) => {
     const refs = new Set<string>();
@@ -349,7 +356,9 @@ function carryForwardSummary(
         out.push(asRaw(same));
         continue;
       }
-      const i = l.ref ? dropped.findIndex((d) => rankOf(d.ref) > rankOf(l.ref)) : -1;
+      // a sticky old line is never displaced; otherwise the old line stays
+      // when its story still outranks the newcomer
+      const i = l.ref ? dropped.findIndex((d) => sticky(d.ref) || rankOf(d.ref) > rankOf(l.ref)) : -1;
       if (i >= 0) {
         out.push(asRaw(dropped[i]));
         dropped.splice(i, 1);
@@ -363,6 +372,20 @@ function carryForwardSummary(
     const newcomers = newSec.filter((l) => l.ref && !prevSec.some((p) => p.ref === l.ref)).length;
     if (keep && newcomers === 0) {
       for (const d of dropped) if (out.filter((r) => r.startsWith(`[${sec}`)).length < 2) out.push(asRaw(d));
+    }
+    // sticky lines the editor dropped come back regardless, and newcomers
+    // fill only the slots left after them: the newest newcomer yields first
+    const inSec = () => out.filter((r) => r.startsWith(`[${sec}`));
+    for (const d of dropped) {
+      if (!sticky(d.ref) || out.includes(asRaw(d))) continue;
+      out.splice(out.findIndex((r) => r.startsWith(`[${sec}`)), 0, asRaw(d));
+      while (inSec().length > 2) {
+        const victim = inSec()
+          .reverse()
+          .find((r) => !prevSec.some((p) => asRaw(p) === r));
+        if (!victim) break;
+        out.splice(out.indexOf(victim), 1);
+      }
     }
   }
   // sections the new summary skipped keep their old lines alive, as before
@@ -2039,6 +2062,10 @@ function writeFrontSummary(state: SiteState, text: string, why: string, whys?: M
     return;
   }
   const prevLines = parseSummaryLines(prev?.text ?? "");
+  // when each story's line entered the box: kept from before for a story
+  // still cited, stamped now for one that just arrived, forgotten once gone
+  const lineSince: Record<string, string> = {};
+  for (const l of parseSummaryLines(text)) if (l.ref) lineSince[l.ref] = prev?.lineSince?.[l.ref] ?? at;
   const before = new Set(prevLines.map((l) => l.text));
   const lines = parseSummaryLines(text);
   const changedLines = lines.filter((l) => !before.has(l.text));
@@ -2065,6 +2092,7 @@ function writeFrontSummary(state: SiteState, text: string, why: string, whys?: M
   state.frontSummary = {
     text,
     at,
+    lineSince,
     history: [
       { at, reason, changed: changedLines.length, total: lines.length, diff: diff.slice(0, 8) },
       ...(prev?.history ?? []),

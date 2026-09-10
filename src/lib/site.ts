@@ -21,6 +21,13 @@ export interface SiteIdentity {
   /** Optional public account handles; empty strings hide the footer icons. */
   social?: { xHandle?: string; farcasterHandle?: string };
   /**
+   * The first day the site published a daily edition (YYYY-MM-DD). The
+   * daily archive then names every day since that never froze as "not
+   * published" instead of skipping it. Unset or empty means gaps are not
+   * marked.
+   */
+  firstDay?: string;
+  /**
    * Writer pages (/by) and byline links are admin-only until this is true.
    * Bylines themselves still show in the kicker as plain text. Flip it once
    * the bylines coming out of your feeds look right.

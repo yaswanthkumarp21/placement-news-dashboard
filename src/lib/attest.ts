@@ -115,16 +115,20 @@ function clients() {
 }
 
 /**
- * Attests one frozen edition: {edition: "day:2026-08-28", contentHash}.
- * Registers the schema on first ever use (one-time, cents). Returns the
- * attestation UID, viewable at https://base.easscan.org/attestation/view/UID.
- * Throws on failure; callers treat that as a retryable note, never a blocker.
+ * Attests one frozen edition: {edition: "day:2026-08-28" or "day:2026-08-28#v2",
+ * contentHash, supersedes (the hash this version replaces, zero for a first
+ * version), content (the sealed file's exact bytes)}. A correction also
+ * sets refUID to the attestation it replaces, EAS's native link. Registers
+ * the schema on first ever use (one-time, cents). Returns the attestation
+ * UID, viewable at https://base.easscan.org/attestation/view/UID. Throws on
+ * failure; callers treat that as a retryable note, never a blocker.
  */
-export async function attestEdition(
+/** Attest, and hand back the transaction too, for the day page's link to Basescan. */
+export async function attestEditionFull(
   edition: string,
   contentHashHex: string,
   opts: { content?: string; supersedesHex?: string; refUid?: string } = {}
-): Promise<string> {
+): Promise<{ uid: `0x${string}`; txHash: `0x${string}` }> {
   const { account, pub, wallet } = clients();
 
   const existing = await pub.readContract({
@@ -172,10 +176,30 @@ export async function attestEdition(
     if (log.address.toLowerCase() !== EAS_ADDRESS.toLowerCase()) continue;
     try {
       const parsed = decodeEventLog({ abi: EAS_ABI, data: log.data, topics: log.topics });
-      if (parsed.eventName === "Attested") return parsed.args.uid;
+      if (parsed.eventName === "Attested") return { uid: parsed.args.uid, txHash };
     } catch {
       // not the Attested event
     }
   }
   throw new Error(`attestation transaction ${txHash} mined but no Attested event found`);
+}
+
+/** The attestation uid alone, for callers that keep no transaction. */
+export async function attestEdition(
+  edition: string,
+  contentHashHex: string,
+  opts: { content?: string; supersedesHex?: string; refUid?: string } = {}
+): Promise<`0x${string}`> {
+  return (await attestEditionFull(edition, contentHashHex, opts)).uid;
+}
+
+/** The attester's address, for links to its history on Basescan; null without a key. */
+export function attesterAddress(): string | null {
+  const key = process.env.ATTEST_PRIVATE_KEY;
+  if (!key || !/^0x[0-9a-fA-F]{64}$/.test(key)) return null;
+  try {
+    return privateKeyToAccount(key as `0x${string}`).address;
+  } catch {
+    return null;
+  }
 }

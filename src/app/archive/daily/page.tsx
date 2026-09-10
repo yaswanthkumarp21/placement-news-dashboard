@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DayPickerJump } from "@/components/DayPickerJump";
-import { dayLabel, RECENT_DAYS } from "@/app/day/dayList";
+import { dayLabel, RECENT_DAYS, withGaps } from "@/app/day/dayList";
+import { siteIdentity } from "@/lib/site";
 import { loadState } from "@/lib/state";
 import { utcDay } from "@/lib/util";
 
@@ -11,7 +12,17 @@ export const metadata = { title: "Daily archive" };
 export default async function DailyArchivePage() {
   const state = await loadState();
   const dates = state.dailyDigestDates ?? [];
-  const recent = dates.slice(0, RECENT_DAYS);
+  // the newest RECENT_DAYS editions, with any unpublished days among them
+  const filled = withGaps(dates, siteIdentity().firstDay);
+  let seen = 0;
+  let cut = filled.length;
+  for (let i = 0; i < filled.length; i++) {
+    if (filled[i].published && ++seen === RECENT_DAYS) {
+      cut = i + 1;
+      break;
+    }
+  }
+  const recent = filled.slice(0, cut);
 
   return (
     <main className="wrap page single roomy">
@@ -26,10 +37,10 @@ export default async function DailyArchivePage() {
         <DayPickerJump days={dates} />
         <ul>
           {recent.length === 0 ? <li className="org">No daily digests yet. The first one freezes at UTC midnight.</li> : null}
-          {recent.map((d) => (
-            <li key={d}>
-              <Link href={`/day/${d}`}>{dayLabel(d)}</Link>
-              {d === utcDay(new Date().toISOString()) ? (
+          {recent.map(({ date: d, published }) => (
+            <li key={d} className={published ? undefined : "org"}>
+              {published ? <Link href={`/day/${d}`}>{dayLabel(d)}</Link> : `${dayLabel(d)} · not published`}
+              {published && d === utcDay(new Date().toISOString()) ? (
                 <span className="org">
                   {" "}
                   · <span className="live-dot" aria-hidden="true" />

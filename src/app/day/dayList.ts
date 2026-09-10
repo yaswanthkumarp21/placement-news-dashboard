@@ -21,17 +21,46 @@ export function monthLabel(month: string): string {
   });
 }
 
+export type DayEntry = { date: string; published: boolean };
+
 /**
- * Group day strings (newest first) into month buckets, newest month first.
- * Only months that actually have days appear, so paging never lands on a gap.
+ * Every day from the newest edition back to the first, newest first, with
+ * the days that never froze marked unpublished so the archive says so
+ * instead of skipping them silently. `firstDay` (the site's configured
+ * first edition, YYYY-MM-DD) is the floor: days before it appear only when
+ * they were published, and without a firstDay no gap is ever marked, the
+ * list is just the published days.
  */
-export function monthsWithDays(dates: string[]): Array<{ month: string; days: string[] }> {
-  const byMonth = new Map<string, string[]>();
-  for (const d of [...dates].sort().reverse()) {
-    const key = d.slice(0, 7);
+export function withGaps(dates: string[], firstDay?: string): DayEntry[] {
+  const have = new Set(dates);
+  const sorted = [...have].sort();
+  if (sorted.length === 0) return [];
+  if (!firstDay) return sorted.reverse().map((date) => ({ date, published: true }));
+  const out: DayEntry[] = [];
+  const floor = sorted[0] < firstDay ? sorted[0] : firstDay;
+  const t = new Date(`${sorted[sorted.length - 1]}T00:00:00Z`);
+  for (;;) {
+    const d = t.toISOString().slice(0, 10);
+    if (d < floor) break;
+    const published = have.has(d);
+    if (published || d >= firstDay) out.push({ date: d, published });
+    t.setUTCDate(t.getUTCDate() - 1);
+  }
+  return out;
+}
+
+/**
+ * Group day entries (newest first) into month buckets, newest month first.
+ * Only months that actually have entries appear, so paging never lands on
+ * an empty page.
+ */
+export function monthsWithDays(entries: DayEntry[]): Array<{ month: string; days: DayEntry[] }> {
+  const byMonth = new Map<string, DayEntry[]>();
+  for (const e of entries) {
+    const key = e.date.slice(0, 7);
     const bucket = byMonth.get(key);
-    if (bucket) bucket.push(d);
-    else byMonth.set(key, [d]);
+    if (bucket) bucket.push(e);
+    else byMonth.set(key, [e]);
   }
   return [...byMonth.entries()]
     .sort((a, b) => (a[0] < b[0] ? 1 : -1))
