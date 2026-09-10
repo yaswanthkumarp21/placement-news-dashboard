@@ -3758,3 +3758,58 @@ a.filter-chip {
     display: none;
   }
 }
+
+/* ---------- the tip jar on /support ---------- */
+.tipjar {
+  margin: 20px 0 24px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 20px;
+  align-items: center;
+}
+.tipjar-ens {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.tipjar-addr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tipjar-addr code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+.tipjar-copy {
+  font-size: 0.78rem;
+  padding: 2px 10px;
+}
+.tipjar-qr {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: 128px;
+  height: 128px;
+  padding: 6px;
+  background: #fff;
+  border-radius: 6px;
+}
+.tipjar-qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 560px) {
+  .tipjar {
+    grid-template-columns: 1fr;
+  }
+  .tipjar-qr {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}

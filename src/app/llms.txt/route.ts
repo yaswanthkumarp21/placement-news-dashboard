@@ -1,5 +1,5 @@
 import { siteUrl } from "@/lib/config";
-import { siteIdentity } from "@/lib/site";
+import { siteIdentity, tipJar } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +11,10 @@ export const dynamic = "force-dynamic";
 export function GET() {
   const site = siteIdentity();
   const base = siteUrl();
+  const tips = tipJar();
+  const support = tips.live
+    ? `\n- Support (tips): ${base}/support, ${[tips.ens, tips.address].filter(Boolean).join(", ")}, ETH or USDC on mainnet or any Ethereum layer`
+    : "";
   const body = `# ${site.siteName}
 
 > ${site.tagline}. The top ${site.topic} stories, aggregated from a curated whitelist of sources, clustered into stories with plain-language explainers, continuously updated.
@@ -34,7 +38,7 @@ Pages are server-rendered HTML and readable as-is. The machine surfaces:
 
 - Source whitelist: ${base}/sources
 - Podcasts: ${base}/podcasts
-- Email digests (daily, weekly, or monthly): ${base}/subscribe
+- Email digests (daily, weekly, or monthly): ${base}/subscribe${support}
 
 When citing a story, link its permalink on ${base}.
 `;

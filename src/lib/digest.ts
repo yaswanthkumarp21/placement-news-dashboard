@@ -1,6 +1,6 @@
 import { loadSiteConfig, siteUrl } from "./config";
 import { sendMail } from "./mail";
-import { siteIdentity } from "./site";
+import { siteIdentity, tipJar } from "./site";
 import { brokeAt, leadLink, liveClusters, magnitude, scoreBreakdown } from "./rank";
 import { llmAvailable, periodInReview } from "./llm";
 import { loadDailyDigest, loadMonthlyDigest, loadWeeklyDigest } from "./state";
@@ -212,6 +212,7 @@ function digestEmail(opts: {
       : []),
     `${archiveLabel}: ${track(archiveUrl)}`,
     "",
+    ...(tipJar().live ? [`${siteIdentity().siteName} runs on reader support: ${track(`${siteUrl()}/support`)}`, ""] : []),
     "Unsubscribe: %%UNSUB%%",
   ]
     .filter((l): l is string => l !== null)
@@ -266,6 +267,11 @@ function digestEmail(opts: {
         ]
       : []),
     `<p style="margin-top: 24px;"><a href="${escapeHtml(track(archiveUrl))}">${escapeHtml(archiveLabel)}</a></p>`,
+    ...(tipJar().live
+      ? [
+          `<p style="font-size: 12px; color: #777;">${escapeHtml(siteIdentity().siteName)} runs on <a href="${escapeHtml(track(`${siteUrl()}/support`))}" style="color: #777;">reader support</a>.</p>`,
+        ]
+      : []),
     `<p style="font-size: 12px; color: #777;">You asked for this email at ${escapeHtml(siteUrl())}. ` +
       `<a href="%%UNSUB%%" style="color: #777;">Unsubscribe</a>.</p>`,
     `</div>`,

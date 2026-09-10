@@ -63,7 +63,7 @@ cp config/prompts/media-gate.example.md config/prompts/media-gate.md
 cp config/prompts/chapter-match.example.md config/prompts/chapter-match.md
 ```
 
-- **`site.json`** is the site's identity: name, tagline, topic, domain, contact address, optional social handles.
+- **`site.json`** is the site's identity: name, tagline, topic, domain, contact address, optional social handles, the first day you published (so the daily archive can name unpublished days), optional analytics dashboard links for the admin, and an optional tip jar (`tipJar`: an address, an optional ENS name, and `live`) that puts a `/support` page with a copy button and QR code behind a footer link.
 - **`feeds.json`** is the source whitelist: RSS, Discourse forums, subreddits, scraped listing pages, Google News query feeds, and Farcaster discovery channels, each with a trust tier and a ranking weight. YouTube channel feeds and podcast feeds go in the same list and fill the podcasts shelf instead of the story pipeline.
 - **`sections.json`** defines your sections and every ranking, ingest, weekend-mode, prediction-market, and bot-cap knob.
 - **`prompts/*.md`** hold the editorial rules: gating, clustering, headline and explainer style, and the media gate for tier 2 shows. The valid section ids are handed to the model automatically, so the prompts stay topic-portable. The examples ban em dashes and semicolons in editorial copy as a house default you are free to change.
