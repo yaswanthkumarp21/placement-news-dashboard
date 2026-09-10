@@ -1,0 +1,11 @@
+# Repo-level gitleaks config: the default rules plus an allowlist for the
+# documentation placeholders that look like secrets and are not.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "documentation placeholders"
+regexes = [
+  '''YOUR_[A-Z_]+''',
+  '''your-project\.vercel\.app''',
+]
