@@ -319,26 +319,58 @@ export function subjectRangeLabel(start: Date, end: Date): string {
   return `${month(start)} ${day(start)}-${day(end)}, ${end.getUTCFullYear()}`;
 }
 
-/** The double-opt-in email: nothing else ever sends until its link is clicked. */
-export function confirmationEmail(token: string): Edition {
-  const name = siteIdentity().siteName;
-  const url = `${siteUrl()}/api/subscribe?confirm=${token}`;
+/** "the weekly digest", "the daily and weekly digests": what the signup asked for, in words. */
+function picksLabel(picks: { daily?: boolean; weekly?: boolean; monthly?: boolean }): string {
+  const names = (["daily", "weekly", "monthly"] as const).filter((k) => picks[k]);
+  if (names.length === 0) return "the email digest";
+  const list = names.length === 1 ? names[0] : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+  return `the ${list} digest${names.length === 1 ? "" : "s"}`;
+}
+
+function confirmWrap(lines: string[], url: string, tail: string[]): Pick<Edition, "text" | "html"> {
   return {
-    subject: `Confirm your ${name} subscription`,
-    text: [
-      `Click to confirm your ${name} email subscription:`,
-      "",
-      url,
-      "",
-      `If you didn't sign up at ${siteUrl()}, ignore this email and nothing will ever be sent to you.`,
-    ].join("\n"),
+    text: [...lines, "", url, "", ...tail].join("\n"),
     html: [
       `<div style="font-family: Georgia, serif; max-width: 640px; margin: 0 auto; color: #222; line-height: 1.5;">`,
-      `<p>Click to confirm your ${escapeHtml(name)} email subscription:</p>`,
+      ...lines.map((l) => `<p>${escapeHtml(l)}</p>`),
       `<p><a href="${escapeHtml(url)}" style="font-size: 16px; font-weight: bold; color: #1a4b8f;">Confirm subscription</a></p>`,
-      `<p style="font-size: 12px; color: #777;">If you didn't sign up at ${escapeHtml(siteUrl())}, ignore this email and nothing will ever be sent to you.</p>`,
+      ...tail.map((l) => `<p style="font-size: 12px; color: #777;">${escapeHtml(l)}</p>`),
       `</div>`,
     ].join("\n"),
+  };
+}
+
+/** The double opt-in email, sent the moment someone signs up. Names what they picked. */
+export function confirmationEmail(token: string, picks: { daily?: boolean; weekly?: boolean; monthly?: boolean } = {}): Edition {
+  const name = siteIdentity().siteName;
+  const url = `${siteUrl()}/api/subscribe?confirm=${token}`;
+  const disclaimer = `If you didn't sign up at ${siteUrl()}, ignore this email and nothing will ever be sent to you.`;
+  return {
+    subject: `Confirm your ${name} email`,
+    ...confirmWrap([`You signed up at ${siteUrl()} for ${picksLabel(picks)}. One click and it's on:`], url, [disclaimer]),
+  };
+}
+
+/**
+ * The one and only reminder, a few days after a signup that never
+ * confirmed. Offers the no-trust path (sign up again on the site) beside
+ * the link, and says plainly that nothing follows it.
+ */
+export function reminderEmail(token: string, picks: { daily?: boolean; weekly?: boolean; monthly?: boolean }, daysAgo: number): Edition {
+  const name = siteIdentity().siteName;
+  const url = `${siteUrl()}/api/subscribe?confirm=${token}`;
+  const when = daysAgo <= 1 ? "Yesterday" : `${["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"][daysAgo] ?? daysAgo} days ago`;
+  return {
+    subject: `Still want the ${name} digest?`,
+    ...confirmWrap(
+      [
+        `${when} someone signed up at ${siteUrl()} with this address for ${picksLabel(picks)}, and the confirmation was never clicked. If that was you and you still want it:`,
+      ],
+      url,
+      [
+        `If you'd rather not trust a link in an email, sign up again at ${siteUrl()}/subscribe and it'll go through fresh. If this wasn't you, do nothing. This is the only reminder.`,
+      ]
+    ),
   };
 }
 

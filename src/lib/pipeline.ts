@@ -1,5 +1,5 @@
 import { applyBotOverrides, effectiveFeeds, effectiveMarkets, loadSiteConfig, siteUrl } from "./config";
-import { buildWeeklyCast, monthLabel, monthlyTop, poolFromDailies, rankPool, sendDailyEmail, sendMonthlyEmail, sendWeeklyEmail, subjectRangeLabel, weeklyTop, WEEKLY_SEND_HOUR_UTC, yearlyTop } from "./digest";
+import { buildWeeklyCast, monthLabel, monthlyTop, poolFromDailies, rankPool, reminderEmail, sendDailyEmail, sendEditionTo, sendMonthlyEmail, sendWeeklyEmail, subjectRangeLabel, weeklyTop, WEEKLY_SEND_HOUR_UTC, yearlyTop } from "./digest";
 import { attestAvailable, attestEditionFull } from "./attest";
 import { sendAdminEmail } from "./mail";
 import { enrichNewItems, extractChapters, extractDescriptionLinks, fetchAllFeeds, fetchMediaFeeds, fetchVideoManifest, fetchYoutubeDetails, isMediaFeed, isReleaseFeed, isYoutubeShort, normalizeHost, updateFeedHealth, youtubeVideoId, type CastLink, type FeedFetchResult, type MediaCandidate } from "./feeds";
@@ -2217,6 +2217,43 @@ async function maybePostBots(state: SiteState, report: RunReport): Promise<boole
   return changed;
 }
 
+/** the episode number a show puts at the front of its titles: "158 - Gone Camping", "#158 - JT" */
+function episodeNumber(title: string): string | null {
+  const m = /^\s*#?(\d{1,4})\s*(?:[-:|\u2013\u2014]|$)/.exec(title);
+  return m ? String(Number(m[1])) : null;
+}
+
+/**
+ * Shows that stream first and upload the trimmed recording after leave the
+ * same episode on the shelf twice. When one show posts two videos with the
+ * same episode number within a week, the later one is the keeper (the
+ * edited upload) and the earlier (the stream) is hidden, marked so an
+ * admin can tell why. Idempotent, runs after every media ingest.
+ */
+export function hideStreamedTwins(state: SiteState): string[] {
+  const groups = new Map<string, MediaItem[]>();
+  for (const m of state.mediaItems ?? []) {
+    if (m.kind !== "video" || m.hidden) continue;
+    const n = episodeNumber(m.title);
+    if (!n) continue;
+    const key = `${m.sourceId}#${n}`;
+    groups.set(key, [...(groups.get(key) ?? []), m]);
+  }
+  const hid: string[] = [];
+  for (const items of groups.values()) {
+    if (items.length < 2) continue;
+    const byTime = [...items].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+    const keeper = byTime[0];
+    for (const m of byTime.slice(1)) {
+      if (Math.abs(new Date(keeper.publishedAt).getTime() - new Date(m.publishedAt).getTime()) > 7 * 86400000) continue;
+      m.hidden = true;
+      m.streamOf = keeper.id;
+      hid.push(`${m.sourceName} ${truncate(m.title, 40)}`);
+    }
+  }
+  return hid;
+}
+
 /**
  * The whole product: fetch → dedupe → LLM edit → merge → snapshot → bots.
  * Idempotent: a re-run of the same inputs is a no-op (dedupe by hash), and
@@ -2465,11 +2502,28 @@ export async function runPipeline(): Promise<RunReport> {
       const media = await ingestMedia(state, mediaFeeds, cfg);
       report.feedErrors.push(...media.errors);
       if (media.note) report.notes.push(media.note);
+      const folded = hideStreamedTwins(state);
+      if (folded.length > 0) report.notes.push(`Hid earlier streams of episodes posted again: ${folded.join(", ")}.`);
       state.lastMediaIngestAt = new Date().toISOString();
     } catch (err) {
       report.notes.push(`Media ingest failed: ${err instanceof Error ? err.message : err}`);
     }
   }
+
+  // one reminder to signups that never confirmed, between three and ten
+  // days in: sooner it nags, later it reads as a stranger's email and a
+  // spam mark from one address costs every other subscriber
+  const reminders: string[] = [];
+  for (const s of state.digestSubscribers ?? []) {
+    if (s.confirmed !== false || s.remindedAt) continue;
+    const days = hoursAgo(s.addedAt) / 24;
+    if (days < 3 || days > 10) continue;
+    if (reminders.length >= 5) break;
+    const err = await sendEditionTo(s.email, reminderEmail(s.token, s, Math.round(days)));
+    s.remindedAt = new Date().toISOString();
+    reminders.push(err ? `${s.email} (${err})` : s.email);
+  }
+  if (reminders.length > 0) report.notes.push(`Confirmation reminders sent: ${reminders.join(", ")}.`);
 
   prune(state);
 

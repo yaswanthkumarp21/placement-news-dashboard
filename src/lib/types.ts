@@ -205,7 +205,8 @@ export interface Cluster {
   killed?: boolean;
   mergedInto?: string;
   needsReview?: boolean; // set when created by the no-LLM fallback
-  posted?: { x?: string; farcaster?: string; farcasterHash?: string };
+  /** x and farcaster hold the post times; xId and farcasterHash the ids, for links */
+  posted?: { x?: string; xId?: string; farcaster?: string; farcasterHash?: string };
   /**
    * Episodes whose show notes point at this story (a link to one of its
    * articles, or a chapter whose words match it), with the moment in the
@@ -284,6 +285,8 @@ export interface MediaItem {
   section?: SectionId;
   /** Kept in the admin but not rendered publicly. */
   hidden?: boolean;
+  /** hidden by the pipeline because the show posted the same episode again later (a stream, then the trimmed upload); the id of the one kept */
+  streamOf?: string;
 }
 
 export interface FeedHealth {
@@ -522,6 +525,8 @@ export interface DigestSubscriber {
   /** Unsubscribe/confirmation token carried in the email links. */
   token: string;
   addedAt: string;
+  /** when the one reminder went out to a signup that had not confirmed; never a second */
+  remindedAt?: string;
   /**
    * false until the confirmation link is clicked; nothing sends while false.
    * Absent on subscribers from before double opt-in existed: they are

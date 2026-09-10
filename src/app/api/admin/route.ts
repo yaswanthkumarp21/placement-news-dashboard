@@ -6,7 +6,7 @@ import { discoverFeed, fetchReleaseNotesFor, isMediaFeed, isReleaseFeed, userAge
 import { notifySubmitter } from "@/lib/mail";
 import { siteIdentity } from "@/lib/site";
 import { classifyAndCluster, heuristicFallback, llmAvailable, summarizeRelease } from "@/lib/llm";
-import { addMediaByUrl, applyEditorOutput, correctDailyEdition, digestClusters, digestPostText, ingestMedia, knownSourceHosts, markSeen, reconsiderFrontSummary, reeditCluster, rejudgeEpisode, rejudgeMedia, relabelMedia, runPipeline, selectNewItems, takeSnapshot } from "@/lib/pipeline";
+import { addMediaByUrl, applyEditorOutput, correctDailyEdition, digestClusters, digestPostText, hideStreamedTwins, ingestMedia, knownSourceHosts, markSeen, reconsiderFrontSummary, reeditCluster, rejudgeEpisode, rejudgeMedia, relabelMedia, runPipeline, selectNewItems, takeSnapshot } from "@/lib/pipeline";
 import { leadLink } from "@/lib/rank";
 import { buildDailyComment, postDailyComment, redditPostFor } from "@/lib/social/reddit";
 import { postTextToX, postToX, XCapError } from "@/lib/social/x";
@@ -775,6 +775,12 @@ async function handle(req: NextRequest) {
 
   if (body.action === "removeSubscriber") {
     const email = String(body.email ?? "");
+    // an admin removing an unconfirmed signup from a page loaded a while ago
+    // must not take out a subscriber who confirmed in the meantime
+    const current = (state.digestSubscribers ?? []).find((s) => s.email === email);
+    if (current && body.wasConfirmed === false && current.confirmed) {
+      return fail(`${email} confirmed after this page loaded, so nothing was removed. Refresh to see the current record.`);
+    }
     const before = (state.digestSubscribers ?? []).length;
     state.digestSubscribers = (state.digestSubscribers ?? []).filter((s) => s.email !== email);
     if (state.digestSubscribers.length === before) return fail("Unknown subscriber.");
@@ -1067,10 +1073,12 @@ async function handle(req: NextRequest) {
     const mediaFeeds = effectiveFeeds(state).filter(isMediaFeed);
     if (mediaFeeds.length === 0) return fail("No media feeds configured.");
     const res = await ingestMedia(state, mediaFeeds, cfg);
+    const folded = hideStreamedTwins(state);
     state.lastMediaIngestAt = new Date().toISOString();
     await saveState(state);
     const errs = res.errors.length > 0 ? ` Feed errors: ${res.errors.map((e) => e.feedId).join(", ")}.` : "";
-    return ok(`${res.note ?? "Media shelf refreshed, nothing new."}${errs}`);
+    const fold = folded.length > 0 ? ` Hid earlier streams of episodes posted again: ${folded.join(", ")}.` : "";
+    return ok(`${res.note ?? "Media shelf refreshed, nothing new."}${errs}${fold}`);
   }
 
   if (body.action === "relabelMedia") {

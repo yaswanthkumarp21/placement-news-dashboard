@@ -23,7 +23,7 @@ export function EmailClient({ chrome, data }: { chrome: AdminChromeData; data: E
   const [preview, setPreview] = useState<"daily" | "weekly" | "monthly" | null>(null);
   const [addEmail, setAddEmail] = useState("");
   const [addFlags, setAddFlags] = useState({ daily: true, weekly: false, monthly: false });
-  const [hideUnconfirmed, setHideUnconfirmed] = useState(true);
+  const [showing, setShowing] = useState<"confirmed" | "unconfirmed" | "everyone">("confirmed");
 
   const subs = [...data.emailSubscribers].sort((a, b) => b.addedAt.localeCompare(a.addedAt));
   const confirmed = subs.filter((s) => s.confirmed);
@@ -167,15 +167,18 @@ export function EmailClient({ chrome, data }: { chrome: AdminChromeData; data: E
 
       <div className="source-filters">
         <span className="filter-label">Show</span>
-        <button type="button" className={`filter-chip${hideUnconfirmed ? " on" : ""}`} onClick={() => setHideUnconfirmed(true)}>
+        <button type="button" className={`filter-chip${showing === "confirmed" ? " on" : ""}`} onClick={() => setShowing("confirmed")}>
           confirmed ({confirmed.length})
         </button>
-        <button type="button" className={`filter-chip${hideUnconfirmed ? "" : " on"}`} onClick={() => setHideUnconfirmed(false)}>
+        <button type="button" className={`filter-chip${showing === "unconfirmed" ? " on" : ""}`} onClick={() => setShowing("unconfirmed")}>
+          unconfirmed ({subs.length - confirmed.length})
+        </button>
+        <button type="button" className={`filter-chip${showing === "everyone" ? " on" : ""}`} onClick={() => setShowing("everyone")}>
           everyone ({subs.length})
         </button>
       </div>
 
-      {(hideUnconfirmed ? confirmed : subs).map((s) => (
+      {(showing === "confirmed" ? confirmed : showing === "unconfirmed" ? subs.filter((x) => !x.confirmed) : subs).map((s) => (
         <div key={s.email} className="admin-card">
           <div className="sub">
             <strong>{s.email}</strong> · {s.confirmed ? "confirmed" : <span className="health-bad">unconfirmed</span>} · joined{" "}
@@ -211,7 +214,14 @@ export function EmailClient({ chrome, data }: { chrome: AdminChromeData; data: E
             <button
               className="linklike danger-text"
               disabled={busy}
-              onClick={() => act("removeSubscriber", { email: s.email }, `Remove ${s.email} from every list?`)}
+              onClick={() =>
+                act(
+                  "removeSubscriber",
+                  // the server refuses if this record confirmed after the page loaded
+                  { email: s.email, wasConfirmed: s.confirmed },
+                  s.confirmed ? `Remove ${s.email} from every list?` : `Remove the unconfirmed signup ${s.email}?`
+                )
+              }
             >
               remove
             </button>

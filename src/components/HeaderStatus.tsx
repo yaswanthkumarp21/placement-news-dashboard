@@ -78,8 +78,10 @@ export function HeaderStatus() {
 
   function goPick(e: React.FormEvent) {
     e.preventDefault();
+    // a date means that day's edition, the clean page, not a snapshot of
+    // the front page at that minute
     const d = new Date(pickValue);
-    if (!Number.isNaN(d.getTime())) window.location.href = `/goto?t=${encodeURIComponent(d.toISOString())}`;
+    if (!Number.isNaN(d.getTime())) window.location.href = `/goto?day=${pickValue.slice(0, 10)}`;
   }
 
   if (!now) return <div className="header-status" />;

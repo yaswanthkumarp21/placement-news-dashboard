@@ -4,7 +4,8 @@ import { AgeStamp } from "@/components/AgeStamp";
 import { ChaptersAllToggle } from "@/components/ChaptersAllToggle";
 import { SectionPill, SourceKicker } from "@/components/ClusterCard";
 import { MediaPlayer } from "@/components/MediaPlayer";
-import { loadSiteConfig } from "@/lib/config";
+import { YouTubeSubscribe } from "@/components/YouTubeSubscribe";
+import { loadFeeds, loadSiteConfig } from "@/lib/config";
 import { adaptiveRanking, episodeStories, rankMedia } from "@/lib/rank";
 import { loadState } from "@/lib/state";
 import { formatMoment, formatViews, mediaThumb } from "@/lib/util";
@@ -21,6 +22,13 @@ export default async function PodcastsPage({ searchParams }: { searchParams: Pro
   const items = (state.mediaItems ?? []).filter((m) => !m.hidden).slice(0, 100);
   const covered = episodeStories(state);
   const cfg = loadSiteConfig();
+  // each YouTube show's channel id, read off its feed url, for the
+  // Subscribe button beside the show's name
+  const channelOf = new Map<string, string>();
+  for (const f of loadFeeds()) {
+    const m = /[?&]channel_id=([A-Za-z0-9_-]+)/.exec(f.url);
+    if (f.type === "youtube" && m) channelOf.set(f.id, m[1]);
+  }
   const weekAgo = Date.now() - 7 * 24 * 60 * 60000;
   const top = rankMedia(
     items.filter((m) => Date.parse(m.publishedAt) >= weekAgo),
@@ -53,7 +61,7 @@ export default async function PodcastsPage({ searchParams }: { searchParams: Pro
         ) : null}
         {items.some((m) => m.chapters && m.chapters.length > 0) ? <ChaptersAllToggle /> : null}
         <ul className="media-list">
-          {items.map((m) => (
+          {items.map((m, idx) => (
             <li key={m.id} id={`m-${m.id}`} className="media-item">
               <MediaPlayer
                 id={m.id}
@@ -66,12 +74,17 @@ export default async function PodcastsPage({ searchParams }: { searchParams: Pro
                 chapters={m.chapters}
                 audioUrl={m.audioUrl}
                 videoUrl={m.videoUrl}
-                autoOpen={play === m.id}
+                autoOpen={play === m.id || (!play && idx === 0)}
+                startPaused={!play && idx === 0}
                 startAt={play === m.id ? startAt : undefined}
               >
                 <div className="media-body">
-                  {/* the show reads first, on its own line, like the story cards */}
-                  <SourceKicker name={m.sourceName} />
+                  {/* the show reads first, on its own line, like the story cards,
+                      with YouTube's Subscribe button beside a YouTube show */}
+                  <div className="media-kicker-row">
+                    <SourceKicker name={m.sourceName} />
+                    {channelOf.get(m.sourceId) ? <YouTubeSubscribe channelId={channelOf.get(m.sourceId)!} /> : null}
+                  </div>
                   <a href={m.videoUrl ?? m.url} rel="noopener" title={m.displayTitle ? `Show's title: ${m.title}` : undefined}>
                     {m.displayTitle ?? m.title}
                   </a>

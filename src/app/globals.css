@@ -3723,3 +3723,38 @@ a.filter-chip {
   border-bottom: 0;
   color: var(--fg-soft);
 }
+
+/* the show's kicker with YouTube's Subscribe button beside it */
+.media-kicker-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.media-kicker-row .kicker {
+  margin: 0;
+}
+.yt-subscribe {
+  display: inline-block;
+  height: 24px;
+  line-height: 0;
+  transform: scale(0.85);
+  transform-origin: left center;
+  /* drawn on load but shown only while the show's row is hovered or focused,
+     so the page reads as itself and the button is there when wanted; touch
+     screens have no hover, so there it stays hidden */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.media-kicker-row:hover .yt-subscribe,
+.media-kicker-row:focus-within .yt-subscribe,
+.media-body:hover .yt-subscribe {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (hover: none) {
+  .yt-subscribe {
+    display: none;
+  }
+}

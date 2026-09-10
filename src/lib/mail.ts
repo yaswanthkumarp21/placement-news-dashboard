@@ -2,10 +2,12 @@ import nodemailer from "nodemailer";
 import { mailFrom, siteIdentity } from "./site";
 
 /**
- * Generic SMTP sender. Defaults suit Gmail with an app password (the worked
- * example in the README): SMTP_HOST smtp.gmail.com, SMTP_PORT 465. Failures
- * are RETURNED, never swallowed: callers put them in the run log or their
- * response, because a silently missing email is a debugging dead end.
+ * Outbound mail. Resend when RESEND_API_KEY is set (signed as the site's own
+ * domain, which is what inbox placement turns on), otherwise generic SMTP
+ * whose defaults suit Gmail with an app password (the worked example in the
+ * README): SMTP_HOST smtp.gmail.com, SMTP_PORT 465. Failures are RETURNED,
+ * never swallowed: callers put them in the run log or their response,
+ * because a silently missing email is a debugging dead end.
  */
 
 function transport() {
@@ -21,17 +23,61 @@ function transport() {
   });
 }
 
+/**
+ * The unsubscribe link an edition carries, for the List-Unsubscribe header
+ * that lets Gmail and others show their own unsubscribe button. Read off
+ * the text body, so callers change nothing.
+ */
+function unsubscribeUrl(text: string): string | null {
+  const m = /Unsubscribe: (https?:\/\/\S+)/.exec(text);
+  return m ? m[1] : null;
+}
+
+async function sendViaResend(key: string, to: string, subject: string, text: string, html?: string): Promise<string | null> {
+  const unsub = unsubscribeUrl(text);
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
+    body: JSON.stringify({
+      from: `${siteIdentity().siteName} <${mailFrom()}>`,
+      to: [to],
+      subject,
+      text,
+      ...(html ? { html } : {}),
+      ...(unsub ? { headers: { "List-Unsubscribe": `<${unsub}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" } } : {}),
+    }),
+    signal: AbortSignal.timeout(20000),
+  });
+  if (res.ok) return null;
+  const body = await res.text().catch(() => "");
+  return `Resend ${res.status}: ${body.slice(0, 200)}`;
+}
+
 /** null on success, otherwise the failure reason. */
 export async function sendMail(to: string, subject: string, text: string, html?: string): Promise<string | null> {
+  const key = process.env.RESEND_API_KEY;
+  if (key) {
+    try {
+      return await sendViaResend(key, to, subject, text, html);
+    } catch (err) {
+      return err instanceof Error ? err.message : String(err);
+    }
+  }
   const t = transport();
-  if (!t) return "SMTP_USER / SMTP_PASS not configured";
+  if (!t) return "RESEND_API_KEY or SMTP_USER / SMTP_PASS not configured";
   try {
+    // the charset is declared on every part outright: a multi-byte character
+    // read as Latin-1 when nothing says UTF-8 is how an accented name turns
+    // into two wrong letters in some clients
+    const unsub = unsubscribeUrl(text);
     await t.sendMail({
       from: `"${siteIdentity().siteName}" <${mailFrom()}>`,
       to,
       subject,
       text,
       ...(html ? { html } : {}),
+      textEncoding: "quoted-printable",
+      ...(unsub ? { headers: { "List-Unsubscribe": `<${unsub}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" } } : {}),
     });
     return null;
   } catch (err) {
@@ -40,13 +86,13 @@ export async function sendMail(to: string, subject: string, text: string, html?:
 }
 
 /**
- * Best-effort admin notification to the SMTP account's own inbox. Missing
- * credentials or SMTP failures never break the caller: submissions still
- * queue in the admin regardless. The failure reason lands in the function
- * logs.
+ * Best-effort admin notification: ADMIN_EMAIL, else the SMTP account's own
+ * inbox. Missing credentials or send failures never break the caller:
+ * submissions still queue in the admin regardless. The failure reason lands
+ * in the function logs.
  */
 export async function sendAdminEmail(subject: string, text: string): Promise<boolean> {
-  const user = process.env.SMTP_USER;
+  const user = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
   if (!user) return false;
   const err = await sendMail(user, subject, text);
   if (err) console.error(`[mail] admin email failed: ${err}`);

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { loadSiteConfig, siteUrl } from "@/lib/config";
-import { siteIdentity } from "@/lib/site";
+import { siteIdentity, tipJar } from "@/lib/site";
 
 export const metadata = {
   title: "About",
@@ -18,8 +18,8 @@ export default function AboutPage() {
         <p>
           {site.siteName} is a front page for {site.topic}. It watches a hand picked list of sources around the clock,
           groups what they publish into stories, ranks the stories by significance and freshness, and writes a one
-          sentence plain language explainer under every headline. The result is one page that answers the question
-          "what is happening right now" without a feed to scroll or an account to make.
+          sentence plain language explainer under every headline. It is one page that shows what is happening right
+          now, with no feed to scroll and no account to make.
         </p>
         <h2>Sections</h2>
         <p>
@@ -63,15 +63,15 @@ export default function AboutPage() {
           . The rules it applies are public on the <Link href="/criteria">criteria page</Link>.
         </p>
         <p>
-          Everything on the site flows from that: the <Link href="/stream">stream</Link> is the raw feed of accepted
-          items, the <Link href="/archive/daily">daily archive</Link> freezes each day at UTC midnight, and clicking the date in
-          the header time travels to any archived front page.
+          The rest of the site is built from that. The <Link href="/stream">stream</Link> is the raw feed of accepted
+          items. The <Link href="/archive/daily">daily archive</Link> freezes each day at UTC midnight. Clicking the
+          date in the header opens any archived front page.
         </p>
         <h2>Connect an AI assistant</h2>
         <p>
           {site.siteName} is also a remote MCP server. Point any MCP enabled assistant at{" "}
           <code>{siteUrl()}/api/mcp</code> and it can pull the top stories, the newest items, daily and weekly
-          reviews, the podcasts shelf, or search. The connection is read only and needs no account or key.
+          reviews, the podcasts, or search. The connection is read only and needs no account or key.
         </p>
         <h2>Follow and contact</h2>
         <p>
@@ -91,9 +91,15 @@ export default function AboutPage() {
             <> offers</>
           )}{" "}
           <Link href="/subscribe">daily and weekly email digests</Link>. Story suggestions come
-          in through the <Link href="/submit">submit page</Link>, and anything else can be communicated to:{" "}
+          in through the <Link href="/submit">submit page</Link>. For anything else, email{" "}
           <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>.
         </p>
+        {tipJar().live ? (
+          <p>
+            {site.siteName} runs on reader support. The <Link href="/support">support page</Link> has one address for
+            tips.
+          </p>
+        ) : null}
       </div>
     </main>
   );

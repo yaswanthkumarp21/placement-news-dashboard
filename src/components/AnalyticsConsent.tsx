@@ -56,19 +56,32 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
   );
 }
 
-/** Lets a visitor change their earlier consent choice (used on the Disclosures page). */
+/**
+ * Lets a visitor change their earlier consent choice (used on the privacy
+ * page). Clearing the saved choice and reloading brings the banner back. An
+ * admin browser never gets the banner or GA, so it is told that instead of
+ * reloading into what looks like nothing.
+ */
 export function CookieSettingsLink({ label = "cookies" }: { label?: string }) {
+  const [note, setNote] = useState<string | null>(null);
   return (
-    <button
-      className="footer-cookie"
-      onClick={() => {
-        try {
-          localStorage.removeItem("ga-consent");
-        } catch {}
-        window.location.reload();
-      }}
-    >
-      {label}
-    </button>
+    <>
+      <button
+        className="footer-cookie"
+        onClick={() => {
+          if (document.cookie.includes("oa_admin_ui=1")) {
+            setNote("Admin browsers never run analytics, so there is no choice to change here.");
+            return;
+          }
+          try {
+            localStorage.removeItem("ga-consent");
+          } catch {}
+          window.location.reload();
+        }}
+      >
+        {label}
+      </button>
+      {note ? <span className="org"> {note}</span> : null}
+    </>
   );
 }

@@ -79,8 +79,22 @@ export function extractChapters(text: string | undefined): Array<{ at: number; l
     const parts = m[1].split(":").map(Number);
     const at = parts.reduce((acc, n) => acc * 60 + n, 0);
     const links = extractDescriptionLinks(m[2]);
-    const label = m[2].replace(/https?:\/\/\S+/g, "").replace(/[\s\-\u2013\u2014:|]+$/, "").trim();
+    // a label ends at a rule of dashes: a show's footer ("--- Not financial
+    // advice") sometimes shares the last chapter's line once HTML is flattened
+    const label = m[2]
+      .replace(/https?:\/\/\S+/g, "")
+      .split(/\s*-{3,}\s*/)[0]
+      .replace(/[\s\-\u2013\u2014:|]+$/, "")
+      .trim();
     if (label.length < 4 && links.length === 0) continue;
+    // podcast feeds carry the description twice (HTML content and a plain
+    // snippet) and callers join them, so the same chapter arrives twice: the
+    // first copy at a timestamp stands, a later copy only contributes links
+    const seen = out.find((c) => c.at === at);
+    if (seen) {
+      if (links.length > 0) seen.links = [...new Set([...(seen.links ?? []), ...links])];
+      continue;
+    }
     out.push({ at, label, ...(links.length > 0 ? { links } : {}) });
     if (out.length >= 60) break;
   }

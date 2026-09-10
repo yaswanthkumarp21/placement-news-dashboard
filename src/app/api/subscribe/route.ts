@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     await saveState(state);
     if (existing.confirmed === false) {
       // still unconfirmed: a re-signup is the natural "resend the link" gesture
-      const c = confirmationEmail(existing.token);
+      const c = confirmationEmail(existing.token, existing);
       const resendErr = await sendMail(email, c.subject, c.text, c.html);
       if (resendErr) {
         console.error(`[subscribe] confirmation resend failed for ${email}: ${resendErr}`);
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
   };
   subs.push(sub);
   await saveState(state);
-  const c = confirmationEmail(sub.token);
+  const c = confirmationEmail(sub.token, sub);
   const sendErr = await sendMail(email, c.subject, c.text, c.html);
   if (sendErr) {
     console.error(`[subscribe] confirmation email failed for ${email}: ${sendErr}`);

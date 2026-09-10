@@ -4,7 +4,8 @@ import { AdminLink } from "@/components/AdminLink";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import { ClickBeacons } from "@/components/ClickBeacons";
 import { loadSiteConfig, siteUrl } from "@/lib/config";
-import { siteIdentity } from "@/lib/site";
+import { siteIdentity, tipJar } from "@/lib/site";
+import { buildInfo } from "@/app/admin/server";
 import { loadState } from "@/lib/state";
 import { HeaderStatus } from "@/components/HeaderStatus";
 import { EditLinksToggle } from "@/components/EditLinksToggle";
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const sections = loadSiteConfig().sections;
   const xHandle = site.social?.xHandle;
   const fcHandle = site.social?.farcasterHandle;
+  const tips = tipJar();
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -83,10 +85,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {/* row one is places to read, with the bot accounts tucked right */}
             <div className="footer-row">
               {/* the snapshot archive is reached by clicking the header's date */}
-              <Link href="/stream">Stream</Link>
-              <Link href="/podcasts">Podcasts</Link>
               <Link href="/archive">Archive</Link>
               <Link href="/sources">Sources</Link>
+              <Link href="/podcasts">Podcasts</Link>
               <Link href="/about">About</Link>
               <Link href="/criteria">Criteria</Link>
               {xHandle || fcHandle ? (
@@ -117,20 +118,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
             {/* row two is actions and meta */}
             <div className="footer-row footer-meta">
-              <Link href="/subscribe">Email</Link>
+              <Link href="/subscribe">Subscribe</Link>
               <Link href="/submit">Submit</Link>
               {sponsorOn ? <Link href="/sponsor">Sponsor</Link> : null}
-              {/* the Admin link renders only in browsers that logged into the
-                  admin (cosmetic cookie); visitors see nothing here */}
+              {tips.live ? <Link href="/support">Support {site.siteName}</Link> : null}
               <Link href="/privacy">Privacy</Link>
               <Link href="/contact">Contact</Link>
-              <AdminLink />
               {/* the pref checkboxes travel together: right of the links on
                   desktop, their own right-anchored line on phones */}
               <span className="footer-prefs">
                 <LinkPrefToggle />
                 <EditLinksToggle />
               </span>
+            </div>
+            {/* row three is the engine credit, and for a logged-in admin the
+                Admin link and the deploy's build (the cosmetic cookie decides;
+                visitors see only the credit) */}
+            <div className="footer-row footer-meta">
+              <a href="https://github.com/jwmeyert7/open-aggregator" rel="noopener">
+                Built with Open Aggregator
+              </a>
+              <AdminLink build={buildInfo()} />
             </div>
           </div>
         </footer>

@@ -39,6 +39,13 @@ export interface SiteIdentity {
    * override them). Unset means no link.
    */
   analytics?: { vercelUrl?: string; googleUrl?: string };
+  /**
+   * An optional tip jar: one address on /support, linked from the footer,
+   * the about page, and the digest emails once live is true. ens is the
+   * name shown large (optional), address the raw 0x address readers copy.
+   * Unset or live false means no support page at all.
+   */
+  tipJar?: { ens?: string; address?: string; live?: boolean };
 }
 
 const configDir = path.join(process.cwd(), "config");
@@ -62,6 +69,13 @@ export function siteIdentity(): SiteIdentity {
     contactEmail: "you@example.com",
   };
   return cached;
+}
+
+/** The tip jar as configured, live only when switched on with an address. */
+export function tipJar(): { live: boolean; ens: string; address: string } {
+  const t = siteIdentity().tipJar;
+  const address = t?.address?.trim() ?? "";
+  return { live: Boolean(t?.live && address), ens: t?.ens?.trim() ?? "", address };
 }
 
 /** Whether /by and the byline links are public (config writersPublic, default false). */
