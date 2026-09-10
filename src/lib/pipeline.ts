@@ -16,7 +16,7 @@ import { FRONT_SUMMARY_MAX_AGE_HOURS, SUMMARY_STICKY_HOURS } from "./types";
 import type { CandidateItem, Cluster, DailyDigest, MediaItem, MonthlyDigest, SiteState, WeeklyDigest, YearlyDigest } from "./types";
 import { ogTruncate } from "./og";
 import { withUtm, type UtmSource } from "./utm";
-import { bestMatchIndex, editionCore, hoursAgo, newId, normalizeUrl, parseSummaryLines, primaryProposalClaim, proposalConflict, proposalIds, sha256, slugify, snapshotId, stripEmDashes, stripHtml, truncate, utcDay } from "./util";
+import { bestMatchIndex, editionCore, hoursAgo, isThrowawayReleaseUrl, newId, normalizeUrl, parseSummaryLines, primaryProposalClaim, proposalConflict, proposalIds, sha256, slugify, snapshotId, stripEmDashes, stripHtml, truncate, utcDay } from "./util";
 
 /** Gate counters are kept a little longer than the leaderboard's 30 day window. */
 export const SOURCE_STATS_RETENTION_DAYS = 35;
@@ -98,6 +98,27 @@ function digestContentHash(digest: object): string {
 }
 
 /**
+ * Seal one frozen day by hand and say exactly what happened. The nightly
+ * freeze and the retry step swallow the error into a run-log note that the
+ * log's window loses within hours, so this is how an unsealed day gets
+ * diagnosed and fixed from the admin.
+ */
+export async function attestDayNow(date: string): Promise<{ ok: boolean; note: string }> {
+  const digest = await loadDailyDigest(date);
+  if (!digest || digest.inProgress || !digest.contentHash) return { ok: false, note: `No frozen edition for ${date}.` };
+  if (digest.attestationUid) return { ok: true, note: `${date} is already attested (${digest.attestationUid.slice(0, 10)}…).` };
+  if (!attestAvailable()) return { ok: false, note: "ATTEST_PRIVATE_KEY is not set in this environment." };
+  const notes: string[] = [];
+  await attestFrozenEdition(digest, `day:${date}`, notes);
+  if (digest.attestationUid) {
+    const last = digest.corrections?.[digest.corrections.length - 1];
+    if (last && last.version === (digest.version ?? 1) && !last.attestationUid) last.attestationUid = digest.attestationUid;
+    await saveDailyDigest(digest);
+  }
+  return { ok: Boolean(digest.attestationUid), note: notes.join(" ") || "No attestation was made and no error was reported." };
+}
+
+/**
  * Attests a freshly frozen edition's content hash on Base (EAS), when the
  * attestation key is configured. Best effort at freeze time: a failure is a
  * note and the daily gets retried by its thread step; the freeze itself never
@@ -143,7 +164,7 @@ export async function correctDailyEdition(
   const digest = await loadDailyDigest(date);
   if (!digest || digest.inProgress || !digest.contentHash) throw new Error(`No frozen edition for ${date}.`);
   const reason = note.trim();
-  if (reason.length < 8) throw new Error("A correction needs a note saying what changed and why.");
+  if (reason.length < 8) throw new Error("An update needs a note saying what changed and why.");
   const previousVersion = digest.version ?? 1;
   const previousHash = digest.contentHash;
   const previousUid = digest.attestationUid;
@@ -172,7 +193,7 @@ export async function correctDailyEdition(
     digest.clusters = digest.clusters.filter((c) => !removed.has(c.id));
     changed += removed.size;
   }
-  if (changed === 0) throw new Error("Nothing changed, so there is nothing to correct.");
+  if (changed === 0) throw new Error("Nothing changed, so there is nothing to update.");
 
   const version = previousVersion + 1;
   digest.version = version;
@@ -196,7 +217,7 @@ export async function correctDailyEdition(
   ];
   await saveDailyDigest(digest);
   return {
-    note: `Correction published as version ${version} of ${date} (${changed} change${changed === 1 ? "" : "s"}). ${notes.join(" ") || "Not attested yet: the next run retries the seal."}`,
+    note: `Update published as version ${version} of ${date} (${changed} change${changed === 1 ? "" : "s"}). ${notes.join(" ") || "Not attested yet: the next run retries the seal."}`,
     version,
     contentHash: digest.contentHash,
     ...(digest.attestationUid ? { attestationUid: digest.attestationUid } : {}),
@@ -684,7 +705,22 @@ function dayTopClusters(state: SiteState, cfg: SiteConfig, date: string): { top:
   });
   const top = [...(eligible.length > 0 ? eligible : dayClusters)].sort((a, b) => mag(b) - mag(a)).slice(0, 10);
   const active = liveClusters(state).filter((c) => c.links.some((l) => !l.undated && utcDay(l.publishedAt) === date));
-  const reviewPool = [...active].sort((a, b) => mag(b) - mag(a)).slice(0, 12);
+  // the day's biggest overall, plus each section's own biggest four: a
+  // busy section used to fill the pool alone and leave another reading
+  // "a quiet day" when it had stories of its own
+  const byMag = [...active].sort((a, b) => mag(b) - mag(a));
+  const reviewPool: Cluster[] = [];
+  const seen = new Set<string>();
+  const take = (c: Cluster) => {
+    if (seen.has(c.id)) return;
+    seen.add(c.id);
+    reviewPool.push(c);
+  };
+  for (const sec of cfg.sections.map((x) => x.id)) {
+    for (const c of byMag.filter((x) => x.section === sec || x.alsoIn === sec).slice(0, 4)) take(c);
+  }
+  for (const c of byMag.slice(0, 12)) take(c);
+  reviewPool.sort((a, b) => mag(b) - mag(a));
   return { top, reviewPool };
 }
 
@@ -1198,7 +1234,8 @@ function routeCastLinks(
     // host from an episode is not a source candidate
     if (link.mediaId) continue;
     if (selfHost && (link.host === selfHost || link.host.endsWith("." + selfHost))) continue;
-    if (!candidates[link.host]) newHosts.push(link.host);
+    const fresh = !candidates[link.host];
+    if (fresh) newHosts.push(link.host);
     const entry = (candidates[link.host] ??= {
       host: link.host,
       casts: 0,
@@ -1208,6 +1245,12 @@ function routeCastLinks(
       lastSeen: now,
       examples: [],
     });
+    // a domain whose first link carries a referral code is someone's promo,
+    // not a source: dismissed on sight, and it stays dismissed
+    if (fresh && isReferralUrl(link.url)) {
+      entry.dismissed = true;
+      entry.assessment = { why: "First seen through a referral link, which is a promotion rather than a source.", sections: [], at: now, fit: "promotional" };
+    }
     if (entry.examples.some((e) => e.url === link.url)) continue; // same link again
     entry.casts += 1;
     entry.engagement += link.engagement;
@@ -2204,8 +2247,8 @@ async function maybePostBots(state: SiteState, report: RunReport): Promise<boole
     score(candidate, cfg.ranking, now) >= cfg.bots.x.minScore
   ) {
     try {
-      const { dryRun } = await postToX(state, candidate, cfg.bots, { manual: false });
-      candidate.posted = { ...candidate.posted, x: now.toISOString() };
+      const { dryRun, id } = await postToX(state, candidate, cfg.bots, { manual: false });
+      candidate.posted = { ...candidate.posted, x: now.toISOString(), ...(id ? { xId: id } : {}) };
       report.posted.push(`x:${candidate.id}${dryRun ? " (dry-run)" : ""}`);
       changed = true;
     } catch (err) {
@@ -2215,6 +2258,16 @@ async function maybePostBots(state: SiteState, report: RunReport): Promise<boole
   }
   report.notes.push(`X posts this month: ${xMonthlyCount(state)}/${cfg.bots.x.maxPerMonth}`);
   return changed;
+}
+
+/** A link that carries a referral or affiliate code. */
+function isReferralUrl(url: string): boolean {
+  try {
+    const u = new URL(url);
+    return ["ref", "referral", "referrer", "ref_id", "refcode", "invite", "aff", "affiliate", "r"].some((k) => u.searchParams.has(k));
+  } catch {
+    return false;
+  }
 }
 
 /** the episode number a show puts at the front of its titles: "158 - Gone Camping", "#158 - JT" */
@@ -2283,6 +2336,17 @@ export async function runPipeline(): Promise<RunReport> {
     notes: [],
   };
 
+  // a story whose every link is a throwaway release build (see
+  // isThrowawayReleaseUrl) came in before the ingest learned to drop them;
+  // it goes the way an admin kill goes, and stays killed
+  for (const c of Object.values(state.clusters)) {
+    if (c.killed || c.links.length === 0) continue;
+    if (!c.links.every((l) => isThrowawayReleaseUrl(l.url))) continue;
+    c.killed = true;
+    c.updatedAt = new Date().toISOString();
+    report.notes.push(`Killed "${c.headline}": every link is a throwaway release build.`);
+  }
+
   const results = await fetchAllFeeds(feeds, cfg.ingest, cfg.farcaster);
   report.feedErrors = results.filter((r) => r.error).map((r) => ({ feedId: r.feed.id, error: r.error! }));
 
@@ -2323,10 +2387,19 @@ export async function runPipeline(): Promise<RunReport> {
       try {
         const reads = await assessSourceCandidates(unread);
         const at = new Date().toISOString();
+        const dropped: string[] = [];
         for (const c of unread) {
           const r = reads[c.host];
-          if (r) c.assessment = { why: r.why, sections: r.sections, at };
+          if (!r) continue;
+          c.assessment = { why: r.why, sections: r.sections, at, fit: r.fit };
+          // another subject or a product push never reaches the admin's list;
+          // dismissed entries are kept, so the domain does not come back
+          if (r.fit !== "on-topic") {
+            c.dismissed = true;
+            dropped.push(`${c.host} (${r.fit})`);
+          }
         }
+        if (dropped.length > 0) report.notes.push(`Candidate domains dismissed on read: ${dropped.join(", ")}.`);
       } catch (err) {
         report.notes.push(`Candidate assessment failed: ${err instanceof Error ? err.message : err}`);
       }

@@ -51,9 +51,9 @@ export function EditionsClient({ chrome, data }: { chrome: AdminChromeData; data
 
       <h2 id="editions">Editions</h2>
       <p className="status-line">
-        Frozen days and their corrections. A correction never edits the sealed file: it publishes a new version with
-        its own sha256 and its own attestation on Base that names the one it replaced, and the earlier version stays
-        on the day page. Any change at all is a correction, so the note is required and becomes part of the record.
+        Frozen days and their updates. An update never edits the sealed file: it publishes a new version with its own
+        sha256 and its own attestation on Base that names the one it replaced, and the earlier version stays on the
+        day page. Any change at all is an update, so the note is required and becomes part of the record.
         Reasons that qualify: a factual error, a story killed or merged later, a wrong source or dead link, a wrong
         section. Rewording and re-ranking do not.
       </p>
@@ -171,11 +171,11 @@ export function EditionsClient({ chrome, data }: { chrome: AdminChromeData; data
                   act(
                     "correctEdition",
                     { date: e.date, note: note.trim(), edits: changes },
-                    `Publish version ${e.version + 1} of ${e.date} with ${changes.length} change${changes.length === 1 ? "" : "s"}? This seals a new file on Base and cannot be undone (only corrected again).`
+                    `Publish version ${e.version + 1} of ${e.date} with ${changes.length} change${changes.length === 1 ? "" : "s"}? This seals a new file on Base and cannot be undone (only updated again).`
                   )
                 }
               >
-                Publish correction as version {e.version + 1}
+                Publish update as version {e.version + 1}
               </button>
               <button
                 className="btn"
@@ -198,8 +198,16 @@ export function EditionsClient({ chrome, data }: { chrome: AdminChromeData; data
         {data.list.map((d) => (
           <div key={d.date} className="sub" style={{ margin: "4px 0" }}>
             <a href={`/admin/editions?date=${d.date}`}>{d.date}</a> · {d.stories} stories · v{d.version}
-            {d.corrections > 0 ? ` · ${d.corrections} correction${d.corrections === 1 ? "" : "s"}` : ""}
+            {d.corrections > 0 ? ` · ${d.corrections} update${d.corrections === 1 ? "" : "s"}` : ""}
             {d.attested ? " · attested" : " · not attested"} · <a href={`/day/${d.date}`}>day page</a>
+            {!d.attested ? (
+              <>
+                {" · "}
+                <button type="button" className="linklike" disabled={busy} onClick={() => act("attestDay", { date: d.date })} title="Seal this edition on Base now and report exactly what happened">
+                  attest now
+                </button>
+              </>
+            ) : null}
           </div>
         ))}
       </div>

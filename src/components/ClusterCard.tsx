@@ -175,6 +175,11 @@ export function ClusterCard({
             farcaster
           </a>
         ) : null}
+        {cluster.posted?.xId && siteIdentity().social?.xHandle ? (
+          <a href={`https://x.com/${siteIdentity().social!.xHandle}/status/${cluster.posted.xId}`} rel="noopener" title="This story's post on X">
+            x
+          </a>
+        ) : null}
         {(cluster.mentions ?? []).slice(0, 2).map((m) => (
           <MentionLink
             key={m.mediaId}

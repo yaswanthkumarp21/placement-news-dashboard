@@ -698,8 +698,11 @@ export interface SourceCandidate {
   /** Set when an admin has decided this domain is not worth adding. */
   dismissed?: boolean;
   /** One-time editor read of the domain, written by the pipeline so the admin can judge without opening every example. */
-  assessment?: { why: string; sections: SectionId[]; at: string };
+  assessment?: { why: string; sections: SectionId[]; at: string; fit?: CandidateFit };
 }
+
+/** Whether a candidate domain is in this site's subject at all: the pipeline dismisses the other two on its own. */
+export type CandidateFit = "on-topic" | "off-topic" | "promotional";
 
 export interface CandidateItem {
   url: string;

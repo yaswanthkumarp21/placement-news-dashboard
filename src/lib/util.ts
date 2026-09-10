@@ -267,8 +267,40 @@ export function bestMatchIndex(line: string, candidates: string[], minShared = 2
   return best;
 }
 
+/**
+ * The model sometimes writes an accented letter as its JSON escape, six
+ * literal characters (backslash, u, and four hex digits) that then reach a
+ * sealed file that way. Decode any such escape to the character it names.
+ */
+export function decodeUnicodeEscapes(s: string): string {
+  return s.replace(/\\u([0-9a-fA-F]{4})/g, (_, hex: string) => String.fromCharCode(parseInt(hex, 16)));
+}
+
+/**
+ * A GitHub release URL whose tag is not shaped like a version. Teams publish
+ * throwaway builds as releases and delete them days later (benchmark pairs,
+ * "nightly", "not_a_release_0", "demo-0.0.2"), and three of those once
+ * reached a front page as one story and then all 404'd. Accepts v1.2.3,
+ * 26.8.0, 2.0.0-rc, v8.0.0-rc.1, v2.x.0-preview.2, and nothing without a
+ * dotted number at the front. Non-release URLs pass.
+ */
+export function isThrowawayReleaseUrl(url: string): boolean {
+  const m = /^https?:\/\/github\.com\/[^/]+\/[^/]+\/releases\/tag\/([^/?#]+)/i.exec(url);
+  if (!m) return false;
+  const tag = decodeURIComponent(m[1]);
+  return !/^v?(\d+|x)(\.(\d+|x))+([-+.][0-9A-Za-z.\-+]*)?$/.test(tag);
+}
+
 export function stripEmDashes(s: string): string {
-  return s.replace(/\s*—\s*/g, ", ").replace(/\s*--\s*/g, ", ");
+  // the house bans em dashes, en dashes, double hyphens, and semicolons in
+  // editorial copy; the model slips them in anyway, so every write point
+  // runs through here and they become commas
+  return decodeUnicodeEscapes(s)
+    .replace(/\s*—\s*/g, ", ")
+    .replace(/\s*–\s*/g, ", ")
+    .replace(/\s*--\s*/g, ", ")
+    .replace(/\s*;\s*/g, ", ")
+    .replace(/,\s*,/g, ",");
 }
 
 export type SummarySection = string;
@@ -296,6 +328,8 @@ export function parseSummaryLines(
   raw: string;
   segments: Array<{ text: string; ref: string | null }>;
 }> {
+  // sealed files that already carry a literal escape still read right
+  text = decodeUnicodeEscapes(text);
   return text
     .split("\n")
     .map((l) => l.trim())

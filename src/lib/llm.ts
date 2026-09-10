@@ -2,7 +2,7 @@ import { anthropic } from "@ai-sdk/anthropic";
 import { generateObject, type LanguageModel } from "ai";
 import { z } from "zod";
 import { loadPrompt, navSections, sectionIds } from "./config";
-import type { CandidateItem, Cluster, SourceCandidate } from "./types";
+import type { CandidateItem, Cluster, SourceCandidate, CandidateFit } from "./types";
 import { truncate } from "./util";
 
 /**
@@ -444,7 +444,7 @@ export async function gateMediaItems(
  */
 export async function assessSourceCandidates(
   candidates: SourceCandidate[]
-): Promise<Record<string, { why: string; sections: string[] }>> {
+): Promise<Record<string, { why: string; sections: string[]; fit: CandidateFit }>> {
   const sections = navSections();
   const { object } = await generateObject({
     model: editorModel(),
@@ -457,6 +457,9 @@ export async function assessSourceCandidates(
             .describe(
               "ONE standalone sentence under 160 characters: what this domain publishes and why the channel is linking it, grounded in the example casts"
             ),
+          fit: z
+            .enum(["on-topic", "off-topic", "promotional"])
+            .describe("on-topic: about this site's subject. off-topic: about something else entirely. promotional: pushing a product, token, shop, referral link, or one user's own utility"),
           sections: z
             .array(enumOf(sections.map((s) => s.id)))
             .min(1)
@@ -476,7 +479,7 @@ export async function assessSourceCandidates(
       })),
     }),
   });
-  return Object.fromEntries(object.reads.map((r) => [r.host, { why: r.why, sections: r.sections as string[] }]));
+  return Object.fromEntries(object.reads.map((r) => [r.host, { why: r.why, sections: r.sections as string[], fit: r.fit }]));
 }
 
 /**

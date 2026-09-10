@@ -6,7 +6,7 @@ import { discoverFeed, fetchReleaseNotesFor, isMediaFeed, isReleaseFeed, userAge
 import { notifySubmitter } from "@/lib/mail";
 import { siteIdentity } from "@/lib/site";
 import { classifyAndCluster, heuristicFallback, llmAvailable, summarizeRelease } from "@/lib/llm";
-import { addMediaByUrl, applyEditorOutput, correctDailyEdition, digestClusters, digestPostText, hideStreamedTwins, ingestMedia, knownSourceHosts, markSeen, reconsiderFrontSummary, reeditCluster, rejudgeEpisode, rejudgeMedia, relabelMedia, runPipeline, selectNewItems, takeSnapshot } from "@/lib/pipeline";
+import { addMediaByUrl, applyEditorOutput, attestDayNow, correctDailyEdition, digestClusters, digestPostText, hideStreamedTwins, ingestMedia, knownSourceHosts, markSeen, reconsiderFrontSummary, reeditCluster, rejudgeEpisode, rejudgeMedia, relabelMedia, runPipeline, selectNewItems, takeSnapshot } from "@/lib/pipeline";
 import { leadLink } from "@/lib/rank";
 import { buildDailyComment, postDailyComment, redditPostFor } from "@/lib/social/reddit";
 import { postTextToX, postToX, XCapError } from "@/lib/social/x";
@@ -402,6 +402,13 @@ async function handle(req: NextRequest) {
   const state = await loadState({ fresh: true });
   const cfg = applyBotOverrides(loadSiteConfig(), state);
 
+  if (body.action === "attestDay") {
+    const date = String(body.date ?? "");
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return fail("Bad date.");
+    const r = await attestDayNow(date);
+    return r.ok ? ok(r.note) : fail(r.note);
+  }
+
   if (body.action === "correctEdition") {
     const date = String(body.date ?? "");
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return fail("Bad date.");
@@ -590,8 +597,8 @@ async function handle(req: NextRequest) {
       case "postX": {
         snapshot = false;
         try {
-          const { dryRun } = await postToX(state, cluster, cfg.bots, { manual: true });
-          cluster.posted = { ...cluster.posted, x: new Date().toISOString() };
+          const { dryRun, id } = await postToX(state, cluster, cfg.bots, { manual: true });
+          cluster.posted = { ...cluster.posted, x: new Date().toISOString(), ...(id ? { xId: id } : {}) };
           message = dryRun ? "Dry-run: would have posted to X (no credentials configured)." : "Posted to X.";
         } catch (err) {
           if (err instanceof XCapError) return fail(err.message);

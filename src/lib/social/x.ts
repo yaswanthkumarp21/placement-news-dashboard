@@ -70,7 +70,7 @@ export async function postToX(
   cluster: { id: string; headline: string; explainer: string; slug: string },
   cfg: SiteConfig["bots"],
   opts: { manual: boolean }
-): Promise<{ dryRun: boolean }> {
+): Promise<{ dryRun: boolean; id?: string }> {
   if (xMonthlyCount(state) >= cfg.x.maxPerMonth) {
     throw new XCapError(`Monthly X cap reached (${cfg.x.maxPerMonth}). Refusing to post.`);
   }
@@ -85,10 +85,10 @@ export async function postToX(
   const explainer = cluster.explainer ? cluster.explainer.charAt(0).toUpperCase() + cluster.explainer.slice(1) : "";
   const text = `${cluster.headline}\n\n${explainer ? `${explainer}\n\n` : ""}${url}`;
 
-  const { dryRun } = await postTextToX(text);
+  const { dryRun, id } = await postTextToX(text);
 
   state.xPosts.push({ clusterId: cluster.id, postedAt: new Date().toISOString(), manual: opts.manual, ...(dryRun ? { dryRun } : {}) });
-  return { dryRun };
+  return { dryRun, id };
 }
 
 /**

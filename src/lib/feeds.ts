@@ -1,7 +1,7 @@
 import Parser from "rss-parser";
 import { siteIdentity } from "./site";
 import type { CandidateItem, FeedConfig, SiteConfig, SiteState } from "./types";
-import { cleanByline, hoursAgo, isPrivateHost, stripHtml, truncate } from "./util";
+import { cleanByline, hoursAgo, isPrivateHost, isThrowawayReleaseUrl, stripHtml, truncate } from "./util";
 
 /** Polite bot UA naming the deployment so feed owners can see who is reading. */
 export function userAgent(): string {
@@ -178,6 +178,8 @@ async function fetchRss(feed: FeedConfig, timeoutMs: number): Promise<CandidateI
   const parsed = await parseFeedXml(await fetchText(feed.url, timeoutMs));
   return (parsed.items ?? [])
     .filter((i) => i.link && i.title)
+    // benchmark and test builds published as releases and deleted later
+    .filter((i) => !(isReleaseFeed(feed) && isThrowawayReleaseUrl(i.link!)))
     .map((i) => {
       const c = candidate(
         feed,
