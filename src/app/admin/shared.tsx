@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 /**
  * Shared plumbing for the admin tool pages. Each tool lives on its own page
@@ -105,6 +105,8 @@ export interface AdminChromeData {
   xMonthly: { used: number; cap: number };
   subscribers: { daily: number; weekly: number };
   updatedAt: string;
+  /** the commit this deploy was built from (Vercel sets it), so "pushed as X" can be checked against what is on screen; url when the repo is known */
+  build: { sha: string; short: string; message: string; url?: string } | null;
   unhealthyFeeds: Array<{ id: string; name: string; kind: "errors" | "silent" | "empty"; state: string; action: string }>;
   /** pending reader submissions, badged on the Stories link */
   submissions: number;
@@ -128,7 +130,7 @@ const TOOL_ROWS: Array<{ label: string; tools: Array<{ href: string; label: stri
   {
     label: "Audience",
     tools: [
-      { href: "/admin/distribution", label: "Distribution" },
+      { href: "/admin/data", label: "Data" },
       { href: "/admin/posting", label: "Posting" },
       { href: "/admin/email", label: "Email" },
       { href: "/admin/farcaster", label: "Farcaster" },
@@ -152,6 +154,28 @@ const TOOL_ROWS: Array<{ label: string; tools: Array<{ href: string; label: stri
 
 export function AdminChrome({ chrome }: { chrome: AdminChromeData }) {
   const pathname = usePathname();
+  const router = useRouter();
+  // the refresh is a server round trip with nothing visible on its own, so
+  // the link says what it is doing and that it finished
+  const [refreshing, startRefresh] = useTransition();
+  const [refreshState, setRefreshState] = useState<"idle" | "pending" | "done">("idle");
+  const refresh = () => {
+    setRefreshState("pending");
+    startRefresh(() => {
+      router.refresh();
+    });
+  };
+  useEffect(() => {
+    // the transition ending after a click means the fresh data is on screen;
+    // the settle-back timer lives in its own effect so this one's re-run
+    // (state going pending -> done) cannot cancel it
+    if (refreshState === "pending" && !refreshing) setRefreshState("done");
+  }, [refreshing, refreshState]);
+  useEffect(() => {
+    if (refreshState !== "done") return;
+    const t = setTimeout(() => setRefreshState("idle"), 1500);
+    return () => clearTimeout(t);
+  }, [refreshState]);
   const { busy, status, setStatus, act } = useAdminAct();
 
   useEffect(() => {
@@ -172,6 +196,29 @@ export function AdminChrome({ chrome }: { chrome: AdminChromeData }) {
               Overview
             </Link>
             <span className="admin-nav-spacer" />
+            {chrome.build ? (
+              chrome.build.url ? (
+                <a
+                  href={chrome.build.url}
+                  rel="noopener"
+                  className="build-id"
+                  title={`This deploy was built from commit ${chrome.build.short}${chrome.build.message ? `: ${chrome.build.message}` : ""}`}
+                >
+                  build {chrome.build.short}
+                </a>
+              ) : (
+                <span className="build-id" title={`This deploy was built from commit ${chrome.build.short}${chrome.build.message ? `: ${chrome.build.message}` : ""}`}>
+                  build {chrome.build.short}
+                </span>
+              )
+            ) : (
+              <span className="build-id" title="Not a Vercel build (local dev)">
+                build local
+              </span>
+            )}
+            <button className="linklike" disabled={busy || refreshing} onClick={refresh} title="Reload this page's data">
+              {refreshing ? "refreshing…" : refreshState === "done" ? "refreshed" : "Refresh"}
+            </button>
             <button className="linklike" disabled={busy} onClick={() => act("logout")}>
               Log out
             </button>
@@ -241,19 +288,46 @@ export function AdminChrome({ chrome }: { chrome: AdminChromeData }) {
           ).map(([kind, heading]) => {
             const group = chrome.unhealthyFeeds.filter((f) => f.kind === kind);
             if (group.length === 0) return null;
+            // one piece of advice that fits the whole group is said once, under
+            // the heading, instead of after every row
+            const shared = group.every((f) => f.action === group[0].action) ? group[0].action : null;
             return (
               <div key={kind} className="feed-health-group">
-                <div className="feed-health-heading">{heading}</div>
-                <ul>
-                  {group.map((f) => (
-                    <li key={f.id}>
-                      <Link href={`/admin/sources#feed-${f.id}`} className="health-bad">
-                        {f.name}
-                      </Link>{" "}
-                      {f.state} <span className="sub">{f.action}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="feed-health-heading">
+                  {heading}
+                  {shared ? <span className="sub"> {shared}</span> : null}
+                </div>
+                {kind === "silent" ? (
+                  // a two column table, longest silence first
+                  <table className="feed-health-table">
+                    <tbody>
+                      {[...group]
+                        .sort((a, b) => Number(/\d+/.exec(b.state)?.[0] ?? 0) - Number(/\d+/.exec(a.state)?.[0] ?? 0))
+                        .map((f) => (
+                          <tr key={f.id}>
+                            <td>
+                              <Link href={`/admin/sources#feed-${f.id}`} className="health-bad">
+                                {f.name}
+                              </Link>
+                            </td>
+                            <td className="sub">{f.state.replace(/^Quiet for /, "").replace(/\.$/, "")}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <ul>
+                    {group.map((f) => (
+                      <li key={f.id}>
+                        <Link href={`/admin/sources#feed-${f.id}`} className="health-bad">
+                          {f.name}
+                        </Link>{" "}
+                        {f.state}
+                        {!shared ? <span className="sub"> {f.action}</span> : null}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             );
           })}

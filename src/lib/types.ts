@@ -411,6 +411,8 @@ export interface SiteState {
     staleReason?: string;
     /** story id to when its line first entered the box; a line younger than SUMMARY_STICKY_HOURS is never displaced */
     lineSince?: Record<string, string>;
+    /** newest first, every time the text changed, capped at 400: the admin's Flow chart draws pacing from these */
+    changeTimes?: string[];
     /** newest first, last 10 times the text actually changed and why */
     history?: Array<{
       at: string;

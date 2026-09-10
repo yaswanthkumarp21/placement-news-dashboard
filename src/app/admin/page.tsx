@@ -83,7 +83,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     { href: "/admin/leaderboard", name: "Leaderboard", sub: "which sources earn their keep" },
     { href: "/admin/wordmap", name: "Word maps", sub: "preview clouds for the frozen editions" },
     { href: "/admin/farcaster", name: "Farcaster", sub: "the bot's activity and channel reads" },
-    { href: "/admin/distribution", name: "Distribution", sub: distribution },
+    { href: "/admin/data?tab=distribution", name: "Data", sub: distribution },
   ];
 
   return (

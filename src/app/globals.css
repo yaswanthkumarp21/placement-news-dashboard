@@ -3455,3 +3455,271 @@ a.filter-chip {
 .onchain-from {
   margin: 0 0 6px;
 }
+
+/* ---------- admin data section: the shared chart kit ---------- */
+/* five categorical hues in fixed order, stepped per surface
+   (validated: lightness band, chroma, CVD and normal-vision separation, contrast) */
+:root {
+  --viz-1: #2a78d6;
+  --viz-2: #eb6834;
+  --viz-3: #1baf7a;
+  --viz-4: #eda100;
+  --viz-5: #e87ba4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --viz-1: #3987e5;
+    --viz-2: #d95926;
+    --viz-3: #199e70;
+    --viz-4: #c98500;
+    --viz-5: #d55181;
+  }
+}
+:root[data-theme="dark"] {
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-3: #199e70;
+  --viz-4: #c98500;
+  --viz-5: #d55181;
+}
+.viz-bar {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  width: 100%;
+}
+/* a 2px surface gap between stacked segments, the topmost with rounded ends */
+.viz-seg {
+  border-top: 2px solid var(--surface);
+  min-height: 1px;
+}
+.viz-seg:last-child {
+  border-radius: 4px 4px 0 0;
+}
+.viz-seg:first-child {
+  border-top: none;
+}
+.viz-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--fg-soft);
+}
+.viz-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fg-soft);
+  text-decoration: none;
+}
+.viz-key:hover {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+}
+.viz-swatch,
+.flow-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+.viz-1 { background: var(--viz-1); }
+.viz-2 { background: var(--viz-2); }
+.viz-3 { background: var(--viz-3); }
+.viz-4 { background: var(--viz-4); }
+.viz-5 { background: var(--viz-5); }
+/* one row of bars that share the width: 14 buckets read as wide bars, 90 as a
+   timeline, 365 as a texture, and none of them wrap. Values live on hover;
+   the axis labels only the ends and each new month. */
+.bars-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  margin: 10px 0 6px;
+  width: 100%;
+}
+.bars-col {
+  flex: 1 1 0;
+  min-width: 3px;
+  max-width: 26px;
+  text-align: center;
+  cursor: default;
+}
+.bars-bar {
+  position: relative;
+  width: 100%;
+  height: 48px;
+}
+.bars-bar .all,
+.bars-bar .conf {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 3px 3px 0 0;
+}
+.bars-bar .all {
+  background: color-mix(in srgb, var(--link) 25%, transparent);
+}
+.bars-bar .conf {
+  background: var(--link);
+}
+.bars-label {
+  font-size: 0.66rem;
+  color: var(--muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: visible;
+  height: 1em;
+}
+.flow-chart {
+  margin: 14px 0 4px;
+  max-width: 900px;
+}
+.bars-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  width: 100%;
+}
+.bars-mini {
+  flex: 1 1 0;
+  min-width: 2px;
+  border-radius: 2px 2px 0 0;
+}
+/* the chart controls: one labeled row per group */
+.flow-filters {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 14px;
+}
+.flow-filter-row {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.flow-filter-row > span:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.flow-filter-hint {
+  font-size: 0.78rem;
+  margin-left: 4px;
+}
+.bars-row-grouped .bars-col {
+  min-width: 6px;
+}
+.flow-filter-gap {
+  display: inline-block;
+  width: 10px;
+}
+/* detail: sideways labels when every bucket is named, values above bars */
+.bars-row-tall .bars-col {
+  min-width: 12px;
+}
+.bars-row-valued .bars-col {
+  min-width: 14px;
+}
+.bars-value {
+  font-size: 0.6rem;
+  color: var(--muted);
+  height: 1em;
+  line-height: 1;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  text-align: center;
+}
+.bars-values {
+  display: flex;
+  gap: 1px;
+  margin-bottom: 2px;
+}
+.bars-values .bars-value {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+}
+.data-tabs {
+  margin: 0 0 6px;
+}
+.data-tabs .filter-chip {
+  font-size: 0.95rem;
+  padding: 4px 14px;
+}
+.flow-breadth {
+  margin: 0 0 6px;
+}
+/* the deploy's commit, in the admin nav and the footer */
+.footer-meta .build-id,
+.admin-nav .build-id {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+/* the X-ray changelog folds everything after the two newest rewrites */
+.summary-more summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+/* quiet feeds: name, then days, longest first */
+.feed-health-table {
+  border-collapse: collapse;
+  margin: 4px 0 0 12px;
+}
+.feed-health-table td {
+  padding: 1px 18px 1px 0;
+  vertical-align: baseline;
+}
+/* merge and split from the card, admin with edit links on only */
+.story-tools {
+  display: inline;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.story-tools .linklike {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-bottom: 1px dotted color-mix(in srgb, var(--muted) 60%, transparent);
+  margin-right: 8px;
+}
+.story-tools .linklike:hover {
+  color: var(--hover-peach);
+}
+.story-tools-note {
+  margin-right: 8px;
+  font-style: italic;
+}
+.story-split {
+  display: block;
+  margin: 6px 0 2px;
+  padding: 6px 8px;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+}
+.story-split-row {
+  display: block;
+  margin: 2px 0;
+  cursor: pointer;
+}
+.story-pick input {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+}
+.story-pick-row {
+  display: block;
+  text-align: left;
+  margin: 2px 0;
+  border-bottom: 0;
+  color: var(--fg-soft);
+}

@@ -24,6 +24,25 @@ export function undecidedCandidates(state: SiteState): SourceCandidate[] {
     .slice(0, 30);
 }
 
+/**
+ * The commit a Vercel deploy was built from, with a link to it when the
+ * repo is a GitHub one Vercel knows (it sets the owner and slug envs).
+ * Null outside Vercel, so local dev reads as local.
+ */
+export function buildInfo(): AdminChromeData["build"] {
+  const sha = process.env.VERCEL_GIT_COMMIT_SHA;
+  if (!sha) return null;
+  const owner = process.env.VERCEL_GIT_REPO_OWNER;
+  const slug = process.env.VERCEL_GIT_REPO_SLUG;
+  const github = (process.env.VERCEL_GIT_PROVIDER ?? "github") === "github";
+  return {
+    sha,
+    short: sha.slice(0, 7),
+    message: (process.env.VERCEL_GIT_COMMIT_MESSAGE ?? "").split("\n")[0].slice(0, 120),
+    ...(owner && slug && github ? { url: `https://github.com/${owner}/${slug}/commit/${sha}` } : {}),
+  };
+}
+
 export function buildChrome(state: SiteState, cfg: SiteConfig): AdminChromeData {
   return {
     riverCount: state.items.length,
@@ -33,6 +52,7 @@ export function buildChrome(state: SiteState, cfg: SiteConfig): AdminChromeData 
       weekly: (state.digestSubscribers ?? []).filter((s) => s.weekly).length,
     },
     updatedAt: state.updatedAt,
+    build: buildInfo(),
     unhealthyFeeds: unhealthyFeeds(state, effectiveFeeds(state), cfg.ingest).map((u) => ({
       id: u.feed.id,
       name: u.feed.name,

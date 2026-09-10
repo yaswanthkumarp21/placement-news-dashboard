@@ -545,6 +545,24 @@ async function handle(req: NextRequest) {
         const staying = cluster.links.filter((l) => !urls.has(l.url));
         if (moving.length === 0) return fail("No matching links.");
         if (staying.length === 0) return fail("You selected every link. Use Re-edit or Kill instead of splitting.");
+        const targetId = String(body.targetId ?? "");
+        if (targetId) {
+          // the ticked links belong to a story that already exists: move
+          // them there, re-edit both, no new story
+          const target = ownEntry(state.clusters, targetId);
+          if (!target || target.id === cluster.id || target.killed) return fail("Pick a valid live story to move the links into.");
+          for (const link of moving) {
+            if (!target.links.some((l) => l.url === link.url)) target.links.push(link);
+          }
+          cluster.links = staying;
+          for (const item of state.items) {
+            if (item.clusterId === cluster.id && urls.has(item.url)) item.clusterId = target.id;
+          }
+          const a = await reeditCluster(state, cluster);
+          const b = await reeditCluster(state, target);
+          message = `Moved ${moving.length} link${moving.length === 1 ? "" : "s"} into “${target.headline}”. Original: ${a} Target: ${b}`;
+          break;
+        }
         const now2 = new Date().toISOString();
         const id = newId();
         const split: typeof cluster = {
@@ -592,6 +610,16 @@ async function handle(req: NextRequest) {
     if (snapshot && body.action !== "pin") await takeSnapshot(state);
     await saveState(state);
     return ok(message);
+  }
+
+  if (body.action === "listStories") {
+    // every live story, newest first, for the merge picker on a story card
+    const stories = Object.values(state.clusters)
+      .filter((c) => !c.killed && !c.mergedInto)
+      .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+      .slice(0, 400)
+      .map((c) => ({ id: c.id, headline: c.headline, section: c.section, updatedAt: c.updatedAt }));
+    return ok(undefined, { stories });
   }
 
   if (body.action === "setFrontSummary") {

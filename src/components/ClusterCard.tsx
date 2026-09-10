@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AdminEditLink } from "@/components/AdminEditLink";
 import { AdminXray } from "@/components/AdminXray";
+import { StoryTools } from "@/components/StoryTools";
 import { MentionLink } from "@/components/MentionLink";
 import { AgeStamp } from "@/components/AgeStamp";
 import type { Cluster, SponsoredPost } from "@/lib/types";
@@ -186,6 +187,11 @@ export function ClusterCard({
           </MentionLink>
         ))}
         <AdminEditLink href={`/admin/stories?story=${cluster.id}`} />
+        <StoryTools
+          id={cluster.id}
+          headline={cluster.headline}
+          links={cluster.links.map((l) => ({ url: l.url, title: l.title, sourceName: l.sourceName }))}
+        />
         <a href={`/submit?story=${cluster.slug}`} className="suggest-link">
           suggest a link
         </a>

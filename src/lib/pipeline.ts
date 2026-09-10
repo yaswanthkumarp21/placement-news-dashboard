@@ -2093,6 +2093,7 @@ function writeFrontSummary(state: SiteState, text: string, why: string, whys?: M
     text,
     at,
     lineSince,
+    changeTimes: [at, ...(prev?.changeTimes ?? [])].slice(0, 400),
     history: [
       { at, reason, changed: changedLines.length, total: lines.length, diff: diff.slice(0, 8) },
       ...(prev?.history ?? []),

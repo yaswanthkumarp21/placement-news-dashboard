@@ -210,9 +210,19 @@ export default async function HomePage() {
             Latest in box: last confirmed by the editor {ago(state.frontSummary.at)}
             {state.frontSummary.stale ? ` · marked stale (${state.frontSummary.staleReason ?? "reason not recorded"})` : ""}
             {summary ? "" : " · hidden from visitors (over the freshness window)"}
+            {(() => {
+              const times = state.frontSummary?.changeTimes ?? (state.frontSummary?.history ?? []).map((h) => h.at);
+              const within = (h: number) => times.filter((t) => Date.now() - new Date(t).getTime() < h * 3600000).length;
+              return (
+                <>
+                  {" "}· rewrites: {within(24)} in 24h, {within(24 * 7)} in 7d, {within(24 * 30)} in 30d ·{" "}
+                  <Link href="/admin/data?tab=flow">chart</Link>
+                </>
+              );
+            })()}
             {(state.frontSummary.history ?? []).length > 0 ? (
               <ul>
-                {(state.frontSummary.history ?? []).map((h) => (
+                {(state.frontSummary.history ?? []).slice(0, 2).map((h) => (
                   <li key={h.at}>
                     {h.at.slice(11, 16)} UTC, {ago(h.at)}: {h.reason}
                     {h.diff && h.diff.length > 0 ? (
@@ -229,6 +239,30 @@ export default async function HomePage() {
                     ) : null}
                   </li>
                 ))}
+                {(state.frontSummary.history ?? []).length > 2 ? (
+                  <details className="summary-more">
+                    <summary>{(state.frontSummary.history ?? []).length - 2} earlier</summary>
+                    <ul>
+                      {(state.frontSummary.history ?? []).slice(2).map((h) => (
+                        <li key={h.at}>
+                          {h.at.slice(11, 16)} UTC, {ago(h.at)}: {h.reason}
+                          {h.diff && h.diff.length > 0 ? (
+                            <ul className="summary-diff">
+                              {h.diff.map((d, i) => (
+                                <li key={i}>
+                                  <span className="sub">{d.section}</span>
+                                  {d.before ? <div className="diff-before">− {d.before}</div> : null}
+                                  {d.after ? <div className="diff-after">+ {d.after}</div> : null}
+                                  {d.why ? <div className="diff-why">why: {d.why}</div> : null}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                ) : null}
               </ul>
             ) : (
               <div>No rewrites logged yet (the log starts with the next change).</div>
