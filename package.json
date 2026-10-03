@@ -13,6 +13,8 @@
     "@ai-sdk/anthropic": "^3.0.97",
     "@modelcontextprotocol/server": "^2.0.0",
     "@next/third-parties": "^16.2.10",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
     "@types/qrcode": "^1.5.6",
     "@vercel/blob": "^2.0.0",
     "ai": "^6.0.0",
@@ -23,6 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rss-parser": "^3.13.0",
+    "server-only": "^0.0.1",
     "viem": "^2.56.0",
     "zod": "^4.4.3"
   },
