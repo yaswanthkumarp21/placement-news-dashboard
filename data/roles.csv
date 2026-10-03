@@ -1,0 +1,107 @@
+company_id,company,sector,role,function,level,track,flag
+aditya-birla-group,Aditya Birla Group,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Group-level; Aditya Birla Opus is listed separately under FMCG
+aditya-birla-group,Aditya Birla Group,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Group-level; Aditya Birla Opus is listed separately under FMCG
+bosch,Bosch,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations Management,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+eaton,Eaton,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+eaton,Eaton,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+godrej-boyce,Godrej & Boyce,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+ge-healthcare,GE HealthCare,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+ge-vernova,GE Vernova,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+honeywell,Honeywell,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+indigo,IndiGo,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+indigo,IndiGo,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Logistics,logistics,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+jindal-steel-power-jspl,Jindal Steel & Power (JSPL),"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+kean,KEAN,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Name unclear - check spelling / which company
+maruti-suzuki,Maruti Suzuki,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Manufacturing,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+maruti-suzuki,Maruti Suzuki,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+neterwala,Neterwala,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Small/private group - little news likely
+reliance-industries,Reliance Industries,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+reliance-industries,Reliance Industries,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Logistics,logistics,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+saint-gobain,Saint Gobain,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+schneider-electric,Schneider Electric,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+schneider-electric,Schneider Electric,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+shell,Shell,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain Management,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+sobha,Sobha,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Real Estate Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+tas-tata-automotive-services,TAS (Tata Automotive Services),"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Check: may be 'Tata Advanced Systems' instead
+tata-power,Tata Power,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+yokohama,Yokohama,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+zeiss,Zeiss,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+vikram-solar,Vikram Solar,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+vikram-solar,Vikram Solar,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Supply Chain,supply-chain,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",
+dimexon,Dimexon,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Manufacturing Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Name unclear - check spelling / little news likely
+inorbit,Inorbit,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Retail Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Probably Inorbit Malls - confirm
+cimcor,Cimcor,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Name unclear - check spelling / little news likely
+chalet,Chalet,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Probably Chalet Hotels - confirm
+apriani-energy,Apriani Energy,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Name unclear - check spelling / little news likely
+evonth-steel,Evonth Steel,"Conglomerate, Manufacturing, Real Estate, Oil & Gas, Automobiles & Aviation",Operations,operations,Leadership program (CDP/FMP/FLDP),"Leadership Programs (CDP, FMP, FLDP)",Name unclear - check spelling / little news likely
+allcargo-logistics,AllCargo Logistics,"Startup, Logistics & E-commerce",Logistics,logistics,,Area Operations & Supply Chain Roles,
+allcargo-logistics,AllCargo Logistics,"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,
+api-logistics,API Logistics,"Startup, Logistics & E-commerce",Supply Chain Management,supply-chain,,Area Operations & Supply Chain Roles,
+carwale,Carwale,"Startup, Logistics & E-commerce",Operations,operations,,Area Operations & Supply Chain Roles,
+clicktech,ClickTech,"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,Name unclear - little news likely
+eternal-shyam-autotech,Eternal (Shyam Autotech),"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,Eternal is Zomato's parent; 'Shyam Autotech' unclear - confirm which
+eternal-shyam-autotech,Eternal (Shyam Autotech),"Startup, Logistics & E-commerce",Logistics,logistics,,Area Operations & Supply Chain Roles,Eternal is Zomato's parent; 'Shyam Autotech' unclear - confirm which
+fedex,FedEx,"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,
+fedex,FedEx,"Startup, Logistics & E-commerce",Logistics,logistics,,Area Operations & Supply Chain Roles,
+flipkart,Flipkart,"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,
+flipkart,Flipkart,"Startup, Logistics & E-commerce",Logistics,logistics,,Area Operations & Supply Chain Roles,
+groww,Groww,"Startup, Logistics & E-commerce",Operations,operations,,Area Operations & Supply Chain Roles,
+lenskaart,Lenskaart,"Startup, Logistics & E-commerce",Operations,operations,,Area Operations & Supply Chain Roles,Spelled 'Lenskart' publicly - confirm
+lenskaart,Lenskaart,"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,Spelled 'Lenskart' publicly - confirm
+mphasis,Mphasis,"Startup, Logistics & E-commerce",Operations,operations,,Area Operations & Supply Chain Roles,
+mphasis,Mphasis,"Startup, Logistics & E-commerce",Logistics,logistics,,Area Operations & Supply Chain Roles,
+nxtpe,NxtPe,"Startup, Logistics & E-commerce",Logistics Operations,logistics,,Area Operations & Supply Chain Roles,Name unclear - little news likely
+phonepe,PhonePe,"Startup, Logistics & E-commerce",Supply Chain,supply-chain,,Area Operations & Supply Chain Roles,
+phonepe,PhonePe,"Startup, Logistics & E-commerce",Operations,operations,,Area Operations & Supply Chain Roles,
+sundayrigel,SundayRigel,"Startup, Logistics & E-commerce",Retail Operations,operations,,Area Operations & Supply Chain Roles,Name unclear - little news likely
+aditya-birla-opus,Aditya Birla Opus,"FMCG, FMCD & Retail",Distribution,distribution,,"Sales, Distribution & Supply Chain Roles",Overlaps with Aditya Birla Group
+aditya-birla-opus,Aditya Birla Opus,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",Overlaps with Aditya Birla Group
+abinbev,ABInBev,"FMCG, FMCD & Retail",Sales & Distribution Operations,sales-ops,,"Sales, Distribution & Supply Chain Roles",
+asian-paints,Asian Paints,"FMCG, FMCD & Retail",Distribution Management,distribution,,"Sales, Distribution & Supply Chain Roles",
+berger-paints,Berger Paints,"FMCG, FMCD & Retail",Sales,sales-ops,,"Sales, Distribution & Supply Chain Roles",
+berger-paints,Berger Paints,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+britannia,Britannia,"FMCG, FMCD & Retail",Distribution,distribution,,"Sales, Distribution & Supply Chain Roles",
+britannia,Britannia,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+diageo,Diageo,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+diageo,Diageo,"FMCG, FMCD & Retail",Distribution,distribution,,"Sales, Distribution & Supply Chain Roles",
+frootle,Frootle,"FMCG, FMCD & Retail",Retail Operations,operations,,"Sales, Distribution & Supply Chain Roles",Name unclear - little news likely
+global-detergent-factory,Global Detergent Factory,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",Name unclear - little news likely
+hector-beverages,Hector Beverages,"FMCG, FMCD & Retail",Sales Operations,sales-ops,,"Sales, Distribution & Supply Chain Roles",
+johnson-johnson,Johnson & Johnson,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+jubilant-food-works,Jubilant Food Works,"FMCG, FMCD & Retail",Distribution Management,distribution,,"Sales, Distribution & Supply Chain Roles",
+kenve,Kenve,"FMCG, FMCD & Retail",Retail Operations,operations,,"Sales, Distribution & Supply Chain Roles",Name unclear - little news likely
+liebherr,Liebherr,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+loreal,Loreal,"FMCG, FMCD & Retail",Distribution,distribution,,"Sales, Distribution & Supply Chain Roles",Spelled 'L'Oreal' publicly
+marico,Marico,"FMCG, FMCD & Retail",Sales & Distribution,sales-ops,,"Sales, Distribution & Supply Chain Roles",
+pepsico,PepsiCo,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+pepsico,PepsiCo,"FMCG, FMCD & Retail",Distribution,distribution,,"Sales, Distribution & Supply Chain Roles",
+pidilite,Pidilite,"FMCG, FMCD & Retail",Supply Chain Management,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+rich-s,Rich's,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",Name unclear - confirm which company
+samsung-electronics,Samsung Electronics,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+signify,Signify,"FMCG, FMCD & Retail",Distribution Operations,distribution,,"Sales, Distribution & Supply Chain Roles",
+tata-consumer-products,Tata Consumer Products,"FMCG, FMCD & Retail",Distribution,distribution,,"Sales, Distribution & Supply Chain Roles",
+tata-consumer-products,Tata Consumer Products,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+v-guard,V-Guard,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+welspun,Welspun,"FMCG, FMCD & Retail",Supply Chain Management,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+wipro,Wipro,"FMCG, FMCD & Retail",Retail Operations,operations,,"Sales, Distribution & Supply Chain Roles",Wipro is IT; may mean Wipro Consumer Care - confirm
+zydus-wellness,Zydus Wellness,"FMCG, FMCD & Retail",Supply Chain,supply-chain,,"Sales, Distribution & Supply Chain Roles",
+accenture-strategy,Accenture Strategy,Consulting,Operations Consulting,operations,,Supply Chain Consulting & Operations Improvement Roles,
+bain-company,Bain & Company,Consulting,Operations Excellence,operations,,Supply Chain Consulting & Operations Improvement Roles,
+cedar,Cedar,Consulting,Operations Consulting,operations,,Supply Chain Consulting & Operations Improvement Roles,Probably Cedar Consulting - confirm
+deloitte,Deloitte,Consulting,Supply Chain Consulting,supply-chain,,Supply Chain Consulting & Operations Improvement Roles,
+ey-ernst-young,EY (Ernst & Young),Consulting,Operations Advisory,operations,,Supply Chain Consulting & Operations Improvement Roles,
+kpmg,KPMG,Consulting,Operations Transformation,operations,,Supply Chain Consulting & Operations Improvement Roles,
+michael-page,Michael Page,Consulting,Operations Recruitment,operations,,Supply Chain Consulting & Operations Improvement Roles,"Recruiter, not an ops employer - news relevance low"
+pwc,PwC,Consulting,Supply Chain Advisory,supply-chain,,Supply Chain Consulting & Operations Improvement Roles,
+stanton-chase,Stanton Chase,Consulting,Executive Search for Operations Roles,operations,,Supply Chain Consulting & Operations Improvement Roles,Executive search firm - news relevance low
+acg-associated-capsules,ACG (Associated Capsules),"IT / Analytics, Pharma, Media, Telecom",Supply Chain,supply-chain,,Supply Chain Consulting & Operations Roles,
+airtel,Airtel,"IT / Analytics, Pharma, Media, Telecom",Operations,operations,,Supply Chain Consulting & Operations Roles,
+ashnik,Ashnik,"IT / Analytics, Pharma, Media, Telecom",Operations,operations,,Supply Chain Consulting & Operations Roles,Small firm - little news likely
+cipla,Cipla,"IT / Analytics, Pharma, Media, Telecom",Supply Chain,supply-chain,,Supply Chain Consulting & Operations Roles,
+gsk-glaxosmithkline,GSK (GlaxoSmithKline),"IT / Analytics, Pharma, Media, Telecom",Supply Chain,supply-chain,,Supply Chain Consulting & Operations Roles,
+karix,Karix,"IT / Analytics, Pharma, Media, Telecom",Operations,operations,,Supply Chain Consulting & Operations Roles,Small firm - little news likely
+hdfc-bank,HDFC Bank,"Banking, Financial Services & Insurance",Operations,operations,,Operations & Logistics Roles,
+hdfc-ergo,HDFC ERGO,"Banking, Financial Services & Insurance",Operations,operations,,Operations & Logistics Roles,
+hdfc-ergo,HDFC ERGO,"Banking, Financial Services & Insurance",Supply Chain,supply-chain,,Operations & Logistics Roles,
+kotak,Kotak,"Banking, Financial Services & Insurance",Operations,operations,,Operations & Logistics Roles,Kotak Mahindra Bank? - confirm
+maruti-insurance,Maruti Insurance,"Banking, Financial Services & Insurance",Operations,operations,,Operations & Logistics Roles,Unclear which company - confirm
