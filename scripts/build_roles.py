@@ -105,11 +105,21 @@ D = [
  ("Maruti Insurance","F",[("Operations",OPS)],"Unclear which company - confirm"),
 ]
 
+# ---- Yash's confirmations (3 Oct 2026) ----
+# Renamed as confirmed:
+RENAME = {"Lenskaart": "Lenskart", "Loreal": "L'Oreal", "Cedar": "Cedar Consulting", "Wipro": "Wipro Consumer Care"}
+# Dropped: all banking (sector F), plus every name that was flagged as unclear/unconfirmed.
+EXCLUDE = {"KEAN","Dimexon","Cimcor","Apriani Energy","Evonth Steel","ClickTech","NxtPe","SundayRigel",
+           "Frootle","Kenve","Global Detergent Factory","Rich's","Inorbit","Chalet",
+           "TAS (Tata Automotive Services)","Eternal (Shyam Autotech)"}
+D = [(RENAME.get(n, n), sec, roles, ("" if n in RENAME else flag)) for n, sec, roles, flag in D
+     if sec != "F" and n not in EXCLUDE]
+SECTORS.pop("F")
+
 def slug(s):
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", s.lower())).strip("-")
 
-assert len(D) == 85, len(D)
-assert len({slug(d[0]) for d in D}) == 85, "duplicate slug"
+assert len({slug(d[0]) for d in D}) == len(D), "duplicate slug"
 
 (root / "data").mkdir(exist_ok=True)
 with open(root / "data" / "roles.csv", "w", newline="", encoding="utf-8") as f:
