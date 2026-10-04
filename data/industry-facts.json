@@ -1,11 +1,93 @@
 {
-  "_note": "Industry fact tiles. 'facts' is empty on purpose: IBEF's disclaimer requires written permission before its figures are reproduced (ask info.brandindia@ibef.org). Fill facts only after permission, or with figures from primary government sources (each with its own source link). pageUpdated = the 'Last updated' month IBEF shows on the source page, set by the daily check.",
+  "_note": "Industry recaps. Built from primary and official sources only (SIAM, ACMA, PIB, Ministry, Lok Sabha replies). ibef.org is NOT used: its Terms of Use forbid reuse without written consent. Every figure carries its source link, period and source date. Anything unverified is listed under notFound or conflicts, never shown as fact.",
   "industries": [
-    { "id": "auto", "name": "Auto and manufacturing", "source": "https://www.ibef.org/industry/india-automobiles", "pageUpdated": null, "facts": [] },
-    { "id": "fmcg", "name": "FMCG and retail", "source": "https://www.ibef.org/industry/fmcg", "pageUpdated": null, "facts": [] },
-    { "id": "ecom", "name": "E-commerce and logistics", "source": "https://www.ibef.org/industry/ecommerce", "pageUpdated": null, "facts": [] },
-    { "id": "pharma", "name": "Pharma", "source": "https://www.ibef.org/industry/pharmaceutical-india", "pageUpdated": null, "facts": [] },
-    { "id": "oilgas", "name": "Oil and gas", "source": "https://www.ibef.org/industry/oil-gas-india", "pageUpdated": null, "facts": [] },
-    { "id": "services", "name": "Services (placeholder, sixth industry to confirm)", "source": "https://www.ibef.org/industry/services", "pageUpdated": null, "facts": [] }
+    {
+      "id": "auto",
+      "name": "Auto and manufacturing",
+      "asOf": "2026-10-05",
+      "overview": "India builds and sells vehicles at record scale, from two-wheelers to commercial trucks, and a large component industry feeds the vehicle makers. It matters because it is one of the biggest parts of Indian manufacturing, and it ties together steel, electronics, rubber and logistics.",
+      "marketSize": [
+        { "label": "Domestic vehicle sales, all four segments together", "value": "about 2.83 crore units (sum of the segments below)", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Two-wheeler sales", "value": "2,17,05,974 units (+10.7%)", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Passenger vehicle sales", "value": "46,43,439 units (+7.9%)", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Commercial vehicle sales", "value": "10,79,871 units (+12.6%)", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Three-wheeler sales", "value": "8,36,231 units (+12.8%)", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Auto component industry turnover", "value": "₹7.60 lakh crore (US$85.9 billion)", "period": "FY2025-26", "sourceName": "ACMA, as reported by Autocar Professional", "sourceUrl": "https://www.autocarpro.in/news/acma-indian-auto-component-industry-grows-127-percent-to-inr-76-lakh-crore-in-fy26-133454", "sourceDate": "2026-07-07" }
+      ],
+      "growth": [
+        { "label": "Every vehicle category posted its highest-ever sales in a financial year", "value": "all four segments at record", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Component industry turnover growth", "value": "+12.7%", "period": "FY2025-26 vs FY2024-25", "sourceName": "ACMA, as reported by Autocar Professional", "sourceUrl": "https://www.autocarpro.in/news/acma-indian-auto-component-industry-grows-127-percent-to-inr-76-lakh-crore-in-fy26-133454", "sourceDate": "2026-07-07" },
+        { "label": "Supplies to vehicle makers (OEMs) and aftermarket", "value": "OEM supplies ₹6,62,893 crore (+16.3%); aftermarket ₹1,08,453 crore (+9%)", "period": "FY2025-26", "sourceName": "ACMA, as reported by Autocar Professional", "sourceUrl": "https://www.autocarpro.in/news/acma-indian-auto-component-industry-grows-127-percent-to-inr-76-lakh-crore-in-fy26-133454", "sourceDate": "2026-07-07" },
+        { "label": "Manufacturing as a whole: GVA growth at constant prices", "value": "+10.7% (12.7% in 2023-24, 9.3% in 2024-25)", "period": "2025-26", "sourceName": "Lok Sabha reply, as reported by ANI", "sourceUrl": "https://www.aninews.in/news/business/manufacturing-gva-grows-107-in-fy26-govt-cites-reforms-to-strengthen-sector20260812173715/", "sourceDate": "2026-08-12" }
+      ],
+      "gdpJobs": [
+        { "label": "Auto sector contribution to GDP and to manufacturing GDP", "value": "7.1% of GDP; 49% of manufacturing GDP (see conflicts)", "period": "as published April 2025", "sourceName": "NITI Aayog report, on PIB", "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2", "sourceDate": "2025-04-15" },
+        { "label": "Manufacturing share of total GVA", "value": "14.8% (14.7% in 2022-23): barely changed", "period": "2025-26", "sourceName": "Lok Sabha reply, as reported by ANI", "sourceUrl": "https://www.aninews.in/news/business/manufacturing-gva-grows-107-in-fy26-govt-cites-reforms-to-strengthen-sector20260812173715/", "sourceDate": "2026-08-12" },
+        { "label": "India's rank in global vehicle production", "value": "4th largest", "period": "as published April 2025", "sourceName": "NITI Aayog report, on PIB", "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2", "sourceDate": "2025-04-15" },
+        { "label": "Jobs target for the sector by 2030 (a goal, not a current count)", "value": "2 to 2.5 million direct jobs", "period": "Vision 2030", "sourceName": "NITI Aayog report, on PIB", "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2", "sourceDate": "2025-04-15" }
+      ],
+      "exportsFdi": [
+        { "label": "Vehicle exports by segment", "value": "passenger 9.05 lakh (+17.5%); two-wheelers 51.8 lakh (+23.4%); three-wheelers 4.61 lakh (+50.1%); commercial 0.95 lakh (+17.4%)", "period": "FY2025-26", "sourceName": "SIAM press release", "sourceUrl": "https://www.siam.in/news-&-updates/press-releases/auto-industry-performance-of-q4-jan--march-2026-fy-2025-26/605", "sourceDate": "2026-04-14" },
+        { "label": "Component exports and imports", "value": "exports US$24 billion (+5%); imports US$25.4 billion (+13%)", "period": "FY2025-26", "sourceName": "ACMA, as reported by Autocar Professional", "sourceUrl": "https://www.autocarpro.in/news/acma-indian-auto-component-industry-grows-127-percent-to-inr-76-lakh-crore-in-fy26-133454", "sourceDate": "2026-07-07" },
+        { "label": "India's share of globally traded auto components", "value": "about 3% (about US$20 billion); 2030 goal: exports of US$60 billion", "period": "as published April 2025", "sourceName": "NITI Aayog report, on PIB", "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2", "sourceDate": "2025-04-15" }
+      ],
+      "policies": [
+        { "name": "PLI scheme for automobiles and auto components", "what": "Pays incentives on sales of advanced automotive technology products made in India. Outlay ₹25,938 crore; 82 approved applicants (30 Nov 2025); ₹1,350.83 crore paid to five applicants; sales of ₹32,879 crore achieved by 30 Sep 2025 against an eligible-sales target of ₹2,31,500 crore until March 2028.", "sourceName": "Ministry of Heavy Industries, on PIB", "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2200845&reg=3&lang=1", "sourceDate": "2025-12-09" },
+        { "name": "PM E-DRIVE", "what": "Electric vehicle demand incentives, e-buses and public charging. Launched September 2024, extended to 31 March 2028. Outlay ₹11,900 crore (see conflicts). 26.59 lakh EVs sold as of June 2026 against an incentive-supported target of about 28.30 lakh. ₹4,391 crore for 14,028 e-buses; ₹2,000 crore earmarked for charging.", "sourceName": "Government factsheet, as reported by DD News", "sourceUrl": "https://ddnews.gov.in/en/pm-e-drive-accelerates-indias-electric-mobility-push-with-26-59-lakh-ev-sales-%E2%82%B911900-crore-outlay/", "sourceDate": "2026-10-01" },
+        { "name": "Wider manufacturing push", "what": "The government lists PLI schemes, PM GatiShakti, the National Logistics Policy and BHAVYA among its measures to strengthen manufacturing and diversify supply chains.", "sourceName": "Lok Sabha reply, as reported by ANI", "sourceUrl": "https://www.aninews.in/news/business/manufacturing-gva-grows-107-in-fy26-govt-cites-reforms-to-strengthen-sector20260812173715/", "sourceDate": "2026-08-12" },
+        { "name": "Vision 2030 (NITI Aayog)", "what": "Goal of US$145 billion in production, US$60 billion in exports, and a rise in India's global component trade share from 3% to 8%.", "sourceName": "NITI Aayog report, on PIB", "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2", "sourceDate": "2025-04-15" }
+      ],
+      "drivers": [
+        "Record domestic demand: all four vehicle segments hit their highest-ever sales in FY2025-26 (SIAM).",
+        "Exports are rising fast: passenger +17.5%, two-wheelers +23.4%, three-wheelers +50.1% (SIAM).",
+        "Policy support through PLI and PM E-DRIVE, which together channel crores into manufacturing and EVs.",
+        "EV adoption: 26.59 lakh EVs sold under PM E-DRIVE as of June 2026.",
+        "Localisation: the PLI scheme requires domestic value addition, which pushes more of the EV supply chain to be built in India (PIB)."
+      ],
+      "players": {
+        "structure": "A few large vehicle makers buy from a very large component base: component makers supplied ₹6,62,893 crore to vehicle makers in FY2025-26 (ACMA). The names below are approved PLI applicants, not a ranking by size.",
+        "companies": ["Tata Motors", "Mahindra & Mahindra", "Hyundai Motor India", "Kia India", "Suzuki Motor Gujarat", "Bajaj Auto", "Hero MotoCorp", "Eicher Motors", "Ashok Leyland", "Bosch", "Bharat Forge", "Minda Corporation"]
+      },
+      "challenges": [
+        "Component trade gap: imports (US$25.4 billion) exceeded exports (US$24 billion) in FY2025-26 (ACMA).",
+        "India holds only about 3% of globally traded auto components, so most of the global component trade is elsewhere (NITI Aayog).",
+        "PLI progress is slow so far: ₹1,350.83 crore disbursed against a ₹25,938 crore outlay, and ₹32,879 crore of sales against a ₹2,31,500 crore target (PIB).",
+        "Manufacturing's share of GVA is flat at 14.8% (14.7% in 2022-23) despite 10.7% growth (Lok Sabha reply).",
+        "ACMA lists geopolitical developments, supply chain disruptions and raw material volatility as risks to watch."
+      ],
+      "opsAngle": [
+        "Component supply moves with vehicle output: OEM supplies rose 16.3% to ₹6,62,893 crore, so capacity, inventory and delivery frequency at suppliers have to scale with record vehicle volumes.",
+        "Sourcing and localisation: imports exceed exports in components, and the PLI's domestic value addition rule pushes makers to localise parts. Expect questions on make-versus-buy and supplier development.",
+        "Export-readiness: vehicle exports are growing fast, yet India's share of traded components is about 3%, so quality, cost and delivery performance are what decide whether more of that trade can be won."
+      ],
+      "interviewNumbers": [
+        { "label": "Domestic vehicle sales (all segments)", "value": "about 2.83 crore units", "period": "FY2025-26" },
+        { "label": "Auto component industry turnover", "value": "₹7.60 lakh crore (+12.7%)", "period": "FY2025-26" },
+        { "label": "Manufacturing share of total GVA", "value": "14.8%", "period": "2025-26" },
+        { "label": "PLI Auto outlay", "value": "₹25,938 crore", "period": "scheme to March 2028 sales target" },
+        { "label": "EVs sold under PM E-DRIVE", "value": "26.59 lakh (target about 28.30 lakh)", "period": "as of June 2026" }
+      ],
+      "gdQuestions": [
+        "India's component imports are higher than exports: is localisation the answer, and what would it cost?",
+        "Record vehicle sales but a flat manufacturing share of GVA: is auto really lifting Indian manufacturing?",
+        "Should the government keep paying PLI incentives when disbursement is this slow?"
+      ],
+      "conflicts": [
+        "NITI Aayog summary on PIB: one line says the auto sector gives 7.1% of 'global GDP', while the body says 7.1% of 'India's GDP'. The recap uses the body wording; treat the 7.1% as needing care before quoting.",
+        "PM E-DRIVE outlay: the government factsheet reported by DD News (1 Oct 2026) says ₹11,900 crore; earlier reports and the launch coverage said ₹10,900 crore. Shown as ₹11,900 crore with this note.",
+        "Logistics cost as a share of GDP: a KPMG blog (Jan 2026) quotes recent government assessments of about 8%; another report (Business Standard, not opened) puts it near 10 to 10.7%; older figures were 13 to 14%. No single figure is shown."
+      ],
+      "notFound": [
+        "Cumulative FDI into the automobile industry: a figure appeared in a search result, but the DPIIT factsheet could not be opened to confirm it, so it is not shown.",
+        "Total employment in the auto industry: a '30 million jobs' figure appeared only in a search snippet, so it is not shown.",
+        "ACMA's FY2027 growth outlook: seen only in a headline, not in an opened page.",
+        "India's total vehicle production in FY2025-26: the SIAM page was read, but the production line could not be confirmed, so only sales are shown."
+      ]
+    },
+    { "id": "fmcg", "name": "FMCG and retail", "asOf": null, "overview": "" },
+    { "id": "ecom", "name": "E-commerce and logistics", "asOf": null, "overview": "" },
+    { "id": "pharma", "name": "Pharma", "asOf": null, "overview": "" },
+    { "id": "oilgas", "name": "Oil and gas", "asOf": null, "overview": "" },
+    { "id": "services", "name": "Services (placeholder, sixth industry to confirm)", "asOf": null, "overview": "" }
   ]
 }

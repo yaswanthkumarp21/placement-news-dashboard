@@ -182,3 +182,27 @@ main.pn-main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 96px; }
 .pn-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
 .pn-btn { display: inline-block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: 8px 14px; font-weight: 700; font-size: 13px; }
 .pn-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+
+/* ---------- industry recap ---------- */
+.pn-sec { margin: 22px 0 0; }
+.pn-sec h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font: 800 20px/1.1 var(--font-d); letter-spacing: -0.02em; }
+.pn-sec h2 span { font: 800 12px/1 var(--font-b); letter-spacing: 0.08em; color: #0a0a0a; background: var(--yellow); border-radius: 999px; padding: 5px 9px; }
+.pn-sec:nth-of-type(3n+2) h2 span { background: var(--pink); }
+.pn-sec:nth-of-type(3n) h2 span { background: var(--green); }
+.pn-lead { margin: 0 0 8px; color: var(--ink); font-size: 16px; line-height: 1.55; }
+.pn-rows { display: grid; gap: 10px; }
+.pn-row { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; }
+.pn-row-v { font: 800 17px/1.25 var(--font-d); letter-spacing: -0.01em; }
+.pn-row-l { color: var(--dim); font-size: 13.5px; margin-top: 3px; }
+.pn-row-l span { color: var(--faint); }
+.pn-row-s { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 700; }
+.pn-plain { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.pn-plain li { position: relative; padding-left: 20px; color: var(--dim); line-height: 1.5; }
+.pn-plain li::before { content: ""; position: absolute; left: 0; top: 7px; width: 10px; height: 10px; border-radius: 3px; background: var(--yellow); transform: rotate(45deg) scale(0.75); }
+.pn-sec.feat { border: 1px solid rgba(255, 214, 10, 0.35); background: linear-gradient(150deg, rgba(255, 214, 10, 0.12), transparent 60%), var(--surface); border-radius: 22px; padding: 16px; }
+.pn-nums { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.pn-nums b { display: block; font: 800 20px/1.15 var(--font-d); color: var(--yellow); }
+.pn-nums small { color: var(--dim); font-size: 12.5px; }
+.pn-caveats { border: 1px dashed var(--line); border-radius: 16px; padding: 12px 14px; }
+.pn-caveats summary { cursor: pointer; font-weight: 700; color: var(--pink-soft); }
+.pn-caveats h3 { font: 800 13px/1 var(--font-b); letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin: 14px 0 8px; }
