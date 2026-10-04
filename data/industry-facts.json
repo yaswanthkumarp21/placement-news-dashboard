@@ -1,0 +1,11 @@
+{
+  "_note": "Industry fact tiles. 'facts' is empty on purpose: IBEF's disclaimer requires written permission before its figures are reproduced (ask info.brandindia@ibef.org). Fill facts only after permission, or with figures from primary government sources (each with its own source link). pageUpdated = the 'Last updated' month IBEF shows on the source page, set by the daily check.",
+  "industries": [
+    { "id": "auto", "name": "Auto and manufacturing", "source": "https://www.ibef.org/industry/india-automobiles", "pageUpdated": null, "facts": [] },
+    { "id": "fmcg", "name": "FMCG and retail", "source": "https://www.ibef.org/industry/fmcg", "pageUpdated": null, "facts": [] },
+    { "id": "ecom", "name": "E-commerce and logistics", "source": "https://www.ibef.org/industry/ecommerce", "pageUpdated": null, "facts": [] },
+    { "id": "pharma", "name": "Pharma", "source": "https://www.ibef.org/industry/pharmaceutical-india", "pageUpdated": null, "facts": [] },
+    { "id": "oilgas", "name": "Oil and gas", "source": "https://www.ibef.org/industry/oil-gas-india", "pageUpdated": null, "facts": [] },
+    { "id": "services", "name": "Services (placeholder, sixth industry to confirm)", "source": "https://www.ibef.org/industry/services", "pageUpdated": null, "facts": [] }
+  ]
+}

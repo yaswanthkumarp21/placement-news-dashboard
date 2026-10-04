@@ -33,8 +33,15 @@ export type CompanyDoc = {
   sections: Record<string, string[]>; // other sections of the company's file, as raw lines
 };
 
-export const slugify = (s: string) =>
-  s.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+// Must match scripts/build_roles.py so archive companies line up with data/roles.csv ids.
+export const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+/** Short stable id (does not change when other entries are added or removed). */
+function stableId(slug: string, date: string | null, headline: string): string {
+  let h = 2166136261;
+  for (const ch of `${date ?? ""}|${headline}`) h = Math.imul(h ^ ch.charCodeAt(0), 16777619) >>> 0;
+  return `${slug}-${h.toString(36)}`;
+}
 
 function linksIn(text: string): Source[] {
   const out: Source[] = [];
@@ -65,7 +72,7 @@ export function loadArchive(): CompanyDoc[] {
     const flush = () => {
       if (company && cur && curHead) {
         company.entries.push({
-          id: `${company.slug}-${company.entries.length}`,
+          id: stableId(company.slug, curHead.date, curHead.headline),
           company: company.name,
           slug: company.slug,
           sector: company.sector,

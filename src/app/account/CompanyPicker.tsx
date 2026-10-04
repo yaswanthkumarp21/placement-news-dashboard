@@ -38,6 +38,7 @@ export function CompanyPicker({ userId, companies, initiallyOff }: { userId: str
     if (!userId) {
       try {
         localStorage.setItem(GUEST_KEY, JSON.stringify([...next]));
+        window.dispatchEvent(new CustomEvent("pn-local", { detail: GUEST_KEY }));
       } catch {}
       return;
     }
