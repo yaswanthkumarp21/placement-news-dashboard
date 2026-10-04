@@ -1,11 +1,21 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 
 type Company = { id: string; name: string; industry: string | null };
 
-export function CompanyPicker({ userId, companies, initiallyOff }: { userId: string; companies: Company[]; initiallyOff: string[] }) {
+const GUEST_KEY = "guest-companies-off";
+
+export function CompanyPicker({ userId, companies, initiallyOff }: { userId: string | null; companies: Company[]; initiallyOff: string[] }) {
   const [off, setOff] = useState<Set<string>>(new Set(initiallyOff));
+  // guest mode (no login): remember choices in this browser instead of the database
+  useEffect(() => {
+    if (userId) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem(GUEST_KEY) ?? "[]");
+      if (Array.isArray(saved)) setOff(new Set(saved));
+    } catch {}
+  }, [userId]);
   const [error, setError] = useState("");
   const groups = useMemo(() => {
     const m = new Map<string, Company[]>();
@@ -25,6 +35,12 @@ export function CompanyPicker({ userId, companies, initiallyOff }: { userId: str
       else next.add(id);
     }
     setOff(next);
+    if (!userId) {
+      try {
+        localStorage.setItem(GUEST_KEY, JSON.stringify([...next]));
+      } catch {}
+      return;
+    }
     const db = supabaseBrowser();
     const res = on
       ? await db.from("user_deselected_companies").delete().eq("user_id", userId).in("company_id", ids)

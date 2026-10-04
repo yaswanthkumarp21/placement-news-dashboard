@@ -1,11 +1,23 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { AUTH_DISABLED } from "@/lib/guest";
 import { currentUser } from "@/lib/supabase/server";
 
 export const metadata = { title: "Saved" };
 export const dynamic = "force-dynamic";
 
 export default async function SavedPage() {
+  if (AUTH_DISABLED) {
+    return (
+      <main style={{ maxWidth: 820, margin: "24px auto", padding: "0 16px" }}>
+        <h1>Saved news</h1>
+        <p>
+          <Link href="/account">&larr; My companies</Link>
+        </p>
+        <p style={{ opacity: 0.7 }}>Guest mode: saving needs an account, so this page is empty while login is switched off.</p>
+      </main>
+    );
+  }
   const { supabase, user } = await currentUser();
   if (!user) redirect("/login?next=/saved");
   const { data } = await supabase

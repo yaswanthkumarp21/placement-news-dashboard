@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { AUTH_DISABLED } from "@/lib/guest";
 import { supabaseConfigured } from "@/lib/supabase/env";
 import { currentUser } from "@/lib/supabase/server";
 import { LoginButton } from "./LoginButton";
@@ -7,6 +8,7 @@ export const metadata = { title: "Sign in" };
 export const dynamic = "force-dynamic";
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
+  if (AUTH_DISABLED) redirect("/account");
   const { next, error } = await searchParams;
   const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/account";
   if (supabaseConfigured) {
