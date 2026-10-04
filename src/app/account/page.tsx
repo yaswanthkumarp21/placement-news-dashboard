@@ -10,15 +10,9 @@ export const dynamic = "force-dynamic";
 export default async function AccountPage() {
   if (AUTH_DISABLED) {
     return (
-      <main style={{ maxWidth: 820, margin: "24px auto", padding: "0 16px" }}>
-        <h1 style={{ margin: 0 }}>My companies</h1>
-        <p style={{ opacity: 0.7, margin: "4px 0 16px" }}>
-          Guest mode: login is switched off, so your choices are kept in this browser only.
-        </p>
-        <nav style={{ display: "flex", gap: 12, marginBottom: 16 }}>
-          <Link href="/year-news">Year News</Link>
-          <Link href="/saved">Saved</Link>
-        </nav>
+      <main className="pn-main">
+        <h1 className="pn-page-h">My companies</h1>
+        <p className="pn-note">Guest mode: login is switched off, so your choices are kept in this browser only.</p>
         <CompanyPicker userId={null} companies={guestCompanies()} initiallyOff={[]} />
       </main>
     );
@@ -32,26 +26,20 @@ export default async function AccountPage() {
   ]);
 
   return (
-    <main style={{ maxWidth: 820, margin: "24px auto", padding: "0 16px" }}>
-      <header style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
-        <div>
-          <h1 style={{ margin: 0 }}>My companies</h1>
-          <p style={{ opacity: 0.7, margin: "4px 0 0" }}>
-            Signed in as {profile?.email ?? user.email}
-            {profile?.is_admin ? " (admin)" : ""}
-          </p>
-        </div>
-        <nav style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Link href="/saved">Saved</Link>
-          {profile?.is_admin ? <Link href="/manage/users">Manage users</Link> : null}
-          <form action="/auth/signout" method="post">
-            <button type="submit" style={{ cursor: "pointer" }}>Sign out</button>
-          </form>
-        </nav>
-      </header>
-      <p style={{ margin: "16px 0" }}>
-        Every company is on by default. Untick the ones you don&apos;t want and they disappear from your dashboard.
+    <main className="pn-main">
+      <h1 className="pn-page-h">My companies</h1>
+      <p className="pn-note">
+        Signed in as {profile?.email ?? user.email}
+        {profile?.is_admin ? " (admin)" : ""}
       </p>
+      <div className="pn-actions">
+        <Link className="pn-btn" href="/saved">Saved</Link>
+        {profile?.is_admin ? <Link className="pn-btn" href="/manage/users">Manage users</Link> : null}
+        <form action="/auth/signout" method="post">
+          <button className="pn-btn" type="submit">Sign out</button>
+        </form>
+      </div>
+      <p className="pn-note">Every company is on by default. Tap the ones you don&apos;t want and they disappear from your dashboard.</p>
       <CompanyPicker
         userId={user.id}
         companies={companies ?? []}

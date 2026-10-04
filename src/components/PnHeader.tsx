@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const TABS = [
   { href: "/", label: "Daily News" },
@@ -11,35 +10,20 @@ const TABS = [
 
 export function PnHeader() {
   const path = usePathname();
-  const [theme, setTheme] = useState<"auto" | "light" | "dark">("auto");
-  useEffect(() => {
-    try {
-      const t = localStorage.getItem("pn-theme");
-      if (t === "light" || t === "dark") {
-        setTheme(t);
-        document.documentElement.dataset.theme = t;
-      }
-    } catch {}
-  }, []);
-  function toggleTheme() {
-    const isDark = document.documentElement.dataset.theme === "dark" || (theme === "auto" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    const next = isDark ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("pn-theme", next);
-    } catch {}
-  }
   const isOn = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   return (
     <header className="pn-top">
       <div className="pn-wrap">
         <div className="pn-bar">
-          <Link className="pn-brand" href="/">Placement News</Link>
+          <Link className="pn-brand" href="/">
+            <span className="pn-logo" aria-hidden="true" />
+            <span>
+              Placement <em>News</em>
+            </span>
+          </Link>
           <nav>
-            <Link href="/saved">Saved</Link>
-            <Link href="/account">My companies</Link>
-            <button className="pn-ghost" onClick={toggleTheme} aria-label="Switch light or dark theme">Theme</button>
+            <Link className="pn-navlink" href="/saved">Saved</Link>
+            <Link className="pn-navlink" href="/account">My companies</Link>
           </nav>
         </div>
         <div className="pn-tabs" role="tablist">

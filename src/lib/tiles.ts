@@ -26,7 +26,9 @@ const ABBR = /\b(vs|e\.g|i\.e|approx|Rs|Cr|No|Mr|Dr|etc|St|Ltd|Inc|Co)\.$/i;
 
 /** Splits the "why it matters" paragraph into up to 3 bullets. (Placeholder until the prompt returns 3 bullets.) */
 export function toBullets(why: string): string[] {
-  const raw = why.split(/(?<=[.!?])\s+(?=[A-Z0-9"'(₹])/);
+  // the research text sometimes says "in this file"; that means nothing to a student reading the app
+  const clean = why.replace(/\s+in this file(?=[.,;:!?\s])/gi, "");
+  const raw = clean.split(/(?<=[.!?])\s+(?=[A-Z0-9"'(₹])/);
   let out: string[] = [];
   for (const part of raw) {
     if (out.length && ABBR.test(out[out.length - 1])) out[out.length - 1] += ` ${part}`;

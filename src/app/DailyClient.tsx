@@ -64,7 +64,7 @@ function SavedStrip({ byId }: { byId: Map<string, Tile> }) {
   );
 }
 
-export function DailyClient({ tiles, companies }: { tiles: Tile[]; companies: Company[] }) {
+export function DailyClient({ tiles, companies, today }: { tiles: Tile[]; companies: Company[]; today: string }) {
   const [off] = useLocal<string[]>(KEYS.off, []);
   const [onboarded, setOnboarded, ready] = useLocal<boolean>(KEYS.onboarded, false);
   const [q, setQ] = useState("");
@@ -85,10 +85,22 @@ export function DailyClient({ tiles, companies }: { tiles: Tile[]; companies: Co
 
   return (
     <>
-      <p className="pn-note">
-        Demo mode: until the daily news job is built, the stories below come from your research archive and are treated as today&apos;s news.
-      </p>
-      <input className="pn-search" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search my companies" aria-label="Search my companies" />
+      <section className="pn-hero">
+        <p className="pn-kicker">{today}</p>
+        <h1>Walk in <em>ready.</em></h1>
+        <p>The stories that matter for your interviews and GDs, ranked, with the angle to take on each one.</p>
+        <div className="pn-stats">
+          <div className="pn-stat"><b>{tiles.length}</b><span>stories</span></div>
+          <div className="pn-stat"><b>{new Set(tiles.map((t) => t.slug)).size}</b><span>companies</span></div>
+          <div className="pn-stat"><b>{selectedCount}</b><span>yours</span></div>
+        </div>
+      </section>
+
+      <span className="pn-demo">Demo mode · stories come from your research archive until the daily job is live</span>
+      <div className="pn-search-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+        <input className="pn-search" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search my companies" aria-label="Search my companies" />
+      </div>
 
       {results ? (
         <>
@@ -100,22 +112,28 @@ export function DailyClient({ tiles, companies }: { tiles: Tile[]; companies: Co
         </>
       ) : (
         <>
-          <div className="pn-h"><h2>Saved</h2><Link className="pn-sub" href="/saved">See all</Link></div>
+          <div className="pn-h" style={{ ["--hc" as string]: "var(--pink)" }}>
+            <h2>Saved</h2>
+            <Link className="pn-sub" href="/saved">See all</Link>
+          </div>
           <SavedStrip byId={byId} />
 
           <div className="pn-h">
             <h2>Top 10 for you</h2>
             <Link className="pn-sub" href="/account">{selectedCount} companies · edit</Link>
           </div>
-          <p className="pn-sub" style={{ margin: "0 0 8px" }}>Ranked for interviews and GDs. {withStories} of your companies have stories so far.</p>
+          <p className="pn-note" style={{ marginTop: 0 }}>Ranked for interviews and GDs. {withStories} of your companies have stories so far.</p>
           <div className="pn-list">
-            {forYou.map((t) => <TileCard key={t.id} t={t} />)}
+            {forYou.map((t, i) => <TileCard key={t.id} t={t} rank={i + 1} feature={i === 0} accent="#ffd60a" />)}
             {!forYou.length ? <div className="pn-empty">No stories yet for your companies. Add more companies or check back after the next research batch.</div> : null}
           </div>
 
-          <div className="pn-h"><h2>Ops overall: top 10</h2><span className="pn-sub">all companies</span></div>
+          <div className="pn-h" style={{ ["--hc" as string]: "var(--green)" }}>
+            <h2>Ops overall</h2>
+            <span className="pn-sub">top 10 · all companies</span>
+          </div>
           <div className="pn-list">
-            {overall.map((t) => <TileCard key={t.id} t={t} />)}
+            {overall.map((t, i) => <TileCard key={t.id} t={t} rank={i + 1} accent="#5be3a4" />)}
           </div>
         </>
       )}
@@ -123,8 +141,9 @@ export function DailyClient({ tiles, companies }: { tiles: Tile[]; companies: Co
       {ready && !onboarded ? (
         <div className="pn-sheet-bg" role="dialog" aria-modal="true" aria-label="Pick your companies">
           <div className="pn-sheet">
+            <p className="pn-kicker">Step 1</p>
             <h2>Pick your companies</h2>
-            <p className="pn-note">Your Daily News follows only these. Everything is on to start; untick what you don&apos;t want. You can change this any time.</p>
+            <p className="pn-note">Your Daily News follows only these. Everything is on to start; tap a company to switch it off. You can change this any time.</p>
             <div className="pn-picker">
               <CompanyPicker userId={null} companies={companies} initiallyOff={[]} />
             </div>

@@ -55,31 +55,24 @@ export function CompanyPicker({ userId, companies, initiallyOff }: { userId: str
   const onCount = companies.length - off.size;
   return (
     <div>
-      <p>
-        <strong>{onCount}</strong> of {companies.length} companies on
-      </p>
-      {error ? <p style={{ color: "#c33" }}>{error}</p> : null}
+      <p className="pn-pick-count">{onCount} of {companies.length} companies on</p>
+      {error ? <p className="pn-err">{error}</p> : null}
       {groups.map(([industry, list]) => {
         const ids = list.map((c) => c.id);
         const allOn = ids.every((id) => !off.has(id));
         return (
-          <section key={industry} style={{ margin: "20px 0" }}>
-            <h2 style={{ fontSize: 16, display: "flex", gap: 12, alignItems: "baseline", flexWrap: "wrap" }}>
-              {industry}
-              <button onClick={() => setCompanies(ids, !allOn)} style={{ fontSize: 12, cursor: "pointer" }}>
-                {allOn ? "Turn all off" : "Turn all on"}
-              </button>
-            </h2>
-            <ul style={{ listStyle: "none", padding: 0, display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(220px,1fr))", gap: 6 }}>
+          <section key={industry} className="pn-group">
+            <div className="pn-group-h">
+              <span>{industry}</span>
+              <button onClick={() => setCompanies(ids, !allOn)}>{allOn ? "Turn all off" : "Turn all on"}</button>
+            </div>
+            <div className="pn-pick">
               {list.map((c) => (
-                <li key={c.id}>
-                  <label style={{ cursor: "pointer", display: "flex", gap: 8, alignItems: "center" }}>
-                    <input type="checkbox" checked={!off.has(c.id)} onChange={(e) => setCompanies([c.id], e.target.checked)} />
-                    {c.name}
-                  </label>
-                </li>
+                <button key={c.id} aria-pressed={!off.has(c.id)} onClick={() => setCompanies([c.id], off.has(c.id))}>
+                  {c.name}
+                </button>
               ))}
-            </ul>
+            </div>
           </section>
         );
       })}
