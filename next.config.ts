@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   // config/ is read from disk at runtime (identity, feeds, prompts, section
   // rules): make sure it ships inside the serverless bundle.
   outputFileTracingIncludes: {
-    "/**": ["./config/**/*"],
+    "/**": ["./config/**/*", "./data/archive/**/*"],
   },
 };
 

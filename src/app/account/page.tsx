@@ -16,6 +16,7 @@ export default async function AccountPage() {
           Guest mode: login is switched off, so your choices are kept in this browser only.
         </p>
         <nav style={{ display: "flex", gap: 12, marginBottom: 16 }}>
+          <Link href="/year-archive">Year Archive</Link>
           <Link href="/saved">Saved</Link>
         </nav>
         <CompanyPicker userId={null} companies={guestCompanies()} initiallyOff={[]} />
