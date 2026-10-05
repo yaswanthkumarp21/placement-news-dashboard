@@ -783,8 +783,591 @@
     {
       "id": "fmcg",
       "name": "FMCG and retail",
-      "asOf": null,
-      "overview": ""
+      "asOf": "2026-10-05",
+      "overview": "FMCG (fast-moving consumer goods) is everyday packaged stuff: soap, shampoo, tea, biscuits, noodles. Companies make it in bulk and push it through distributors to millions of small shops, and increasingly to supermarkets and quick-commerce apps. It matters because volume, price and channel mix decide who wins, and every one of them is a supply chain problem.",
+      "bigIdea": "Indian FMCG is a distribution game that is changing channels fast: volumes were weak in April-June 2026 (down 2%) while modern trade and online grew, so winning means serving the corner shop and the dark store at once.",
+      "flow": [
+        {
+          "label": "Make",
+          "stat": "PLI-supported food sales ₹1,08,854 crore",
+          "note": "Factories and food processors scale up, helped by the food processing PLI scheme (FY2025-26 sales, PIB)."
+        },
+        {
+          "label": "Distribute",
+          "stat": "ITC reaches about 7 million outlets",
+          "note": "Stockists and wholesalers feed small shops across the country (ITC, FY26)."
+        },
+        {
+          "label": "Sell",
+          "stat": "Traditional trade volume down 6%",
+          "note": "Corner shops are shrinking in volume while modern trade is up 17.5% (NielsenIQ, Q2 2026)."
+        },
+        {
+          "label": "Fast channels",
+          "stat": "E-commerce value +57.7%",
+          "note": "Online and quick commerce grow far faster than the market, forcing smaller packs and dark-store supply (NielsenIQ, Q2 2026)."
+        }
+      ],
+      "timeline": [
+        {
+          "date": "1 Feb 2025",
+          "title": "Budget 2025-26 removes income tax up to ₹12 lakh",
+          "detail": "No tax up to ₹12 lakh income (₹12.75 lakh for salaried) under the new regime; the Finance Minister said it would boost household consumption (PIB)."
+        },
+        {
+          "date": "3 Sep 2025",
+          "title": "GST Council approves two main rates",
+          "detail": "Four slabs become 5% and 18%, plus 40% on a few goods; hair oil, soap, shampoo, toothpaste, butter, ghee, namkeen and noodles move to 5% (GST Council release on PIB)."
+        },
+        {
+          "date": "Apr-Jun 2026",
+          "title": "FMCG volumes fall 2% in the quarter",
+          "detail": "Rural volume down 5% and 68% of categories lost volume, while online grew fast (NielsenIQ, via RetailIntel)."
+        },
+        {
+          "date": "30 Apr 2026",
+          "title": "HUL reports its best growth in 12 quarters",
+          "detail": "March quarter turnover ₹16,207 crore, underlying volume growth 6% (HUL)."
+        },
+        {
+          "date": "20 Jul 2026",
+          "title": "ITC FMCG passes ₹24,000 crore",
+          "detail": "FY26 FMCG revenue ₹24,210 crore; foods above ₹20,000 crore; quick commerce sales up 57% (Outlook Business)."
+        },
+        {
+          "date": "30 Jul 2026",
+          "title": "Food processing PLI results published",
+          "detail": "Investment of ₹9,207 crore against a ₹7,722 crore commitment; ₹3,271.44 crore incentives paid up to June 2026 (PIB)."
+        },
+        {
+          "date": "27 Sep 2026",
+          "title": "Q2 channel data reported",
+          "detail": "Traditional trade volume -6%, modern trade +17.5%, e-commerce value +57.7% (NielsenIQ, via RetailIntel)."
+        },
+        {
+          "date": "FY 2026-27",
+          "title": "Food processing PLI scheme period ends",
+          "detail": "The approved outlay runs from FY2021-22 to FY2026-27; what follows has not been announced in sources opened.",
+          "future": true
+        }
+      ],
+      "charts": [
+        {
+          "id": "niqvol",
+          "kind": "bars",
+          "title": "Volume change by channel (size of move)",
+          "subtitle": "Q2 2026, % change in volume. ▲ means up, ▼ means down",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Modern trade ▲",
+              "value": 17.5
+            },
+            {
+              "label": "Urban ▲",
+              "value": 0.1
+            },
+            {
+              "label": "Overall market ▼",
+              "value": 2
+            },
+            {
+              "label": "Rural ▼",
+              "value": 5
+            },
+            {
+              "label": "Traditional trade ▼",
+              "value": 6
+            }
+          ],
+          "sourceName": "NielsenIQ Q2 2026 figures, reported by RetailIntel",
+          "sourceUrl": "https://retailintel.in/signal/india-fmcg-volumes-slip-2-as-kiranas-contract-and-online-cha-9df4e451",
+          "sourceDate": "2026-09-27"
+        },
+        {
+          "id": "fast",
+          "kind": "bars",
+          "title": "Fastest-growing channels",
+          "subtitle": "Q2 2026, % growth",
+          "unit": "%",
+          "items": [
+            {
+              "label": "E-commerce value",
+              "value": 57.7
+            },
+            {
+              "label": "Quick commerce",
+              "value": 40,
+              "note": "market expansion"
+            },
+            {
+              "label": "E-commerce volume",
+              "value": 34.8
+            },
+            {
+              "label": "Dark-store footprint",
+              "value": 48
+            }
+          ],
+          "sourceName": "NielsenIQ Q2 2026 figures, reported by RetailIntel",
+          "sourceUrl": "https://retailintel.in/signal/india-fmcg-volumes-slip-2-as-kiranas-contract-and-online-cha-9df4e451",
+          "sourceDate": "2026-09-27"
+        },
+        {
+          "id": "hulq",
+          "kind": "bars",
+          "title": "HUL, March quarter 2026",
+          "subtitle": "Year-on-year growth, %",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Revenue",
+              "value": 8
+            },
+            {
+              "label": "Underlying sales growth",
+              "value": 7
+            },
+            {
+              "label": "Underlying volume growth",
+              "value": 6
+            },
+            {
+              "label": "EBITDA",
+              "value": 6
+            },
+            {
+              "label": "Profit before exceptional items",
+              "value": 4
+            }
+          ],
+          "sourceName": "Hindustan Unilever results release",
+          "sourceUrl": "https://www.hul.co.in/news/press-releases/2026/march-quarter-and-financial-year-2026-results/",
+          "sourceDate": "2026-04-30"
+        },
+        {
+          "id": "itc",
+          "kind": "columns",
+          "title": "ITC FMCG revenue",
+          "subtitle": "₹ crore, FY21 against FY26 (10.5% a year over five years)",
+          "unit": "₹ crore",
+          "items": [
+            {
+              "label": "FY21",
+              "value": 14730
+            },
+            {
+              "label": "FY26",
+              "value": 24210
+            }
+          ],
+          "sourceName": "ITC FY26 FMCG results, reported by Outlook Business",
+          "sourceUrl": "https://www.outlookbusiness.com/corporate/itcs-fmcg-revenue-rises-to-24210-cr-in-fy26-foods-business-crosses-20000-cr",
+          "sourceDate": "2026-07-20"
+        },
+        {
+          "id": "plisales",
+          "kind": "columns",
+          "title": "Sales of PLI-supported food products",
+          "subtitle": "₹ crore",
+          "unit": "₹ crore",
+          "items": [
+            {
+              "label": "FY2019-20",
+              "value": 58758
+            },
+            {
+              "label": "FY2025-26",
+              "value": 108854
+            }
+          ],
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        },
+        {
+          "id": "plitarget",
+          "kind": "progress",
+          "title": "Food processing PLI against targets",
+          "subtitle": "Delivered against the target or commitment",
+          "unit": "",
+          "items": [
+            {
+              "label": "Investment (₹ crore, against commitment)",
+              "value": 9207,
+              "target": 7722
+            },
+            {
+              "label": "Jobs (lakh, against target)",
+              "value": 3.35,
+              "target": 2.5
+            },
+            {
+              "label": "Incentives paid (₹ crore, against outlay)",
+              "value": 3271.44,
+              "target": 10900
+            }
+          ],
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        },
+        {
+          "id": "gstnew",
+          "kind": "bars",
+          "title": "GST on everyday goods after the reform",
+          "subtitle": "New rate, %. Earlier rates in the note",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Hair oil, soap, shampoo, toothpaste",
+              "value": 5,
+              "note": "from 18% or 12%"
+            },
+            {
+              "label": "Butter, ghee, noodles, chocolates",
+              "value": 5,
+              "note": "from 12% or 18%"
+            },
+            {
+              "label": "UHT milk, paneer (packaged), rotis",
+              "value": 0,
+              "note": "from 5%"
+            }
+          ],
+          "sourceName": "Ministry of Finance, on PIB (56th GST Council)",
+          "sourceUrl": "https://gstcouncil.gov.in/sites/default/files/2025-09/press_release_press_information_bureau_0.pdf",
+          "sourceDate": "2025-09-03"
+        },
+        {
+          "id": "taxband",
+          "kind": "bars",
+          "title": "Income tax rate by income band",
+          "subtitle": "New regime from Budget 2025-26, % rate",
+          "unit": "%",
+          "items": [
+            {
+              "label": "₹4-8 lakh",
+              "value": 5
+            },
+            {
+              "label": "₹8-12 lakh",
+              "value": 10
+            },
+            {
+              "label": "₹12-16 lakh",
+              "value": 15
+            },
+            {
+              "label": "₹16-20 lakh",
+              "value": 20
+            },
+            {
+              "label": "₹20-24 lakh",
+              "value": 25
+            },
+            {
+              "label": "Above ₹24 lakh",
+              "value": 30
+            }
+          ],
+          "sourceName": "Ministry of Finance, on PIB (Budget 2025-26)",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2098406&reg=48&lang=2",
+          "sourceDate": "2025-02-01"
+        }
+      ],
+      "marketSize": [
+        {
+          "label": "HUL turnover in the March quarter",
+          "value": "₹16,207 crore (revenue +8%)",
+          "period": "Jan-Mar 2026",
+          "sourceName": "Hindustan Unilever results release",
+          "sourceUrl": "https://www.hul.co.in/news/press-releases/2026/march-quarter-and-financial-year-2026-results/",
+          "sourceDate": "2026-04-30"
+        },
+        {
+          "label": "ITC FMCG revenue",
+          "value": "₹24,210 crore; foods above ₹20,000 crore",
+          "period": "FY2025-26",
+          "sourceName": "ITC FY26 FMCG results, reported by Outlook Business",
+          "sourceUrl": "https://www.outlookbusiness.com/corporate/itcs-fmcg-revenue-rises-to-24210-cr-in-fy26-foods-business-crosses-20000-cr",
+          "sourceDate": "2026-07-20"
+        },
+        {
+          "label": "ITC retail outlets reached",
+          "value": "nearly 7 million outlets; about 280 million households",
+          "period": "FY2025-26",
+          "sourceName": "ITC FY26 FMCG results, reported by Outlook Business",
+          "sourceUrl": "https://www.outlookbusiness.com/corporate/itcs-fmcg-revenue-rises-to-24210-cr-in-fy26-foods-business-crosses-20000-cr",
+          "sourceDate": "2026-07-20"
+        },
+        {
+          "label": "Sales of food products supported by the PLI scheme",
+          "value": "₹1,08,854 crore, up from ₹58,758 crore",
+          "period": "FY2025-26 against FY2019-20",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        },
+        {
+          "label": "Food processing PLI approved outlay",
+          "value": "₹10,900 crore; 163 applications from 127 companies",
+          "period": "FY2021-22 to FY2026-27",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        }
+      ],
+      "growth": [
+        {
+          "label": "FMCG volume growth",
+          "value": "down 2%; value up 0.8%; price up 2.8%",
+          "period": "Apr-Jun 2026",
+          "sourceName": "NielsenIQ Q2 2026 figures, reported by RetailIntel",
+          "sourceUrl": "https://retailintel.in/signal/india-fmcg-volumes-slip-2-as-kiranas-contract-and-online-cha-9df4e451",
+          "sourceDate": "2026-09-27"
+        },
+        {
+          "label": "HUL underlying volume growth",
+          "value": "6% (underlying sales 7%), highest in 12 quarters",
+          "period": "Jan-Mar 2026",
+          "sourceName": "Hindustan Unilever results release",
+          "sourceUrl": "https://www.hul.co.in/news/press-releases/2026/march-quarter-and-financial-year-2026-results/",
+          "sourceDate": "2026-04-30"
+        },
+        {
+          "label": "E-commerce growth in FMCG",
+          "value": "value +57.7%, volume +34.8%",
+          "period": "Apr-Jun 2026",
+          "sourceName": "NielsenIQ Q2 2026 figures, reported by RetailIntel",
+          "sourceUrl": "https://retailintel.in/signal/india-fmcg-volumes-slip-2-as-kiranas-contract-and-online-cha-9df4e451",
+          "sourceDate": "2026-09-27"
+        },
+        {
+          "label": "ITC quick commerce sales",
+          "value": "up 57%",
+          "period": "FY2025-26",
+          "sourceName": "ITC FY26 FMCG results, reported by Outlook Business",
+          "sourceUrl": "https://www.outlookbusiness.com/corporate/itcs-fmcg-revenue-rises-to-24210-cr-in-fy26-foods-business-crosses-20000-cr",
+          "sourceDate": "2026-07-20"
+        }
+      ],
+      "gdpJobs": [
+        {
+          "label": "Jobs created under the food processing PLI",
+          "value": "about 3.35 lakh direct and indirect, against a target of 2.50 lakh",
+          "period": "to June 2026",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        },
+        {
+          "label": "Food processing capacity created under PLI",
+          "value": "34 lakh metric tons a year",
+          "period": "to June 2026",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        },
+        {
+          "label": "Jobs from the (discontinued) Mega Food Park scheme",
+          "value": "1,02,440 direct and indirect expected from 41 approved parks",
+          "period": "scheme closed 1 Apr 2021",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        }
+      ],
+      "exportsFdi": [
+        {
+          "label": "FDI in single-brand retail",
+          "value": "100% allowed under the automatic route",
+          "period": "policy in force, as stated 2019",
+          "sourceName": "Ministry of Commerce and Industry, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/newsite/PrintRelease.aspx?relid=192173&reg=3&lang=2",
+          "sourceDate": "2019-07-24"
+        },
+        {
+          "label": "Local sourcing rule",
+          "value": "30% of purchases from India if foreign investment is above 51%",
+          "period": "as stated 2019",
+          "sourceName": "Ministry of Commerce and Industry, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/newsite/PrintRelease.aspx?relid=192173&reg=3&lang=2",
+          "sourceDate": "2019-07-24"
+        },
+        {
+          "label": "FDI received by single-brand retail",
+          "value": "USD 1,636.24 million",
+          "period": "April 2006 to April 2019",
+          "sourceName": "Ministry of Commerce and Industry, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/newsite/PrintRelease.aspx?relid=192173&reg=3&lang=2",
+          "sourceDate": "2019-07-24"
+        },
+        {
+          "label": "Support for branding food products abroad",
+          "value": "50% of eligible spend, up to 3% of sales or ₹50 crore a year",
+          "period": "PLI scheme, July 2026",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        }
+      ],
+      "policies": [
+        {
+          "name": "GST rationalisation (next-generation GST)",
+          "what": "Four slabs reduced to 5% and 18%, with 40% on a select few goods. Hair oil, toilet soap, shampoos, toothbrushes and toothpaste fell to 5%; butter, ghee, namkeens, instant noodles and chocolates fell to 5%; UHT milk, paneer and Indian breads went to nil.",
+          "sourceName": "Ministry of Finance, on PIB (56th GST Council)",
+          "sourceUrl": "https://gstcouncil.gov.in/sites/default/files/2025-09/press_release_press_information_bureau_0.pdf",
+          "sourceDate": "2025-09-03"
+        },
+        {
+          "name": "Income tax relief in Budget 2025-26",
+          "what": "No tax up to ₹12 lakh (₹12.75 lakh for salaried) under the new regime; the government said it would boost household consumption.",
+          "sourceName": "Ministry of Finance, on PIB (Budget 2025-26)",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2098406&reg=48&lang=2",
+          "sourceDate": "2025-02-01"
+        },
+        {
+          "name": "PLI scheme for food processing (PLISFPI)",
+          "what": "Pays incentives on incremental sales of processed food. Outlay ₹10,900 crore for FY2021-22 to FY2026-27; ₹3,271.44 crore paid up to June 2026; 212 locations in 22 states.",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        },
+        {
+          "name": "FDI in single-brand retail",
+          "what": "100% foreign investment through the automatic route; above 51% foreign holding, 30% of purchases must come from India.",
+          "sourceName": "Ministry of Commerce and Industry, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/newsite/PrintRelease.aspx?relid=192173&reg=3&lang=2",
+          "sourceDate": "2019-07-24"
+        },
+        {
+          "name": "Mega Food Park scheme (closed)",
+          "what": "Cluster-based storage and processing hubs; discontinued from 1 April 2021 after approving 41 parks, of which 25 are operational.",
+          "sourceName": "Ministry of Food Processing Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
+          "sourceDate": "2026-07-30"
+        }
+      ],
+      "drivers": [
+        "Tax relief for households: no income tax up to ₹12 lakh and cheaper everyday goods under the new GST rates (PIB).",
+        "GST cut to 5% on soap, shampoo, toothpaste, ghee, noodles and more, which lowers shelf prices on staples (GST Council release).",
+        "Premiumisation and market development: HUL says premium soaps, bodywash and liquids grew double digit (HUL, March quarter 2026).",
+        "Fast-growing digital channels: e-commerce value +57.7% and ITC quick commerce sales +57% (NielsenIQ; ITC).",
+        "Modern trade expansion: volume up 17.5% in Q2 2026 (NielsenIQ).",
+        "Government push on processing: PLI sales of ₹1,08,854 crore and jobs above target (PIB)."
+      ],
+      "challenges": [
+        "Weak volumes: market volume fell 2% and 68% of categories lost volume in April-June 2026 (NielsenIQ).",
+        "Rural slowdown: rural volumes down 5% while urban rose only 0.1% (NielsenIQ).",
+        "Corner shops losing volume: traditional trade down 6%, which hurts the biggest distribution network (NielsenIQ).",
+        "Cost volatility: HUL cited commodity and currency volatility from geopolitical tension and 'calibrated pricing actions' (HUL).",
+        "Price-led value growth: value rose 0.8% only because price rose 2.8% while volumes fell (NielsenIQ).",
+        "Mass skin care stayed subdued even as premium grew (HUL, March quarter 2026)."
+      ],
+      "players": {
+        "structure": "A few large listed groups sell through a huge small-shop network. HUL turnover was ₹16,207 crore in one quarter and ITC FMCG was ₹24,210 crore in FY26; ITC alone reaches about 7 million outlets. The names below are well-known FMCG and retail employers, not a ranking by size; only HUL and ITC figures were verified here.",
+        "companies": [
+          "Hindustan Unilever",
+          "ITC",
+          "Nestle India",
+          "Britannia Industries",
+          "Tata Consumer Products",
+          "Dabur India",
+          "Marico",
+          "Godrej Consumer Products",
+          "Colgate-Palmolive India",
+          "Reliance Retail",
+          "Avenue Supermarts (DMart)",
+          "Lenskart"
+        ]
+      },
+      "opsAngle": [
+        "Last-mile reach is the moat: ITC serves about 7 million outlets, so route design, stockist fill rates and delivery frequency decide availability (ITC, FY26).",
+        "Channel-specific supply: modern trade (+17.5% volume), e-commerce and dark stores need different pack sizes, order patterns and replenishment than corner shops (NielsenIQ).",
+        "Volume is falling while price is rising: with volume -2% and price +2.8%, plants run below plan and every cost-saving and pack-mix decision matters (NielsenIQ).",
+        "Cost shocks: HUL points to commodity and currency volatility; hedging, supplier diversification and local sourcing cut risk (HUL).",
+        "Automation in warehousing: ITC runs 12 integrated facilities plus automated centres to optimise inventory (ITC, FY26).",
+        "Demand sensing matters most after the GST cut: price changes shift demand quickly, so forecast and inventory policy must adjust within weeks (GST Council release).",
+        "Premium and fast-moving mixes behave differently: premium lines are low-volume and high-margin, so SKU rationalisation and shelf-space trade-offs matter (HUL)."
+      ],
+      "interviewNumbers": [
+        {
+          "label": "FMCG market volume change",
+          "value": "down 2%",
+          "period": "Apr-Jun 2026"
+        },
+        {
+          "label": "FMCG market value change",
+          "value": "up 0.8% (price +2.8%)",
+          "period": "Apr-Jun 2026"
+        },
+        {
+          "label": "Traditional trade volume",
+          "value": "down 6%",
+          "period": "Apr-Jun 2026"
+        },
+        {
+          "label": "Modern trade volume",
+          "value": "up 17.5%",
+          "period": "Apr-Jun 2026"
+        },
+        {
+          "label": "E-commerce value growth",
+          "value": "+57.7%",
+          "period": "Apr-Jun 2026"
+        },
+        {
+          "label": "HUL underlying volume growth",
+          "value": "6%",
+          "period": "Jan-Mar 2026"
+        },
+        {
+          "label": "ITC FMCG revenue",
+          "value": "₹24,210 crore",
+          "period": "FY2025-26"
+        },
+        {
+          "label": "ITC outlets reached",
+          "value": "about 7 million",
+          "period": "FY2025-26"
+        },
+        {
+          "label": "GST on soap, shampoo, toothpaste",
+          "value": "5% (from 18% or 12%)",
+          "period": "from the 2025 reform"
+        },
+        {
+          "label": "Food processing PLI sales",
+          "value": "₹1,08,854 crore",
+          "period": "FY2025-26"
+        }
+      ],
+      "gdQuestions": [
+        "Kirana stores are losing volume while quick commerce booms: should FMCG companies back the corner shop or the dark store?",
+        "Volumes fell 2% while prices rose 2.8%: is FMCG growth healthy or just inflation?",
+        "Did the GST cut on everyday goods help consumers or companies more?",
+        "Rural volumes are down 5%: is rural India still the growth engine for FMCG?",
+        "Should FMCG firms launch smaller, cheaper packs or push premium products?",
+        "Is a 100% FDI-open single-brand retail policy enough, or should multi-brand retail also open up?",
+        "How should an FMCG supply chain differ for quick commerce and general trade?",
+        "Does the food processing PLI scheme create real manufacturing champions or just subsidised sales?",
+        "Will large companies' own quick-commerce and direct-to-consumer channels hurt their distributors?",
+        "How should FMCG companies protect margins against commodity and currency volatility without hurting volume?"
+      ],
+      "conflicts": [
+        "NielsenIQ numbers were read in a RetailIntel summary dated 27 Sep 2026, not in NielsenIQ's own report, so treat them as reported figures.",
+        "Search snippets on the kirana share of sales (81% to 79%, December 2024) and the 'about 13 million' kirana count came from secondary sources and are not used as facts here."
+      ],
+      "notFound": [
+        "Total size of the Indian FMCG market in ₹ crore from an official source: not found in pages opened.",
+        "Retail sector size, organised retail share and retail employment from an official source: not found.",
+        "FDI in multi-brand retail (reported as 51% with government approval): seen only in law-firm and educational pages, not on an official page opened.",
+        "Effective date of the GST changes (reported as 22 Sep 2025): the PIB text read does not state it; confirmed only in secondary pages.",
+        "Nestle India, Britannia and Tata Consumer FY26 results: company pages not opened.",
+        "HUL and DPIIT retail FDI inflow for recent years: not found (DPIIT PDF could not be read).",
+        "Edible-oil import duty change and Q1 FY27 price-hike commentary: pages blocked, not verified."
+      ]
     },
     {
       "id": "ecom",
