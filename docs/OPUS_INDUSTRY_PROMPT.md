@@ -31,6 +31,10 @@ KEEP IT SHORT. A student reads this on a phone in two minutes. The whole recap s
 9. challenges: exactly 3, one short line each.
 10. opsAngle: exactly 3 bullets, one sentence each, from an operations and supply chain seat.
 Also: interviewNumbers (exactly 5 numbers a student should quote, each with its period) and gdQuestions (exactly 3).
+STUDY-PAGE ELEMENTS (new), so students remember the industry:
+ - bigIdea: ONE memorable sentence (at most 30 words) that captures the industry's story, using only facts you verified. It should contain a tension, for example "growing fast, but ...".
+ - flow: exactly 4 steps showing how the industry works from start to end (for example parts makers, vehicle makers, sold at home, sold abroad). Each step has a short label, ONE verified number ("stat") and a short note saying what the number is and its period.
+ - timeline: 5 to 7 dated events (oldest first) that matter: launches of schemes, key reports, record years, and upcoming deadlines. Use only dates you verified. Mark an upcoming deadline with "future": true. Each has a short date like "Sep 2024", a title, and one line of detail.
 CHARTS (new): also give 4 to 6 "charts" built ONLY from numbers you verified above, so the app can draw infographics. Choose the kind that fits:
  - "bars": compare 2 to 6 categories at one point in time (for example sales by segment, exports versus imports);
  - "columns": a short series of 3 to 6 periods (for example growth by year);
@@ -45,6 +49,9 @@ Output ONE JSON object per industry, each in its own fenced json code block, pre
   "id": "fmcg",
   "name": "FMCG and retail",
   "asOf": "YYYY-MM-DD (date you researched it)",
+  "bigIdea": "one memorable sentence",
+  "flow": [ { "label": "Parts makers", "stat": "₹7.60 lakh crore", "note": "component industry turnover, FY26" } ],
+  "timeline": [ { "date": "Sep 2024", "title": "...", "detail": "...", "future": false } ],
   "overview": "...",
   "charts": [
     { "id": "sales", "kind": "bars", "title": "...", "subtitle": "FY2025-26, in lakh units", "unit": "lakh",

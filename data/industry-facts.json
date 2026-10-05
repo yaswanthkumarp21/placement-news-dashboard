@@ -432,6 +432,67 @@
           "sourceUrl": "https://ddnews.gov.in/en/pm-e-drive-accelerates-indias-electric-mobility-push-with-26-59-lakh-ev-sales-%E2%82%B911900-crore-outlay/",
           "sourceDate": "2026-10-01"
         }
+      ],
+      "bigIdea": "India's auto industry is at record scale and exporting more than ever, but it still buys more parts than it sells abroad, and the government's incentive money is moving slowly.",
+      "flow": [
+        {
+          "label": "Parts makers",
+          "stat": "₹7.60 lakh crore",
+          "note": "component industry turnover, FY26 (+12.7%)"
+        },
+        {
+          "label": "Vehicle makers",
+          "stat": "₹6.63 lakh crore",
+          "note": "bought from parts makers, FY26 (+16.3%)"
+        },
+        {
+          "label": "Sold in India",
+          "stat": "about 2.83 crore",
+          "note": "vehicles in FY26, all four types"
+        },
+        {
+          "label": "Sold abroad",
+          "stat": "about 66 lakh",
+          "note": "vehicles exported in FY26 (sum of four types)"
+        }
+      ],
+      "timeline": [
+        {
+          "date": "Sep 2024",
+          "title": "PM E-DRIVE launched",
+          "detail": "Electric vehicle incentives start from October 2024."
+        },
+        {
+          "date": "Apr 2025",
+          "title": "NITI Aayog sets the Vision 2030",
+          "detail": "Goals: US$145 billion production, US$60 billion exports."
+        },
+        {
+          "date": "Dec 2025",
+          "title": "PLI progress check",
+          "detail": "₹1,350.83 crore paid to 5 of 82 approved applicants (as on 30 Nov 2025)."
+        },
+        {
+          "date": "Apr 2026",
+          "title": "Record sales year confirmed",
+          "detail": "SIAM: every vehicle type sold its highest ever in FY2025-26."
+        },
+        {
+          "date": "Jul 2026",
+          "title": "Component industry hits ₹7.60 lakh crore",
+          "detail": "ACMA: +12.7%, but imports still exceed exports."
+        },
+        {
+          "date": "Aug 2026",
+          "title": "Manufacturing grew 10.7%",
+          "detail": "Lok Sabha reply: share of GVA still about 14.8%."
+        },
+        {
+          "date": "Mar 2028",
+          "title": "Deadline: PM E-DRIVE and PLI sales target",
+          "detail": "PM E-DRIVE now runs to 31 March 2028; the PLI eligible-sales target runs to March 2028.",
+          "future": true
+        }
       ]
     },
     {

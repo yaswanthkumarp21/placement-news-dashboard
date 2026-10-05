@@ -20,6 +20,9 @@ export type Industry = {
   name: string;
   asOf: string | null;
   overview: string;
+  bigIdea?: string;
+  flow?: { label: string; stat: string; note: string }[];
+  timeline?: { date: string; title: string; detail: string; future?: boolean }[];
   charts?: Chart[];
   marketSize?: Fact[];
   growth?: Fact[];

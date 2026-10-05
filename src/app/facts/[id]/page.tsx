@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChartCard } from "@/components/Charts";
+import { Flashcards } from "@/components/Flashcards";
+import { Glance, JumpBar, SayCards, Timeline, ValueChain, VersusPanel } from "@/components/RecapParts";
 import { hasRecap, loadIndustries, type Fact } from "@/lib/facts";
 
 export const dynamic = "force-dynamic";
@@ -28,14 +30,12 @@ function FactRows({ items }: { items?: Fact[] }) {
   );
 }
 
-function List({ items }: { items?: string[] }) {
-  if (!items?.length) return <p className="pn-sub">Not available yet.</p>;
+function Sec({ id, icon, title, children }: { id: string; icon: string; title: string; children: React.ReactNode }) {
   return (
-    <ul className="pn-plain">
-      {items.map((x, i) => (
-        <li key={i}>{x}</li>
-      ))}
-    </ul>
+    <section className="pn-sec" id={id}>
+      <h2><span>{icon}</span>{title}</h2>
+      {children}
+    </section>
   );
 }
 
@@ -44,16 +44,66 @@ export default async function Recap({ params }: { params: Promise<{ id: string }
   const ind = loadIndustries().find((i) => i.id === id);
   if (!ind || !hasRecap(ind)) notFound();
 
-  const sections: { n: number; title: string; body: React.ReactNode }[] = [
-    { n: 1, title: "What it is", body: <p className="pn-lead">{ind.overview}</p> },
-    { n: 2, title: "Market size", body: <FactRows items={ind.marketSize} /> },
-    { n: 3, title: "Growth and outlook", body: <FactRows items={ind.growth} /> },
-    { n: 4, title: "Share of the economy and jobs", body: <FactRows items={ind.gdpJobs} /> },
-    { n: 5, title: "Exports and trade", body: <FactRows items={ind.exportsFdi} /> },
-    {
-      n: 6,
-      title: "Government policies",
-      body: (
+  const jump = [
+    { id: "glance", label: "Big idea" },
+    ...(ind.flow?.length ? [{ id: "how", label: "How it works" }] : []),
+    ...(ind.charts?.length ? [{ id: "charts", label: "Charts" }] : []),
+    ...(ind.timeline?.length ? [{ id: "timeline", label: "Timeline" }] : []),
+    { id: "numbers", label: "Numbers" },
+    { id: "policies", label: "Policies" },
+    { id: "versus", label: "Drivers vs risks" },
+    { id: "players", label: "Players" },
+    { id: "ops", label: "Ops angle" },
+    { id: "quiz", label: "Test yourself" },
+  ];
+
+  const cards = (ind.interviewNumbers ?? []).map((n) => ({ q: n.label, sub: n.period, a: n.value }));
+
+  return (
+    <main className="pn-main">
+      <p><Link className="pn-sub" href="/facts">← All industries</Link></p>
+      <h1 className="pn-page-h">{ind.name}</h1>
+      <p className="pn-note">A study page you can finish in five minutes · researched {ind.asOf} · official sources only</p>
+
+      <JumpBar items={jump} />
+      <Glance ind={ind} />
+
+      <Sec id="what" icon="🧭" title="What it is">
+        <p className="pn-lead">{ind.overview}</p>
+      </Sec>
+
+      {ind.flow?.length ? (
+        <Sec id="how" icon="⚙️" title="How it works, in four steps">
+          <ValueChain steps={ind.flow} />
+        </Sec>
+      ) : null}
+
+      {ind.charts?.length ? (
+        <Sec id="charts" icon="📊" title="The industry in charts">
+          <div className="pn-charts">
+            {ind.charts.map((c) => <ChartCard key={c.id} c={c} />)}
+          </div>
+        </Sec>
+      ) : null}
+
+      {ind.timeline?.length ? (
+        <Sec id="timeline" icon="🗓️" title="Timeline: what happened and what is coming">
+          <Timeline items={ind.timeline} />
+        </Sec>
+      ) : null}
+
+      <Sec id="numbers" icon="🔢" title="Key numbers">
+        <h3 className="pn-mini-h">Market size</h3>
+        <FactRows items={ind.marketSize} />
+        <h3 className="pn-mini-h">Growth and outlook</h3>
+        <FactRows items={ind.growth} />
+        <h3 className="pn-mini-h">Share of the economy and jobs</h3>
+        <FactRows items={ind.gdpJobs} />
+        <h3 className="pn-mini-h">Exports and trade</h3>
+        <FactRows items={ind.exportsFdi} />
+      </Sec>
+
+      <Sec id="policies" icon="🏛️" title="Government policies">
         <div className="pn-rows">
           {ind.policies?.map((p, i) => (
             <div className="pn-row" key={i}>
@@ -63,66 +113,36 @@ export default async function Recap({ params }: { params: Promise<{ id: string }
             </div>
           ))}
         </div>
-      ),
-    },
-    { n: 7, title: "Growth drivers", body: <List items={ind.drivers} /> },
-    {
-      n: 8,
-      title: "Major players",
-      body: (
-        <>
-          <p className="pn-lead">{ind.players?.structure}</p>
-          <div className="pn-chips" style={{ flexWrap: "wrap", overflow: "visible" }}>
-            {ind.players?.companies.map((c) => <span key={c} className="pn-chip">{c}</span>)}
-          </div>
-        </>
-      ),
-    },
-    { n: 9, title: "Risks and challenges", body: <List items={ind.challenges} /> },
-    { n: 10, title: "The Ops and supply chain angle", body: <List items={ind.opsAngle} /> },
-  ];
+      </Sec>
 
-  return (
-    <main className="pn-main">
-      <p><Link className="pn-sub" href="/facts">← All industries</Link></p>
-      <h1 className="pn-page-h">{ind.name}</h1>
-      <p className="pn-note">Ten-point recap · researched {ind.asOf} · official sources only</p>
+      <Sec id="versus" icon="⚖️" title="What pushes it up, what holds it back">
+        <VersusPanel left={{ title: "Growth drivers", items: ind.drivers ?? [] }} right={{ title: "Risks", items: ind.challenges ?? [] }} />
+      </Sec>
 
-      {ind.charts?.length ? (
-        <section className="pn-sec">
-          <h2><span>◔</span>The industry in charts</h2>
-          <div className="pn-charts">
-            {ind.charts.map((c) => <ChartCard key={c.id} c={c} />)}
-          </div>
-        </section>
-      ) : null}
-
-      {sections.map((s) => (
-        <section className="pn-sec" key={s.n}>
-          <h2><span>{String(s.n).padStart(2, "0")}</span>{s.title}</h2>
-          {s.body}
-        </section>
-      ))}
-
-      <section className="pn-sec feat">
-        <h2><span>★</span>Numbers to quote</h2>
-        <div className="pn-nums">
-          {ind.interviewNumbers?.map((n, i) => (
-            <div key={i}><b>{n.value}</b><small>{n.label}{n.period ? ` · ${n.period}` : ""}</small></div>
-          ))}
+      <Sec id="players" icon="🏭" title="Major players">
+        <p className="pn-lead">{ind.players?.structure}</p>
+        <div className="pn-chips" style={{ flexWrap: "wrap", overflow: "visible" }}>
+          {ind.players?.companies.map((c) => <span key={c} className="pn-chip">{c}</span>)}
         </div>
-      </section>
+      </Sec>
 
-      <section className="pn-sec">
-        <h2><span>?</span>Likely GD questions</h2>
-        <List items={ind.gdQuestions} />
-      </section>
+      <Sec id="ops" icon="🎤" title="Say it in your interview: the Ops angle">
+        <SayCards lines={ind.opsAngle ?? []} />
+      </Sec>
+
+      <Sec id="quiz" icon="🧠" title="Test yourself">
+        <Flashcards cards={cards} />
+        <h3 className="pn-mini-h">Practise these out loud (GD questions)</h3>
+        <ol className="pn-gdq">
+          {ind.gdQuestions?.map((q, i) => <li key={i}>{q}</li>)}
+        </ol>
+      </Sec>
 
       {ind.conflicts?.length || ind.notFound?.length ? (
         <details className="pn-sec pn-caveats">
           <summary>Where sources disagree and what could not be verified</summary>
-          {ind.conflicts?.length ? <><h3>Sources disagree</h3><List items={ind.conflicts} /></> : null}
-          {ind.notFound?.length ? <><h3>Not shown (could not verify)</h3><List items={ind.notFound} /></> : null}
+          {ind.conflicts?.length ? <><h3>Sources disagree</h3><ul className="pn-plain">{ind.conflicts.map((x, i) => <li key={i}>{x}</li>)}</ul></> : null}
+          {ind.notFound?.length ? <><h3>Not shown (could not verify)</h3><ul className="pn-plain">{ind.notFound.map((x, i) => <li key={i}>{x}</li>)}</ul></> : null}
         </details>
       ) : null}
     </main>
