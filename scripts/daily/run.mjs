@@ -173,7 +173,7 @@ async function callModel(model, items) {
       method: "POST",
       headers: { Authorization: `Bearer ${OR_KEY}`, "Content-Type": "application/json", "X-Title": "Placement News daily job" },
       body: JSON.stringify({ model, temperature: 0.2, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: user }] }),
-      signal: AbortSignal.timeout(120000),
+      signal: AbortSignal.timeout(60000),
     });
     if (res.status === 429 || res.status >= 500) {
       const wait = Math.min(90, Number(res.headers.get("retry-after")) || 20 * attempt);
@@ -195,14 +195,17 @@ async function callModel(model, items) {
   throw new Error(`model-failed:${model}`);
 }
 
+const deadModels = new Set(); // a model that timed out or failed is skipped for the rest of this run
 async function enrichBatch(items) {
   for (const model of MODELS) {
+    if (deadModels.has(model) && deadModels.size < MODELS.length) continue;
     try {
       const arr = await callModel(model, items);
       return { model, arr };
     } catch (e) {
       if (String(e.message).startsWith("OpenRouter refused") || e.message === "ai-budget") throw e;
-      log(`  ${model} failed (${e.message}); trying the next model`);
+      deadModels.add(model);
+      log(`  ${model} failed (${e.message}); skipping it for the rest of this run`);
     }
   }
   return null;
