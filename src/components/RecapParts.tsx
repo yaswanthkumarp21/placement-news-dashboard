@@ -85,15 +85,22 @@ export function VersusPanel({ left, right }: { left: { title: string; items: str
 }
 
 /** Interview lines to say out loud, drawn as speech bubbles. */
-export function SayCards({ lines }: { lines: string[] }) {
-  return (
-    <div className="pn-say">
-      {lines.map((l, i) => (
-        <div className="pn-bubble" key={i} style={{ ["--kc" as string]: ACC[i % 3] }}>
-          <small>Say it #{i + 1}</small>
-          <p>“{l}”</p>
-        </div>
-      ))}
+export function SayCards({ lines, show = 4 }: { lines: string[]; show?: number }) {
+  const bubble = (l: string, i: number) => (
+    <div className="pn-bubble" key={i} style={{ ["--kc" as string]: ACC[i % 3] }}>
+      <small>Say it #{i + 1}</small>
+      <p>“{l}”</p>
     </div>
+  );
+  return (
+    <>
+      <div className="pn-say">{lines.slice(0, show).map(bubble)}</div>
+      {lines.length > show ? (
+        <details className="pn-morelist">
+          <summary>Show {lines.length - show} more lines</summary>
+          <div className="pn-say">{lines.slice(show).map((l, i) => bubble(l, i + show))}</div>
+        </details>
+      ) : null}
+    </>
   );
 }

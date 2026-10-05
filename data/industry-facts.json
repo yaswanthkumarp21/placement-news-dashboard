@@ -54,6 +54,30 @@
           "sourceName": "ACMA, as reported by Autocar Professional",
           "sourceUrl": "https://www.autocarpro.in/news/acma-indian-auto-component-industry-grows-127-percent-to-inr-76-lakh-crore-in-fy26-133454",
           "sourceDate": "2026-07-07"
+        },
+        {
+          "label": "Vehicles produced in India (all types, incl. quadricycles)",
+          "value": "about 3.1 crore (31 million) units, up about 9%",
+          "period": "FY2024-25",
+          "sourceName": "Invest India (government)",
+          "sourceUrl": "https://www.investindia.gov.in/sector/automobile",
+          "sourceDate": "2026-06-25"
+        },
+        {
+          "label": "Electric vehicles registered (all types)",
+          "value": "2.45 million (+25% on 1.97 million)",
+          "period": "FY2025-26",
+          "sourceName": "Autocar Professional, from Vahan data",
+          "sourceUrl": "https://www.autocarpro.in/analysis-sales/record-14-million-electric-2ws-sold-in-fy2026-command-57-share-of-india-ev-market-131938",
+          "sourceDate": "2026-04-02"
+        },
+        {
+          "label": "Electric two-wheelers registered",
+          "value": "14,01,663 units (+22%), 57% of all EVs",
+          "period": "FY2025-26",
+          "sourceName": "Autocar Professional, from Vahan data",
+          "sourceUrl": "https://www.autocarpro.in/analysis-sales/record-14-million-electric-2ws-sold-in-fy2026-command-57-share-of-india-ev-market-131938",
+          "sourceDate": "2026-04-02"
         }
       ],
       "growth": [
@@ -88,6 +112,22 @@
           "sourceName": "Lok Sabha reply, as reported by ANI",
           "sourceUrl": "https://www.aninews.in/news/business/manufacturing-gva-grows-107-in-fy26-govt-cites-reforms-to-strengthen-sector20260812173715/",
           "sourceDate": "2026-08-12"
+        },
+        {
+          "label": "Electric two-wheeler share of all two-wheeler sales",
+          "value": "6.54% (6.09% a year earlier)",
+          "period": "FY2025-26",
+          "sourceName": "Autocar Professional, from Vahan data",
+          "sourceUrl": "https://www.autocarpro.in/analysis-sales/record-14-million-electric-2ws-sold-in-fy2026-command-57-share-of-india-ev-market-131938",
+          "sourceDate": "2026-04-02"
+        },
+        {
+          "label": "PLI scheme: incremental sales since the 2019-20 base year",
+          "value": "₹15,230 crore by Dec 2024, then ₹32,879 crore by Sep 2025",
+          "period": "Dec 2024 and Sep 2025",
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2115609&reg=48&lang=2",
+          "sourceDate": "2025-03-27"
         }
       ],
       "gdpJobs": [
@@ -122,6 +162,22 @@
           "sourceName": "NITI Aayog report, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2",
           "sourceDate": "2025-04-15"
+        },
+        {
+          "label": "Jobs supported by the auto industry, directly and indirectly",
+          "value": "over 3.5 crore (35 million)",
+          "period": "as stated September 2025",
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2164587",
+          "sourceDate": "2025-09-08"
+        },
+        {
+          "label": "Foreign direct investment received since 2000",
+          "value": "US$37.85 billion",
+          "period": "April 2000 to March 2025",
+          "sourceName": "Invest India (government)",
+          "sourceUrl": "https://www.investindia.gov.in/sector/automobile",
+          "sourceDate": "2026-06-25"
         }
       ],
       "exportsFdi": [
@@ -148,6 +204,30 @@
           "sourceName": "NITI Aayog report, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2",
           "sourceDate": "2025-04-15"
+        },
+        {
+          "label": "US share of India's auto component exports",
+          "value": "26% (about US$6.24 billion, worked out from 26% of US$24 billion)",
+          "period": "FY2025-26",
+          "sourceName": "ACMA, as reported by KNN India",
+          "sourceUrl": "https://knnindia.co.in/news/newsdetails/sectors/us-accounts-for-26-of-indias-auto-component-exports-in-fy26-acma",
+          "sourceDate": "2026-07-08"
+        },
+        {
+          "label": "US tariffs on those component exports",
+          "value": "nearly half attract a 25% tariff; the rest face 12.5%",
+          "period": "as stated July 2026",
+          "sourceName": "ACMA, as reported by KNN India",
+          "sourceUrl": "https://knnindia.co.in/news/newsdetails/sectors/us-accounts-for-26-of-indias-auto-component-exports-in-fy26-acma",
+          "sourceDate": "2026-07-08"
+        },
+        {
+          "label": "Vehicles exported in the previous year",
+          "value": "more than 5.3 million units, including 7.7 lakh passenger vehicles",
+          "period": "FY2024-25",
+          "sourceName": "Invest India (government)",
+          "sourceUrl": "https://www.investindia.gov.in/sector/automobile",
+          "sourceDate": "2026-06-25"
         }
       ],
       "policies": [
@@ -178,17 +258,48 @@
           "sourceName": "NITI Aayog report, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2121826&reg=48&lang=2",
           "sourceDate": "2025-04-15"
+        },
+        {
+          "name": "GST cut on vehicles (September 2025)",
+          "what": "GST on small cars and bikes up to 350cc fell from 28% to 18%; large cars moved to a flat 40% with no cess; auto parts also got lower rates. The ministry expects cheaper vehicles to lift demand and orders to component makers.",
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2164587",
+          "sourceDate": "2025-09-08"
+        },
+        {
+          "name": "Rare-earth magnet scheme (November 2025)",
+          "what": "₹7,280 crore to build 6,000 tonnes a year of magnet-making capacity: ₹6,450 crore sales incentive over five years plus ₹750 crore capital subsidy, shared by five winners of up to 1,200 tonnes each. India's magnet use is expected to double by 2030 and is met mainly by imports today.",
+          "sourceName": "Union Cabinet decision, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2194684&reg=48&lang=2",
+          "sourceDate": "2025-11-26"
+        },
+        {
+          "name": "PLI Auto: the rules",
+          "what": "Cabinet approved it on 15 September 2021. It covers 19 vehicle categories and 103 components, and applicants must reach 50% domestic value addition to qualify. By Dec 2024 only ₹322 crore had been paid.",
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2115609&reg=48&lang=2",
+          "sourceDate": "2025-03-27"
+        },
+        {
+          "name": "Vehicle scrappage policy (2021)",
+          "what": "A voluntary programme to retire old, unfit vehicles through registered scrapping centres, with fitness tests for commercial vehicles and non-renewal of registration for private ones. Expected to bring about ₹10,000 crore of investment and 35,000 jobs.",
+          "sourceName": "Ministry of Road Transport, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=1705811&reg=48&lang=2",
+          "sourceDate": "2021-03-18"
         }
       ],
       "drivers": [
         "Record domestic demand: all four vehicle segments hit their highest-ever sales in FY2025-26 (SIAM).",
+        "Cheaper vehicles: the September 2025 GST cut took small cars and bikes from 28% to 18% (PIB).",
         "Exports are rising fast: passenger +17.5%, two-wheelers +23.4%, three-wheelers +50.1% (SIAM).",
         "Policy support through PLI and PM E-DRIVE, which together channel crores into manufacturing and EVs.",
-        "EV adoption: 26.59 lakh EVs sold under PM E-DRIVE as of June 2026.",
-        "Localisation: the PLI scheme requires domestic value addition, which pushes more of the EV supply chain to be built in India (PIB)."
+        "EV adoption: 24.5 lakh EVs registered in FY2025-26, up 25%, and electric two-wheelers reached 6.54% of two-wheeler sales (Vahan).",
+        "Localisation: the PLI scheme requires 50% domestic value addition, which pushes more of the supply chain to be built in India (PIB).",
+        "A huge job base and supplier network: over 3.5 crore people depend on the industry, which keeps policy attention high (PIB).",
+        "Replacement demand: the scrappage policy aims to retire old vehicles and bring in newer, cleaner ones (PIB)."
       ],
       "players": {
-        "structure": "A few large vehicle makers buy from a very large component base: component makers supplied ₹6,62,893 crore to vehicle makers in FY2025-26 (ACMA). The names below are approved PLI applicants, not a ranking by size.",
+        "structure": "A few large vehicle makers buy from a very large component base: component makers supplied ₹6,62,893 crore to vehicle makers in FY2025-26 (ACMA). Maruti Suzuki alone held 41.2% of the domestic passenger vehicle market in Q1 FY2026-27 (company results). The names below are approved PLI applicants, not a ranking by size.",
         "companies": [
           "Tata Motors",
           "Mahindra & Mahindra",
@@ -206,15 +317,23 @@
       },
       "challenges": [
         "Component trade gap: imports (US$25.4 billion) exceeded exports (US$24 billion) in FY2025-26 (ACMA).",
-        "India holds only about 3% of globally traded auto components, so most of the global component trade is elsewhere (NITI Aayog).",
-        "PLI progress is slow so far: ₹1,350.83 crore disbursed against a ₹25,938 crore outlay, and ₹32,879 crore of sales against a ₹2,31,500 crore target (PIB).",
+        "India holds only about 3% of globally traded auto components, so most of that trade is elsewhere (NITI Aayog).",
+        "PLI progress is slow so far: ₹1,350.83 crore paid against a ₹25,938 crore outlay, and only two of ACMA's nearly 1,100 members have received PLI benefits (PIB, ACMA).",
         "Manufacturing's share of GVA is flat at 14.8% (14.7% in 2022-23) despite 10.7% growth (Lok Sabha reply).",
+        "US tariffs: the US takes 26% of component exports and nearly half of those face a 25% tariff, with US probes into labour practices and overcapacity still open (ACMA).",
+        "Magnet dependence: India's demand for rare-earth magnets is met mainly by imports, and the new scheme will take about 7 years to deliver (PIB).",
+        "The EV push is behind plan: 26.59 lakh EVs sold under PM E-DRIVE against a target of about 28.30 lakh (DD News).",
         "ACMA lists geopolitical developments, supply chain disruptions and raw material volatility as risks to watch."
       ],
       "opsAngle": [
         "Component supply moves with vehicle output: OEM supplies rose 16.3% to ₹6,62,893 crore, so capacity, inventory and delivery frequency at suppliers have to scale with record vehicle volumes.",
-        "Sourcing and localisation: imports exceed exports in components, and the PLI's domestic value addition rule pushes makers to localise parts. Expect questions on make-versus-buy and supplier development.",
-        "Export-readiness: vehicle exports are growing fast, yet India's share of traded components is about 3%, so quality, cost and delivery performance are what decide whether more of that trade can be won."
+        "Sourcing and localisation: imports exceed exports in components, and the PLI's 50% domestic value addition rule pushes makers to localise parts. Expect questions on make-versus-buy and supplier development.",
+        "Export-readiness: vehicle exports are growing fast, yet India's share of traded components is about 3%, so quality, cost and delivery performance decide whether more of that trade can be won.",
+        "Single-source risk: rare-earth magnets come mainly from imports, so a good answer mentions dual sourcing, safety stock and the ₹7,280 crore plan to build 6,000 tonnes of local capacity.",
+        "Customer concentration: with 26% of component exports going to the US and about half of that facing a 25% tariff, suppliers need pricing clauses, cost pass-through and a plan to win other markets.",
+        "Demand shocks: a GST cut from 28% to 18% changes vehicle prices overnight, so planners must flex production schedules, dealer stock and supplier call-offs quickly.",
+        "Product mix is shifting: with electric two-wheelers at 6.54% of sales and growing, plants need flexible lines and suppliers need new skills in batteries and motors.",
+        "End-of-life flows: the scrappage policy creates reverse logistics and recycled raw materials, which is a growing supply chain topic worth a sentence in a GD."
       ],
       "interviewNumbers": [
         {
@@ -241,23 +360,58 @@
           "label": "EVs sold under PM E-DRIVE",
           "value": "26.59 lakh (target about 28.30 lakh)",
           "period": "as of June 2026"
+        },
+        {
+          "label": "Jobs supported by the auto industry",
+          "value": "over 3.5 crore",
+          "period": "as stated September 2025"
+        },
+        {
+          "label": "Foreign direct investment since 2000",
+          "value": "US$37.85 billion",
+          "period": "April 2000 to March 2025"
+        },
+        {
+          "label": "US share of component exports",
+          "value": "26%",
+          "period": "FY2025-26"
+        },
+        {
+          "label": "GST on small cars and bikes",
+          "value": "18% (down from 28%)",
+          "period": "September 2025"
+        },
+        {
+          "label": "Rare-earth magnet scheme",
+          "value": "₹7,280 crore for 6,000 tonnes a year",
+          "period": "approved November 2025"
         }
       ],
       "gdQuestions": [
         "India's component imports are higher than exports: is localisation the answer, and what would it cost?",
         "Record vehicle sales but a flat manufacturing share of GVA: is auto really lifting Indian manufacturing?",
-        "Should the government keep paying PLI incentives when disbursement is this slow?"
+        "Should the government keep paying PLI incentives when disbursement is this slow?",
+        "Was the 2025 GST cut the main reason sales hit a record, and what happens to demand when that boost fades?",
+        "India's magnet supply depends mainly on imports: should it spend ₹7,280 crore to build capacity, or secure long-term supply deals instead?",
+        "About half of component exports to the US face a 25% tariff: should suppliers diversify markets or negotiate with the US?",
+        "Only two of ACMA's nearly 1,100 members have received PLI benefits: is the scheme built for big players only?",
+        "Electric two-wheelers are 6.5% of sales, but PM E-DRIVE is below its target: is India's EV push a success or a miss?",
+        "The industry supports over 3.5 crore jobs: how should plants balance automation with employment?",
+        "Should vehicle makers make batteries and motors themselves, or buy them from specialists?"
       ],
       "conflicts": [
         "NITI Aayog summary on PIB: one line says the auto sector gives 7.1% of 'global GDP', while the body says 7.1% of 'India's GDP'. The recap uses the body wording; treat the 7.1% as needing care before quoting.",
         "PM E-DRIVE outlay: the government factsheet reported by DD News (1 Oct 2026) says ₹11,900 crore; earlier reports and the launch coverage said ₹10,900 crore. Shown as ₹11,900 crore with this note.",
-        "Logistics cost as a share of GDP: a KPMG blog (Jan 2026) quotes recent government assessments of about 8%; another report (Business Standard, not opened) puts it near 10 to 10.7%; older figures were 13 to 14%. No single figure is shown."
+        "Logistics cost as a share of GDP: a KPMG blog (Jan 2026) quotes recent government assessments of about 8%; another report (Business Standard, not opened) puts it near 10 to 10.7%; older figures were 13 to 14%. No single figure is shown.",
+        "Electric vehicle registrations in FY2025-26: Autocar Professional (Vahan data, 2 Apr 2026) gives 2.45 million; other reports gave 2.55 million and 2.66 million, probably counted differently or at other dates. The recap uses 2.45 million.",
+        "Foreign investment: Invest India gives US$37.85 billion for April 2000 to March 2025. A search result showed about US$40.3 billion to March 2026, but the DPIIT file could not be opened to confirm it, so it is not shown.",
+        "US share of component exports: ACMA's statement gives 26%; one search result said 27%. The recap uses 26%."
       ],
       "notFound": [
-        "Cumulative FDI into the automobile industry: a figure appeared in a search result, but the DPIIT factsheet could not be opened to confirm it, so it is not shown.",
-        "Total employment in the auto industry: a '30 million jobs' figure appeared only in a search snippet, so it is not shown.",
         "ACMA's FY2027 growth outlook: seen only in a headline, not in an opened page.",
-        "India's total vehicle production in FY2025-26: the SIAM page was read, but the production line could not be confirmed, so only sales are shown."
+        "India's total vehicle production in FY2025-26: the SIAM page was read, but the production line could not be confirmed, so only FY2024-25 production (Invest India) is shown.",
+        "How many vehicles have been scrapped under the scrappage policy so far: no current official figure was found.",
+        "Company-wise passenger vehicle market shares for the full year: only low-quality sources were found, so only Maruti Suzuki's own reported Q1 FY2026-27 share is shown."
       ],
       "charts": [
         {
@@ -431,6 +585,117 @@
           "sourceName": "Government factsheet, via DD News",
           "sourceUrl": "https://ddnews.gov.in/en/pm-e-drive-accelerates-indias-electric-mobility-push-with-26-59-lakh-ev-sales-%E2%82%B911900-crore-outlay/",
           "sourceDate": "2026-10-01"
+        },
+        {
+          "id": "ev",
+          "kind": "bars",
+          "title": "Electric vehicles are growing faster than the market",
+          "subtitle": "Registrations, millions (Vahan)",
+          "unit": "million",
+          "items": [
+            {
+              "label": "All EVs, FY2024-25",
+              "value": 1.97
+            },
+            {
+              "label": "All EVs, FY2025-26",
+              "value": 2.45,
+              "note": "+25%"
+            },
+            {
+              "label": "E-2Ws, FY2024-25",
+              "value": 1.15
+            },
+            {
+              "label": "E-2Ws, FY2025-26",
+              "value": 1.4,
+              "note": "+22%"
+            }
+          ],
+          "sourceName": "Autocar Professional, from Vahan data",
+          "sourceUrl": "https://www.autocarpro.in/analysis-sales/record-14-million-electric-2ws-sold-in-fy2026-command-57-share-of-india-ev-market-131938",
+          "sourceDate": "2026-04-02"
+        },
+        {
+          "id": "gst",
+          "kind": "bars",
+          "title": "The GST cut on small cars and bikes",
+          "subtitle": "GST rate, %",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Before (small cars, bikes up to 350cc)",
+              "value": 28
+            },
+            {
+              "label": "After, from September 2025",
+              "value": 18,
+              "note": "-10 points"
+            }
+          ],
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2164587",
+          "sourceDate": "2025-09-08"
+        },
+        {
+          "id": "us",
+          "kind": "bars",
+          "title": "Where component exports go",
+          "subtitle": "Share of FY2025-26 exports, % (rest worked out as 100 minus 26)",
+          "unit": "%",
+          "items": [
+            {
+              "label": "United States",
+              "value": 26
+            },
+            {
+              "label": "All other markets",
+              "value": 74
+            }
+          ],
+          "sourceName": "ACMA, as reported by KNN India",
+          "sourceUrl": "https://knnindia.co.in/news/newsdetails/sectors/us-accounts-for-26-of-indias-auto-component-exports-in-fy26-acma",
+          "sourceDate": "2026-07-08"
+        },
+        {
+          "id": "plipaid",
+          "kind": "columns",
+          "title": "PLI incentive paid so far",
+          "subtitle": "₹ crore, cumulative",
+          "unit": "",
+          "items": [
+            {
+              "label": "Dec 2024",
+              "value": 322
+            },
+            {
+              "label": "Nov 2025",
+              "value": 1350.83
+            }
+          ],
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2200845&reg=3&lang=1",
+          "sourceDate": "2025-12-09"
+        },
+        {
+          "id": "plisales",
+          "kind": "columns",
+          "title": "PLI-linked sales so far",
+          "subtitle": "₹ crore, cumulative since the 2019-20 base year",
+          "unit": "",
+          "items": [
+            {
+              "label": "Dec 2024",
+              "value": 15230
+            },
+            {
+              "label": "Sep 2025",
+              "value": 32879
+            }
+          ],
+          "sourceName": "Ministry of Heavy Industries, on PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2200845&reg=3&lang=1",
+          "sourceDate": "2025-12-09"
         }
       ],
       "bigIdea": "India's auto industry is at record scale and exporting more than ever, but it still buys more parts than it sells abroad, and the government's incentive money is moving slowly.",
@@ -458,6 +723,16 @@
       ],
       "timeline": [
         {
+          "date": "Mar 2021",
+          "title": "Vehicle scrappage policy announced",
+          "detail": "Voluntary programme to retire old, unfit vehicles through registered scrapping centres."
+        },
+        {
+          "date": "Sep 2021",
+          "title": "PLI scheme for autos approved",
+          "detail": "₹25,938 crore outlay; 50% domestic value addition required."
+        },
+        {
           "date": "Sep 2024",
           "title": "PM E-DRIVE launched",
           "detail": "Electric vehicle incentives start from October 2024."
@@ -466,6 +741,16 @@
           "date": "Apr 2025",
           "title": "NITI Aayog sets the Vision 2030",
           "detail": "Goals: US$145 billion production, US$60 billion exports."
+        },
+        {
+          "date": "Sep 2025",
+          "title": "GST cut on small cars and bikes",
+          "detail": "From 28% to 18%, with lower rates on auto parts too."
+        },
+        {
+          "date": "Nov 2025",
+          "title": "Rare-earth magnet scheme approved",
+          "detail": "₹7,280 crore for 6,000 tonnes a year of local magnet capacity."
         },
         {
           "date": "Dec 2025",
@@ -480,7 +765,7 @@
         {
           "date": "Jul 2026",
           "title": "Component industry hits ₹7.60 lakh crore",
-          "detail": "ACMA: +12.7%, but imports still exceed exports."
+          "detail": "ACMA: +12.7%, but imports still exceed exports; US probes loom over exports."
         },
         {
           "date": "Aug 2026",

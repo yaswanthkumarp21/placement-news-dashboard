@@ -19,23 +19,23 @@ USE LIVE WEB SEARCH AND OPEN EVERY PAGE YOU CITE. Make sure web search is turned
 6. Services (IT-BPM and professional services including consulting)
 
 === WHAT TO PRODUCE FOR EACH INDUSTRY: A SHORT TEN-POINT RECAP ===
-KEEP IT SHORT. A student reads this on a phone in two minutes. The whole recap should be about 400 words. Respect these caps exactly.
+THIS IS A ONE-TIME, RICHER STUDY PAGE. Give depth, but keep every item short and verified. Respect these limits.
 1. overview: 2 sentences, plain language.
-2. marketSize: at most 2 facts.
-3. growth: at most 2 facts (growth rate or outlook).
-4. gdpJobs: at most 2 facts (share of GDP or jobs).
-5. exportsFdi: at most 2 facts (exports, imports or FDI).
-6. policies: at most 3 schemes or rules, ONE sentence each on what it does, with the year and one headline number.
-7. drivers: exactly 3, one short line each.
+2. marketSize: 4 to 9 facts.
+3. growth: 3 to 6 facts (growth rates, outlook, adoption trends).
+4. gdpJobs: 3 to 6 facts (share of GDP, jobs, investment).
+5. exportsFdi: 3 to 6 facts (exports, imports, FDI, key trading partners, tariffs).
+6. policies: 5 to 8 schemes or rules (include recent tax or tariff changes), one or two sentences each on what it does, with the year and the key numbers.
+7. drivers: 6 to 8, one short line each, each tied to a verified number or event.
 8. players: one sentence on how the industry is structured, and 6 company names.
-9. challenges: exactly 3, one short line each.
-10. opsAngle: exactly 3 bullets, one sentence each, from an operations and supply chain seat.
-Also: interviewNumbers (exactly 5 numbers a student should quote, each with its period) and gdQuestions (exactly 3).
+9. challenges: 6 to 8, one short line each, each tied to a verified number or event.
+10. opsAngle: 6 to 8 lines, one sentence each, from an operations and supply chain seat, written as something a student can say aloud in an interview.
+Also: interviewNumbers (exactly 10 numbers a student should be able to quote, each with its period) and gdQuestions (exactly 10, each a debatable question tied to a verified fact).
 STUDY-PAGE ELEMENTS (new), so students remember the industry:
  - bigIdea: ONE memorable sentence (at most 30 words) that captures the industry's story, using only facts you verified. It should contain a tension, for example "growing fast, but ...".
  - flow: exactly 4 steps showing how the industry works from start to end (for example parts makers, vehicle makers, sold at home, sold abroad). Each step has a short label, ONE verified number ("stat") and a short note saying what the number is and its period.
- - timeline: 5 to 7 dated events (oldest first) that matter: launches of schemes, key reports, record years, and upcoming deadlines. Use only dates you verified. Mark an upcoming deadline with "future": true. Each has a short date like "Sep 2024", a title, and one line of detail.
-CHARTS (new): also give 4 to 6 "charts" built ONLY from numbers you verified above, so the app can draw infographics. Choose the kind that fits:
+ - timeline: 8 to 12 dated events (oldest first) that matter: launches of schemes, key reports, record years, and upcoming deadlines. Use only dates you verified. Mark an upcoming deadline with "future": true. Each has a short date like "Sep 2024", a title, and one line of detail.
+CHARTS (new): also give 8 to 12 "charts" built ONLY from numbers you verified above, so the app can draw infographics. Choose the kind that fits:
  - "bars": compare 2 to 6 categories at one point in time (for example sales by segment, exports versus imports);
  - "columns": a short series of 3 to 6 periods (for example growth by year);
  - "progress": achieved versus target (each item has value and target in the same unit).

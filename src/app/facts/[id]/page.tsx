@@ -7,8 +7,28 @@ import { hasRecap, loadIndustries, type Fact } from "@/lib/facts";
 
 export const dynamic = "force-dynamic";
 
-function FactRows({ items }: { items?: Fact[] }) {
+/** Shows the first few items and tucks the rest behind a "Show N more" button, so long lists stay easy to scan. */
+function More({ n, label = "more", children }: { n: number; label?: string; children: React.ReactNode }) {
+  return (
+    <details className="pn-morelist">
+      <summary>Show {n} {label}</summary>
+      {children}
+    </details>
+  );
+}
+
+function FactRows({ items, show = 4 }: { items?: Fact[]; show?: number }) {
   if (!items?.length) return <p className="pn-sub">Not available yet.</p>;
+  if (items.length > show + 1) {
+    return (
+      <>
+        <FactRows items={items.slice(0, show)} show={show + 1} />
+        <More n={items.length - show}>
+          <FactRows items={items.slice(show)} show={items.length} />
+        </More>
+      </>
+    );
+  }
   return (
     <div className="pn-rows">
       {items.map((f, i) => (
@@ -81,8 +101,15 @@ export default async function Recap({ params }: { params: Promise<{ id: string }
       {ind.charts?.length ? (
         <Sec id="charts" icon="📊" title="The industry in charts">
           <div className="pn-charts">
-            {ind.charts.map((c) => <ChartCard key={c.id} c={c} />)}
+            {ind.charts.slice(0, 6).map((c) => <ChartCard key={c.id} c={c} />)}
           </div>
+          {ind.charts.length > 6 ? (
+            <More n={ind.charts.length - 6} label="more charts">
+              <div className="pn-charts" style={{ marginTop: 14 }}>
+                {ind.charts.slice(6).map((c) => <ChartCard key={c.id} c={c} />)}
+              </div>
+            </More>
+          ) : null}
         </Sec>
       ) : null}
 
@@ -104,15 +131,26 @@ export default async function Recap({ params }: { params: Promise<{ id: string }
       </Sec>
 
       <Sec id="policies" icon="🏛️" title="Government policies">
-        <div className="pn-rows">
-          {ind.policies?.map((p, i) => (
+        {(() => {
+          const row = (p: NonNullable<typeof ind.policies>[number], i: number) => (
             <div className="pn-row" key={i}>
               <div className="pn-row-v">{p.name}</div>
               <div className="pn-row-l">{p.what}</div>
               {p.sourceUrl ? <a className="pn-row-s" href={p.sourceUrl} target="_blank" rel="noreferrer">{p.sourceName ?? "Source"}{p.sourceDate ? `, ${p.sourceDate}` : ""}</a> : null}
             </div>
-          ))}
-        </div>
+          );
+          const all = ind.policies ?? [];
+          return (
+            <>
+              <div className="pn-rows">{all.slice(0, 4).map(row)}</div>
+              {all.length > 4 ? (
+                <More n={all.length - 4} label="more policies">
+                  <div className="pn-rows">{all.slice(4).map(row)}</div>
+                </More>
+              ) : null}
+            </>
+          );
+        })()}
       </Sec>
 
       <Sec id="versus" icon="⚖️" title="What pushes it up, what holds it back">

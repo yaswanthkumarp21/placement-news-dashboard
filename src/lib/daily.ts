@@ -67,7 +67,7 @@ export async function loadDailyTiles(): Promise<Tile[]> {
         sources: [
           { l: r.source_name ?? "Source", u: r.source_url },
           ...(r.also_covered ?? []).map((a) => ({ l: a.name || "Also covered", u: a.url })),
-        ],
+        ].filter((s, i, all) => s.u && all.findIndex((x) => x.u === s.u) === i), // no repeated links
         single: !(r.also_covered ?? []).length,
         score: (r.importance ?? 0) * 10 + Math.max(0, 20 - days * 4),
       } satisfies Tile;

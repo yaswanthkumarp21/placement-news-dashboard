@@ -302,3 +302,10 @@ html { scroll-padding-top: 170px; }
 .pn-fc-face i { margin-top: auto; font-style: normal; font-size: 11px; color: var(--faint); }
 .pn-gdq { margin: 0; padding-left: 22px; color: var(--ink); display: grid; gap: 8px; }
 .pn-gdq li::marker { color: var(--pink); font-weight: 800; }
+
+/* ---------- "show more" for long lists ---------- */
+.pn-morelist { margin-top: 12px; }
+.pn-morelist > summary { cursor: pointer; list-style: none; display: inline-block; font-size: 13px; font-weight: 800; color: var(--yellow); border: 1px solid rgba(255, 214, 10, 0.4); background: rgba(255, 214, 10, 0.08); border-radius: 999px; padding: 7px 16px; }
+.pn-morelist > summary::-webkit-details-marker { display: none; }
+.pn-morelist[open] > summary { color: var(--dim); border-color: var(--line); background: var(--surface); margin-bottom: 12px; }
+.pn-morelist[open] > summary::after { content: " (hide)"; font-weight: 600; }

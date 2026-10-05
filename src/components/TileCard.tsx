@@ -42,7 +42,7 @@ export function TileCard({ t, showTheme = false, rank, feature = false, accent }
         {t.keyNumbers ? <p><b>Key numbers:</b> <MdInline text={t.keyNumbers} /></p> : null}
         <p>
           {t.sources.map((s, i) => (
-            <span key={s.u}>
+            <span key={`${i}-${s.u}`}>
               {i ? " · " : ""}
               <a href={s.u} target="_blank" rel="noreferrer">{s.l}</a>
             </span>
