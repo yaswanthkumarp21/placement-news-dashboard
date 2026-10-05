@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import Script from "next/script";
 import { PnHeader } from "@/components/PnHeader";
 import "./pn.css";
 
@@ -11,12 +12,23 @@ export const metadata: Metadata = {
   description: "News that matters for your MBA interviews and group discussions, with the interview angle on every story.",
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#09090b" };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fffdf6" },
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+  ],
+};
+
+// Runs before the page paints: use the saved choice, otherwise follow the device (light or dark).
+const themeInit = `(function(){try{var t=localStorage.getItem("pn-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
       <body>
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInit }} />
         <PnHeader />
         {children}
       </body>
