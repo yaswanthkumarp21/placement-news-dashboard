@@ -77,8 +77,10 @@ const EXTRA_TOKENS = {
   "tata-consumer-products": ["tata consumer"],
   "godrej-boyce": ["godrej"],
   "maruti-suzuki": ["maruti"],
-  "wipro-consumer-care": ["wipro consumer", "wipro"],
+  "wipro-consumer-care": ["wipro consumer", "wipro enterprises"],
 };
+// Hindi, Bengali, Tamil, Telugu headlines are skipped: the app and the AI step are English-only.
+const isEnglish = (h) => !/[ऀ-෿]/.test(h);
 const STOP = new Set(["group", "india", "limited", "ltd", "company", "industries", "products", "the"]);
 /** True when the headline itself names the company (or a known brand of it). Cuts search noise before any AI is used. */
 function namesCompany(c, headline) {
@@ -153,12 +155,17 @@ async function sbUpsert(rows) {
 const TYPES = ["results", "deal", "leadership", "expansion", "layoffs", "hiring", "regulation", "product", "restructuring", "risk", "other"];
 const FUNCS = ["operations", "supply-chain", "logistics", "distribution", "sales-ops"];
 const SYSTEM = `You help MBA students (Operations and Supply Chain track) prepare for interviews and group discussions in India.
-You get a numbered list of news HEADLINES, each tagged with a company. You only see the headline, so never state a fact, number or name that is not in the headline.
+You get a numbered list of news HEADLINES, each tagged with a company. You only see the headline, so never state a number, name, date or fact that is not in the headline. You may use well-known general business knowledge about how companies and industries work, but never invent specifics.
 For each item return an object:
   id: the number given
-  relevant: true only if the story is genuinely about that company's business, operations, supply chain, plants, distribution, finances, leadership or strategy; false for unrelated mentions, stock-tip spam, listings or other companies
-  recap: one plain sentence restating what the headline says (empty string if not relevant)
-  bullets: exactly 3 short strings, each an interview or GD angle for an operations and supply chain student (what to ask, what trade-off to discuss, what concept it illustrates). They are angles to think about, NOT new facts. (empty list if not relevant)
+  relevant: true only if the story is about that company's own business: operations, supply chain, plants, capacity, distribution, deals, results, leadership, restructuring, regulation or strategy. false for share-price or stock-tip stories, "stock costs" or "stock surges" articles, discount-sale promotions, earnings-call transcript listings, stories mainly about another company, and anything not in English
+  story: 2 to 5 lowercase words naming the underlying EVENT, identical for items that report the same event (for example "schneider ptc acquisition")
+  recap: one plain sentence saying what happened, using only what the headline says (empty string if not relevant). Keep hedges such as "nears", "reportedly" or "plans"
+  bullets: exactly 3 pointers a student can SAY in an interview or group discussion. Each is one complete STATEMENT (never a question), at most 30 words, in plain confident language:
+    1. what the news signals about the company's strategy or operations (an inference);
+    2. a ready-to-say link to an operations or supply chain concept (capacity planning, make-versus-buy, inventory, network design, localisation, working capital, lead time and so on);
+    3. a balanced counterpoint: the main risk or trade-off to mention.
+    Use hedges like "likely", "suggests" or "could" for anything beyond the headline. Never start a bullet with Ask, How, What or Why. (empty list if not relevant)
   type: one of ${TYPES.join(", ")}
   functions: list from ${FUNCS.join(", ")}
   importance: integer 1 to 10 for how useful this is for an Ops interview or GD (0 if not relevant)
@@ -215,6 +222,7 @@ function applyResult(it, r) {
   const bullets = Array.isArray(r?.bullets) ? r.bullets.map((b) => String(b).trim()).filter(Boolean).slice(0, 3) : [];
   const relevant = r?.relevant === true && bullets.length > 0;
   it.status = "done";
+  it.story = norm(String(r?.story || ""));
   it.recap = relevant ? String(r.recap || "").trim() : "";
   it.bullets = relevant ? bullets : [];
   it.type = TYPES.includes(r?.type) ? r.type : "other";
@@ -233,13 +241,37 @@ async function main() {
   let companies = loadCompanies();
   if (LIMIT) companies = companies.slice(0, LIMIT);
 
+  // REPROCESS=1: rewrite the stories already stored (last 4 days) with the current prompt, no new fetching
+  if (process.env.REPROCESS === "1") {
+    const all = new Map(loadCompanies().map((c) => [c.id, c]));
+    const since = new Date(Date.now() - 4 * 86400000).toISOString().slice(0, 10);
+    const rows = await sbGet(`articles?select=dedupe_key,company_id,headline,source_name,source_url,published_at,industry,also_covered&view=eq.daily&published_at=gte.${since}&limit=1000`);
+    const queue = [];
+    for (const r of rows) {
+      const c = all.get(r.company_id);
+      const it = { key: r.dedupe_key, companyId: r.company_id, company: c?.name || r.company_id, industry: r.industry, headline: r.headline, outlet: r.source_name || "", url: r.source_url, date: r.published_at, alsoCovered: r.also_covered || [] };
+      if (!c || !isEnglish(it.headline) || !namesCompany(c, it.headline)) {
+        Object.assign(it, { status: "done", bullets: [], importance: 0, recap: "", type: "other", functions: [], story: "" });
+        stats.offTopic++;
+      }
+      queue.push(it);
+    }
+    stats.retried = queue.length;
+    log(`Reprocess mode: ${queue.length} stored stories (${stats.offTopic} will be dropped as off-topic or not English); the rest are rewritten.`);
+    if (DRY) {
+      for (const it of queue.filter((q) => q.status === "done").slice(0, 15)) log(` - dropped: [${it.company}] ${it.headline.slice(0, 90)}`);
+      return finish();
+    }
+    return enrichAndStore(queue, noAI);
+  }
+
   // 1. fetch
   let raw = [];
   for (const c of companies) {
     if (timeLeft() < 120_000) { log("Time budget nearly used, stopping the fetch."); break; }
     try {
       const all = await fetchCompany(c);
-      const named = all.filter((it) => namesCompany(c, it.headline));
+      const named = all.filter((it) => isEnglish(it.headline) && namesCompany(c, it.headline));
       stats.offTopic += all.length - named.length;
       raw.push(...named.sort((a, b) => b.date.localeCompare(a.date)).slice(0, MAX_PER_COMPANY * 2)); // keep a few extra: some merge into one story
       stats.companies++;
@@ -289,10 +321,15 @@ async function main() {
   }
   if (!queue.length) { log("Nothing new today. Skipping the AI step."); return finish(); }
 
-  // 3. AI summary in batches
+  return enrichAndStore(queue, noAI);
+}
+
+async function enrichAndStore(queue, noAI) {
+  // 3. AI summary in batches (items of one company sit together so same-event stories share a batch)
+  const todo = queue.filter((it) => it.status !== "done").sort((a, b) => a.companyId.localeCompare(b.companyId));
   if (!noAI) {
-    for (let i = 0; i < queue.length; i += BATCH) {
-      const batch = queue.slice(i, i + BATCH);
+    for (let i = 0; i < todo.length; i += BATCH) {
+      const batch = todo.slice(i, i + BATCH);
       try {
         const out = await enrichBatch(batch);
         if (!out) { log(`Batch ${i / BATCH + 1}: all models failed; items stay pending.`); continue; }
@@ -308,12 +345,12 @@ async function main() {
   }
   for (const it of queue) if (it.status !== "done") { it.status = "pending"; it.bullets = it.bullets || []; stats.pending++; }
 
-  // 3b. the same story under different headlines gets the same first bullet: keep the first, fold the rest into "also covered"
+  // 3b. the same event under different headlines gets the same event label: keep the first, fold the rest into "also covered"
   {
     const firstByKey = new Map();
     for (const it of queue) {
       if (it.status !== "done" || !it.bullets?.length) continue;
-      const k = `${it.companyId}|${norm(it.bullets[0])}`;
+      const k = `${it.companyId}|${it.story || norm(it.bullets[0])}`;
       const keep = firstByKey.get(k);
       if (!keep) { firstByKey.set(k, it); continue; }
       keep.alsoCovered = [...(keep.alsoCovered || []), { name: it.outlet, url: it.url }, ...(it.alsoCovered || [])];

@@ -11,6 +11,10 @@ on:
         description: "Dry run (fetch and dedupe only, write nothing)"
         type: boolean
         default: false
+      reprocess:
+        description: "Re-write the stories already stored (last 4 days) with the current prompt, no new fetching"
+        type: boolean
+        default: false
       limit:
         description: "Only the first N companies (leave empty for all 65)"
         required: false
@@ -36,6 +40,7 @@ jobs:
         run: node scripts/daily/run.mjs ${{ inputs.dry_run && '--dry' || '' }}
         env:
           LIMIT_COMPANIES: ${{ inputs.limit }}
+          REPROCESS: ${{ inputs.reprocess && '1' || '' }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
