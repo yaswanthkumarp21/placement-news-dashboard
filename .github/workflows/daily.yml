@@ -1,0 +1,44 @@
+name: Daily news
+
+on:
+  schedule:
+    # 22:00 UTC = 3:30 am IST, so fresh news is ready when students wake up.
+    # GitHub may start it 10 to 30 minutes late; that is fine.
+    - cron: "0 22 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (fetch and dedupe only, write nothing)"
+        type: boolean
+        default: false
+      limit:
+        description: "Only the first N companies (leave empty for all 65)"
+        required: false
+        default: ""
+
+concurrency:
+  group: daily-news
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --omit=dev --ignore-scripts --no-audit --no-fund
+      - name: Fetch, summarise, store
+        run: node scripts/daily/run.mjs ${{ inputs.dry_run && '--dry' || '' }}
+        env:
+          LIMIT_COMPANIES: ${{ inputs.limit }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          # change these two to swap the AI model without touching code (repository variables)
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+          OPENROUTER_MODEL_BACKUP: ${{ vars.OPENROUTER_MODEL_BACKUP }}
