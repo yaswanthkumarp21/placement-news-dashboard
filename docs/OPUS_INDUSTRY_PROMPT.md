@@ -31,6 +31,11 @@ KEEP IT SHORT. A student reads this on a phone in two minutes. The whole recap s
 9. challenges: exactly 3, one short line each.
 10. opsAngle: exactly 3 bullets, one sentence each, from an operations and supply chain seat.
 Also: interviewNumbers (exactly 5 numbers a student should quote, each with its period) and gdQuestions (exactly 3).
+CHARTS (new): also give 4 to 6 "charts" built ONLY from numbers you verified above, so the app can draw infographics. Choose the kind that fits:
+ - "bars": compare 2 to 6 categories at one point in time (for example sales by segment, exports versus imports);
+ - "columns": a short series of 3 to 6 periods (for example growth by year);
+ - "progress": achieved versus target (each item has value and target in the same unit).
+Every chart needs a plain title, a subtitle saying the period and unit, a numeric "value" for every item (a plain number, no text or commas), an optional short "note" (for example "+10.7%"), and its own source name, link and date. Never put an estimate in a chart.
 A "fact" is one number with a short label. Do not stack several numbers into one fact.
 
 === EXACT OUTPUT FORMAT (my software reads this) ===
@@ -41,6 +46,13 @@ Output ONE JSON object per industry, each in its own fenced json code block, pre
   "name": "FMCG and retail",
   "asOf": "YYYY-MM-DD (date you researched it)",
   "overview": "...",
+  "charts": [
+    { "id": "sales", "kind": "bars", "title": "...", "subtitle": "FY2025-26, in lakh units", "unit": "lakh",
+      "items": [ { "label": "...", "value": 217.06, "note": "+10.7%" } ],
+      "sourceName": "...", "sourceUrl": "https://...", "sourceDate": "YYYY-MM-DD" },
+    { "id": "growth", "kind": "columns", "title": "...", "subtitle": "...", "unit": "%", "items": [ { "label": "2023-24", "value": 12.7 } ], "sourceName": "...", "sourceUrl": "https://...", "sourceDate": "YYYY-MM-DD" },
+    { "id": "target", "kind": "progress", "title": "...", "subtitle": "...", "items": [ { "label": "...", "value": 26.59, "target": 28.30, "note": "as of June 2026" } ], "sourceName": "...", "sourceUrl": "https://...", "sourceDate": "YYYY-MM-DD" }
+  ],
   "marketSize": [ { "label": "...", "value": "...", "period": "FY25", "sourceName": "...", "sourceUrl": "https://...", "sourceDate": "YYYY-MM-DD" } ],
   "growth": [ same shape ],
   "gdpJobs": [ same shape ],

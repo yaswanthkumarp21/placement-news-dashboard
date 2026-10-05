@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChartCard } from "@/components/Charts";
 import { hasRecap, loadIndustries, type Fact } from "@/lib/facts";
 
 export const dynamic = "force-dynamic";
@@ -86,6 +87,15 @@ export default async function Recap({ params }: { params: Promise<{ id: string }
       <p><Link className="pn-sub" href="/facts">← All industries</Link></p>
       <h1 className="pn-page-h">{ind.name}</h1>
       <p className="pn-note">Ten-point recap · researched {ind.asOf} · official sources only</p>
+
+      {ind.charts?.length ? (
+        <section className="pn-sec">
+          <h2><span>◔</span>The industry in charts</h2>
+          <div className="pn-charts">
+            {ind.charts.map((c) => <ChartCard key={c.id} c={c} />)}
+          </div>
+        </section>
+      ) : null}
 
       {sections.map((s) => (
         <section className="pn-sec" key={s.n}>

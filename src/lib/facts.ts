@@ -3,11 +3,24 @@ import path from "node:path";
 
 export type Fact = { label: string; value: string; period?: string; sourceName?: string; sourceUrl?: string; sourceDate?: string };
 export type Policy = { name: string; what: string; sourceName?: string; sourceUrl?: string; sourceDate?: string };
+export type ChartItem = { label: string; value: number; target?: number; note?: string };
+export type Chart = {
+  id: string;
+  kind: "bars" | "columns" | "progress";
+  title: string;
+  subtitle?: string;
+  unit?: string;
+  items: ChartItem[];
+  sourceName?: string;
+  sourceUrl?: string;
+  sourceDate?: string;
+};
 export type Industry = {
   id: string;
   name: string;
   asOf: string | null;
   overview: string;
+  charts?: Chart[];
   marketSize?: Fact[];
   growth?: Fact[];
   gdpJobs?: Fact[];

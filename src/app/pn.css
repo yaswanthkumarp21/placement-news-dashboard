@@ -206,3 +206,22 @@ main.pn-main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 96px; }
 .pn-caveats { border: 1px dashed var(--line); border-radius: 16px; padding: 12px 14px; }
 .pn-caveats summary { cursor: pointer; font-weight: 700; color: var(--pink-soft); }
 .pn-caveats h3 { font: 800 13px/1 var(--font-b); letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin: 14px 0 8px; }
+
+/* ---------- charts ---------- */
+.pn-charts { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .pn-charts { grid-template-columns: 1fr 1fr; } }
+.pn-chart { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 16px 12px; }
+.pn-chart figcaption { display: grid; gap: 2px; margin-bottom: 12px; }
+.pn-chart figcaption b { font: 800 16px/1.2 var(--font-d); letter-spacing: -0.01em; }
+.pn-chart figcaption span { color: var(--faint); font-size: 12.5px; }
+.pn-bar-row { margin: 0 0 11px; }
+.pn-bar-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 13.5px; margin-bottom: 4px; }
+.pn-bar-top span { color: var(--dim); }
+.pn-bar-top b { font-weight: 800; white-space: nowrap; }
+.pn-bar-top small { color: var(--faint); font-weight: 600; }
+.pn-bar-top em { font-style: normal; font-weight: 700; font-size: 11.5px; color: var(--green); margin-left: 8px; }
+.pn-bar-track { height: 12px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.pn-bar-fill { height: 100%; border-radius: 999px; }
+.pn-bar-note { color: var(--faint); font-size: 11.5px; margin-top: 4px; }
+.pn-cols { width: 100%; height: auto; display: block; }
+.pn-chart-src { display: inline-block; margin-top: 4px; font-size: 11.5px; font-weight: 700; }
