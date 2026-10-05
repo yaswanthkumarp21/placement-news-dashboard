@@ -15,7 +15,7 @@ import Parser from "rss-parser";
 const DRY = process.argv.includes("--dry");
 const LIMIT = Number(process.env.LIMIT_COMPANIES || 0);
 const LOOKBACK_DAYS = process.env.LOOKBACK_DAYS || "2";
-const BATCH = 20; // headlines per AI request (free plan allows ~50 requests a day, so we batch)
+const BATCH = 12; // headlines per AI request (free plan allows ~50 requests a day, so we batch)
 const MAX_PER_COMPANY = 6; // newest N per company per run keeps the AI budget safe
 const MAX_AI_REQUESTS = 45; // stay under the free daily cap
 const MAX_MS = 45 * 60 * 1000; // hard stop; unfinished items stay "pending" and finish next run
@@ -180,7 +180,7 @@ async function callModel(model, items) {
       method: "POST",
       headers: { Authorization: `Bearer ${OR_KEY}`, "Content-Type": "application/json", "X-Title": "Placement News daily job" },
       body: JSON.stringify({ model, temperature: 0.2, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: user }] }),
-      signal: AbortSignal.timeout(60000),
+      signal: AbortSignal.timeout(150000),
     });
     if (res.status === 429 || res.status >= 500) {
       const wait = Math.min(90, Number(res.headers.get("retry-after")) || 20 * attempt);
@@ -256,6 +256,7 @@ async function main() {
       }
       queue.push(it);
     }
+    if (LIMIT) queue.splice(LIMIT); // in rewrite mode the limit means "only the first N stories" (for a quick test)
     stats.retried = queue.length;
     log(`Reprocess mode: ${queue.length} stored stories (${stats.offTopic} will be dropped as off-topic or not English); the rest are rewritten.`);
     if (DRY) {
@@ -328,11 +329,17 @@ async function enrichAndStore(queue, noAI) {
   // 3. AI summary in batches (items of one company sit together so same-event stories share a batch)
   const todo = queue.filter((it) => it.status !== "done").sort((a, b) => a.companyId.localeCompare(b.companyId));
   if (!noAI) {
+    let failedInARow = 0;
     for (let i = 0; i < todo.length; i += BATCH) {
       const batch = todo.slice(i, i + BATCH);
       try {
         const out = await enrichBatch(batch);
-        if (!out) { log(`Batch ${i / BATCH + 1}: all models failed; items stay pending.`); continue; }
+        if (!out) {
+          log(`Batch ${i / BATCH + 1}: all models failed; items stay pending.`);
+          if (++failedInARow >= 2) { log("Two batches in a row failed on every model: stopping the AI step for this run."); break; }
+          continue;
+        }
+        failedInARow = 0;
         const byId = new Map(out.arr.map((r) => [Number(r.id), r]));
         batch.forEach((it, idx) => { const r = byId.get(idx + 1); if (r) applyResult(it, r); });
         log(`Batch ${i / BATCH + 1}: ${out.model}, ${batch.filter((b) => b.status === "done").length}/${batch.length} summarised`);
@@ -367,7 +374,8 @@ async function enrichAndStore(queue, noAI) {
     also_covered: it.alsoCovered || [], function_tags: it.functions || [], type_tag: it.type || null,
     published_at: it.date, status: it.status, bullets: it.bullets || [], importance: it.importance ?? null,
   }));
-  await sbUpsert(rows);
+  // In rewrite mode only stories that were really rewritten (or dropped) are written, so a failed run never blanks good data.
+  await sbUpsert(process.env.REPROCESS === "1" ? rows.filter((r) => r.status === "done") : rows);
   return finish();
 }
 
