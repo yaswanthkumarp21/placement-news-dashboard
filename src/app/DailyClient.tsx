@@ -64,6 +64,20 @@ function SavedStrip({ byId }: { byId: Map<string, Tile> }) {
   );
 }
 
+/** Top-N by rank, but at most `max` cards per company, so one busy company cannot fill the whole list. */
+function diversify(list: Tile[], n: number, max = 2): Tile[] {
+  const per = new Map<string, number>();
+  const out: Tile[] = [];
+  for (const t of list) {
+    const c = (per.get(t.slug) ?? 0) + 1;
+    if (c > max) continue;
+    per.set(t.slug, c);
+    out.push(t);
+    if (out.length === n) break;
+  }
+  return out;
+}
+
 export function DailyClient({ tiles, companies, today, demo }: { tiles: Tile[]; companies: Company[]; today: string; demo: boolean }) {
   const [off] = useLocal<string[]>(KEYS.off, []);
   const [onboarded, setOnboarded, ready] = useLocal<boolean>(KEYS.onboarded, false);
@@ -74,9 +88,9 @@ export function DailyClient({ tiles, companies, today, demo }: { tiles: Tile[]; 
   const byId = useMemo(() => new Map(tiles.map((t) => [t.id, t])), [tiles]);
 
   const mine = tiles.filter((t) => t.csvId && selectable.has(t.csvId) && !offSet.has(t.csvId));
-  const forYou = mine.slice(0, 10);
+  const forYou = diversify(mine, 10);
   const forYouIds = new Set(forYou.map((t) => t.id));
-  const overall = tiles.filter((t) => !forYouIds.has(t.id)).slice(0, 10);
+  const overall = diversify(tiles.filter((t) => !forYouIds.has(t.id)), 10);
 
   const query = q.trim().toLowerCase();
   const results = query ? mine.filter((t) => `${t.headline} ${t.co} ${t.bullets.join(" ")}`.toLowerCase().includes(query)) : null;

@@ -2,6 +2,16 @@ import "server-only";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import type { Tile } from "./tiles";
 
+const STOP = new Set(["the", "and", "for", "with", "from", "that", "this", "has", "its", "are", "was", "will", "new", "says", "report", "after", "into", "over", "india", "indian"]);
+const wordsOf = (h: string) => new Set(h.toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter((w) => w.length > 2 && !STOP.has(w)));
+function overlap(a: string, b: string): number {
+  const x = wordsOf(a), y = wordsOf(b);
+  let i = 0;
+  for (const w of x) if (y.has(w)) i++;
+  return i / (x.size + y.size - i || 1);
+}
+const bulletKey = (t: Tile) => (t.bullets[0] ?? "").toLowerCase().replace(/\W+/g, " ").trim();
+
 type Row = {
   id: number;
   company_id: string | null;
@@ -62,5 +72,15 @@ export async function loadDailyTiles(): Promise<Tile[]> {
         score: (r.importance ?? 0) * 10 + Math.max(0, 20 - days * 4),
       } satisfies Tile;
     })
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => b.score - a.score)
+    .reduce<Tile[]>((out, t) => {
+      // The same story under different headlines: merge when the company matches and either the first bullet is
+      // identical, or the headlines share enough words and the story type matches. Sources are kept together.
+      const same = out.find((o) => o.csvId === t.csvId && (bulletKey(o) === bulletKey(t) || (o.theme === t.theme && overlap(o.headline, t.headline) >= 0.34)));
+      if (same) {
+        for (const src of t.sources) if (!same.sources.some((x) => x.u === src.u)) same.sources.push(src);
+        same.single = false;
+      } else out.push(t);
+      return out;
+    }, []);
 }

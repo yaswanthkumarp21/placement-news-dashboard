@@ -308,6 +308,21 @@ async function main() {
   }
   for (const it of queue) if (it.status !== "done") { it.status = "pending"; it.bullets = it.bullets || []; stats.pending++; }
 
+  // 3b. the same story under different headlines gets the same first bullet: keep the first, fold the rest into "also covered"
+  {
+    const firstByKey = new Map();
+    for (const it of queue) {
+      if (it.status !== "done" || !it.bullets?.length) continue;
+      const k = `${it.companyId}|${norm(it.bullets[0])}`;
+      const keep = firstByKey.get(k);
+      if (!keep) { firstByKey.set(k, it); continue; }
+      keep.alsoCovered = [...(keep.alsoCovered || []), { name: it.outlet, url: it.url }, ...(it.alsoCovered || [])];
+      it.importance = 0; // stored (so it is never re-processed) but hidden
+      it.bullets = [];
+      stats.clustered++;
+    }
+  }
+
   // 4. write
   const rows = queue.map((it) => ({
     dedupe_key: it.key, view: "daily", company_id: it.companyId, industry: it.industry || null,
