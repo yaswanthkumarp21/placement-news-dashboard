@@ -17,7 +17,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   }
   return (
     <main style={{ maxWidth: 420, margin: "64px auto", padding: "0 16px", textAlign: "center" }}>
-      <h1 style={{ marginBottom: 8 }}>Placement News</h1>
+      <h1 style={{ marginBottom: 8 }}>OpsPulse</h1>
       <p style={{ opacity: 0.75, marginBottom: 24 }}>
         News that matters for your interviews and GDs. Sign in to pick your companies and save stories.
       </p>

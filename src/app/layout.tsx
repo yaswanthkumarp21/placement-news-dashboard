@@ -2,13 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import Script from "next/script";
 import { PnHeader } from "@/components/PnHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import "./pn.css";
 
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display" });
 const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: { default: "Placement News", template: "%s · Placement News" },
+  title: { default: "OpsPulse", template: "%s · OpsPulse" },
   description: "News that matters for your MBA interviews and group discussions, with the interview angle on every story.",
 };
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInit }} />
         <PnHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

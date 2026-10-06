@@ -386,3 +386,15 @@ html { scroll-padding-top: 170px; }
 /* theme switch button */
 .pn-theme { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 16px; line-height: 1; padding: 0; }
 .pn-theme:hover { border-color: var(--yellow); }
+
+/* ---------- footer ---------- */
+.pn-foot { margin-top: 48px; border-top: 1px solid var(--line); padding: 22px 0 34px; color: var(--dim); font-size: 13px; }
+.pn-foot-in { display: flex; flex-direction: column; gap: 6px; }
+.pn-foot p { margin: 0; }
+.pn-foot b { font: 800 15px var(--font-d); color: var(--ink); letter-spacing: -0.02em; }
+.pn-foot b em { font-style: normal; color: var(--y-text); }
+.pn-foot-brand { color: var(--faint); }
+.pn-foot-links { display: flex; gap: 14px; margin-top: 4px; }
+.pn-foot-links a { color: var(--ink); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+.pn-foot-links a:hover { border-color: var(--yellow); color: var(--y-text); }
+@media (min-width: 720px) { .pn-foot-in { flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: space-between; } .pn-foot-links { margin: 0; } }

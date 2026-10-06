@@ -1,8 +1,8 @@
-# Privacy Policy: Placement News
+# Privacy Policy: OpsPulse
 
 Last updated: 3 October 2026
 
-Placement News is a small, free, non-commercial news dashboard for MBA placement preparation, run by a student for a study group.
+OpsPulse is a small, free, non-commercial news dashboard for MBA placement preparation, run by a student for a study group.
 
 ## What we collect
 When you sign in with Google we receive only your **name and email address**. We also store what you do in the app: which companies you turned off, the role you picked, and the news items you saved.

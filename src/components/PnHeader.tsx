@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Logo } from "@/components/Logo";
 
 const TABS = [
   { href: "/", label: "Daily News" },
@@ -29,9 +30,9 @@ export function PnHeader() {
       <div className="pn-wrap">
         <div className="pn-bar">
           <Link className="pn-brand" href="/">
-            <span className="pn-logo" aria-hidden="true" />
+            <Logo />
             <span>
-              Placement <em>News</em>
+              Ops<em>Pulse</em>
             </span>
           </Link>
           <nav>
