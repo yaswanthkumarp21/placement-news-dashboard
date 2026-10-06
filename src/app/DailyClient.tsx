@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CompanyPicker } from "@/app/account/CompanyPicker";
+import { QuoteRotator } from "@/components/QuoteRotator";
 import { TileCard } from "@/components/TileCard";
 import { KEYS, useLocal, useSaved } from "@/lib/local";
 import type { Tile } from "@/lib/tiles";
@@ -102,7 +103,7 @@ export function DailyClient({ tiles, companies, today, demo }: { tiles: Tile[]; 
       <section className="pn-hero">
         <p className="pn-kicker">{today}</p>
         <h1>Walk in <em>ready.</em></h1>
-        <p>The stories that matter for your interviews and GDs, ranked, with the angle to take on each one.</p>
+        <QuoteRotator />
         <div className="pn-stats">
           <div className="pn-stat"><b>{tiles.length}</b><span>stories</span></div>
           <div className="pn-stat"><b>{new Set(tiles.map((t) => t.slug)).size}</b><span>companies</span></div>

@@ -118,6 +118,13 @@ main.pn-main { max-width: 1040px; margin: 0 auto; padding: 18px 16px 96px; }
 .pn-hero h1 { margin: 0; font: 800 clamp(30px, 8vw, 46px)/1.02 var(--font-d); letter-spacing: -0.035em; max-width: 14ch; }
 .pn-hero h1 em { font-style: normal; color: var(--y-text); background: linear-gradient(transparent 62%, rgba(255, 95, 162, 0.55) 62%); }
 .pn-hero p { margin: 10px 0 0; color: var(--dim); max-width: 46ch; }
+.pn-quote { margin: 12px 0 0; min-height: 6.4em; max-width: 52ch; }
+.pn-quote-body { opacity: 0; transform: translateY(4px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.pn-quote-body.in { opacity: 1; transform: none; }
+.pn-quote blockquote { margin: 0; font: 600 clamp(15px, 4vw, 18px)/1.45 var(--font-d); letter-spacing: -0.01em; color: var(--ink); }
+.pn-quote figcaption { margin-top: 6px; font-size: 12px; letter-spacing: 0.04em; color: var(--dim); }
+.pn-quote figcaption.sacred { color: var(--y-text); }
+@media (prefers-reduced-motion: reduce) { .pn-quote-body { transition: none; transform: none; } }
 .pn-stats { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 .pn-stat { background: var(--scrim); border: 1px solid var(--line); border-radius: 14px; padding: 9px 14px; min-width: 88px; }
 .pn-stat b { display: block; font: 800 22px/1.1 var(--font-d); }

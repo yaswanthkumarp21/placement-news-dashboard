@@ -26,6 +26,17 @@ const ALIAS: Record<string, string> = {
   reliance: "reliance-industries",
   allcargo: "allcargo-logistics",
   lenskaart: "lenskart", // spelling in the research file heading
+  "ab-inbev": "abinbev",
+  "diageo-united-spirits-limited": "diageo",
+  "hector-beverages-paper-boat": "hector-beverages",
+  "johnson-johnson-kenvue": "johnson-johnson",
+  "jubilant-foodworks": "jubilant-food-works",
+  "l-or-al": "l-oreal",
+  "liebherr-liebherr-appliances-india": "liebherr",
+  "signify-philips-lighting": "signify",
+  "v-guard-industries": "v-guard",
+  "welspun-living": "welspun",
+  "wipro-consumer-care-lighting": "wipro-consumer-care",
 };
 
 const ABBR = /\b(vs|e\.g|i\.e|approx|Rs|Cr|No|Mr|Dr|etc|St|Ltd|Inc|Co)\.$/i;
