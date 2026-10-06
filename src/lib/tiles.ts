@@ -20,7 +20,13 @@ export type Tile = {
 };
 
 // archive slug -> roles.csv company_id, where the two differ
-const ALIAS: Record<string, string> = { jspl: "jindal-steel-power-jspl" };
+const ALIAS: Record<string, string> = {
+  jspl: "jindal-steel-power-jspl",
+  "tata-consumer": "tata-consumer-products",
+  reliance: "reliance-industries",
+  allcargo: "allcargo-logistics",
+  lenskaart: "lenskart", // spelling in the research file heading
+};
 
 const ABBR = /\b(vs|e\.g|i\.e|approx|Rs|Cr|No|Mr|Dr|etc|St|Ltd|Inc|Co)\.$/i;
 

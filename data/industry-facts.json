@@ -783,7 +783,7 @@
     {
       "id": "fmcg",
       "name": "FMCG and retail",
-      "asOf": "2026-10-05",
+      "asOf": "2026-10-06",
       "overview": "FMCG (fast-moving consumer goods) is everyday packaged stuff: soap, shampoo, tea, biscuits, noodles. Companies make it in bulk and push it through distributors to millions of small shops, and increasingly to supermarkets and quick-commerce apps. It matters because volume, price and channel mix decide who wins, and every one of them is a supply chain problem.",
       "bigIdea": "Indian FMCG is a distribution game that is changing channels fast: volumes were weak in April-June 2026 (down 2%) while modern trade and online grew, so winning means serving the corner shop and the dark store at once.",
       "flow": [
@@ -815,19 +815,25 @@
           "detail": "No tax up to ₹12 lakh income (₹12.75 lakh for salaried) under the new regime; the Finance Minister said it would boost household consumption (PIB)."
         },
         {
+          "date": "May 2025",
+          "title": "Crude edible oil duty halved",
+          "detail": "Basic duty on crude palm, soybean and sunflower oil cut from 20% to 10% (Business Standard).",
+          "future": false
+        },
+        {
           "date": "3 Sep 2025",
           "title": "GST Council approves two main rates",
           "detail": "Four slabs become 5% and 18%, plus 40% on a few goods; hair oil, soap, shampoo, toothpaste, butter, ghee, namkeen and noodles move to 5% (GST Council release on PIB)."
         },
         {
-          "date": "Apr-Jun 2026",
-          "title": "FMCG volumes fall 2% in the quarter",
-          "detail": "Rural volume down 5% and 68% of categories lost volume, while online grew fast (NielsenIQ, via RetailIntel)."
-        },
-        {
           "date": "30 Apr 2026",
           "title": "HUL reports its best growth in 12 quarters",
           "detail": "March quarter turnover ₹16,207 crore, underlying volume growth 6% (HUL)."
+        },
+        {
+          "date": "Apr-Jun 2026",
+          "title": "FMCG volumes fall 2% in the quarter",
+          "detail": "Rural volume down 5% and 68% of categories lost volume, while online grew fast (NielsenIQ, via RetailIntel)."
         },
         {
           "date": "20 Jul 2026",
@@ -840,9 +846,21 @@
           "detail": "Investment of ₹9,207 crore against a ₹7,722 crore commitment; ₹3,271.44 crore incentives paid up to June 2026 (PIB)."
         },
         {
+          "date": "9 Aug 2026",
+          "title": "FMCG firms signal price hikes for the September quarter",
+          "detail": "HUL flagged another 2-5%, Godrej Consumer about 5% and Britannia 1.5-2% (Business Standard).",
+          "future": false
+        },
+        {
           "date": "27 Sep 2026",
           "title": "Q2 channel data reported",
           "detail": "Traditional trade volume -6%, modern trade +17.5%, e-commerce value +57.7% (NielsenIQ, via RetailIntel)."
+        },
+        {
+          "date": "24 Sep 2026",
+          "title": "Edible oil duty cut again",
+          "detail": "Crude palm and soybean oil duty to 5% and crude sunflower oil to 0% (Business Standard).",
+          "future": false
         },
         {
           "date": "FY 2026-27",
@@ -1074,6 +1092,130 @@
           "sourceName": "Ministry of Finance, on PIB (Budget 2025-26)",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2098406&reg=48&lang=2",
           "sourceDate": "2025-02-01"
+        },
+        {
+          "id": "fdisub",
+          "kind": "bars",
+          "title": "FDI into trading sub-sectors",
+          "subtitle": "CY2025, US$ million",
+          "unit": "US$ mn",
+          "items": [
+            {
+              "label": "Cash-and-carry wholesale",
+              "value": 4142.43
+            },
+            {
+              "label": "Single-brand retail",
+              "value": 161.14
+            },
+            {
+              "label": "E-commerce",
+              "value": 57.32
+            },
+            {
+              "label": "Multi-brand retail",
+              "value": 9.7
+            }
+          ],
+          "sourceName": "DPIIT",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/07/80e21324272b1aee3dbb34bbb3517d2b.pdf",
+          "sourceDate": "2026-07-01"
+        },
+        {
+          "id": "workers",
+          "kind": "bars",
+          "title": "Where India's workers are employed",
+          "subtitle": "CY2025, % of workers",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Agriculture",
+              "value": 43.0
+            },
+            {
+              "label": "Other services",
+              "value": 13.1
+            },
+            {
+              "label": "Trade, hotels and restaurants",
+              "value": 12.9
+            },
+            {
+              "label": "Manufacturing",
+              "value": 12.1
+            },
+            {
+              "label": "Construction",
+              "value": 12.0
+            },
+            {
+              "label": "Transport, storage and communication",
+              "value": 5.8
+            }
+          ],
+          "sourceName": "MoSPI, PLFS annual report",
+          "sourceUrl": "https://www.mospi.gov.in/uploads/latestReleases/latest_release_1774607827733_3e8964a9-268b-4cc9-ad65-cfc8a9e32f08_Press_note_AR_PLFS_2025_23032025_V2.1_26032026_final.pdf",
+          "sourceDate": "2026-03-27"
+        },
+        {
+          "id": "oilduty",
+          "kind": "bars",
+          "title": "Edible oil basic duty after the September 2026 cut",
+          "subtitle": "From 24 Sep 2026, %",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Crude palm (was 10%)",
+              "value": 5
+            },
+            {
+              "label": "Crude soybean (was 10%)",
+              "value": 5
+            },
+            {
+              "label": "Crude sunflower (was 10%)",
+              "value": 0
+            },
+            {
+              "label": "Refined palm (was 32.5%)",
+              "value": 27.5
+            },
+            {
+              "label": "Refined soybean (was 32.5%)",
+              "value": 27.5
+            },
+            {
+              "label": "Refined sunflower (was 32.5%)",
+              "value": 22.5
+            }
+          ],
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/amp/economy/news/govt-cuts-import-duty-on-refined-palm-oil-and-soybean-oil-to-27-5-126092301504_1.html",
+          "sourceDate": "2026-09-23"
+        },
+        {
+          "id": "niqq4",
+          "kind": "columns",
+          "title": "FMCG growth after the GST cut",
+          "subtitle": "Oct-Dec 2025, % year on year",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Value growth",
+              "value": 7.8
+            },
+            {
+              "label": "Rural volume growth",
+              "value": 2.9
+            },
+            {
+              "label": "Urban volume growth",
+              "value": 2.3
+            }
+          ],
+          "sourceName": "NielsenIQ press release",
+          "sourceUrl": "https://nielseniq.com/global/en/news-center/2026/niq-gst-2-0-transition-reshapes-indias-fmcg-growth-landscape/",
+          "sourceDate": "2026-03-13"
         }
       ],
       "marketSize": [
@@ -1116,6 +1258,46 @@
           "sourceName": "Ministry of Food Processing Industries, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
           "sourceDate": "2026-07-30"
+        },
+        {
+          "label": "India retail market size",
+          "value": "$690 billion",
+          "period": "2021",
+          "sourceName": "Invest India",
+          "sourceUrl": "https://www.investindia.gov.in/sector/retail-e-commerce",
+          "sourceDate": "2022-02-02"
+        },
+        {
+          "label": "India retail market, projected (Redseer estimate)",
+          "value": "above $1.6 trillion",
+          "period": "by 2030",
+          "sourceName": "Business Standard, quoting Redseer",
+          "sourceUrl": "https://www.business-standard.com/industry/news/india-retail-market-trillion-2030-trade-supply-chains-125032700607_1.html",
+          "sourceDate": "2025-03-27"
+        },
+        {
+          "label": "Kirana stores in India",
+          "value": "about 13 million",
+          "period": "2024",
+          "sourceName": "Business Standard, citing the distributors' federation",
+          "sourceUrl": "https://www.business-standard.com/industry/news/kirana-stores-face-tough-diwali-with-30-sales-drop-quick-commerce-thrives-124102500701_1.html",
+          "sourceDate": "2024-10-25"
+        },
+        {
+          "label": "Nestle India revenue from operations (standalone)",
+          "value": "₹23,154.6 crore (₹231,546.0 million)",
+          "period": "FY26",
+          "sourceName": "Nestle India audited results",
+          "sourceUrl": "https://www.nestle.in/sites/g/files/pydnoa451/files/2026-04/AFRs31032026signed-1.pdf",
+          "sourceDate": "2026-04-21"
+        },
+        {
+          "label": "Britannia consolidated revenue from operations",
+          "value": "₹19,151.59 crore",
+          "period": "FY26",
+          "sourceName": "Britannia audited results",
+          "sourceUrl": "https://media.britannia.co.in/Audited_Consolidated_Financial_Results_31_03_2026_c1fd2887e5.pdf",
+          "sourceDate": "2026-05-07"
         }
       ],
       "growth": [
@@ -1150,6 +1332,38 @@
           "sourceName": "ITC FY26 FMCG results, reported by Outlook Business",
           "sourceUrl": "https://www.outlookbusiness.com/corporate/itcs-fmcg-revenue-rises-to-24210-cr-in-fy26-foods-business-crosses-20000-cr",
           "sourceDate": "2026-07-20"
+        },
+        {
+          "label": "Tata Consumer India branded business, underlying volume growth",
+          "value": "13%",
+          "period": "FY26",
+          "sourceName": "Tata Consumer results release",
+          "sourceUrl": "https://www.tataconsumer.com/news/results-quarter-and-year-ended-31st-march-2026",
+          "sourceDate": "2026-05-08"
+        },
+        {
+          "label": "Marico India underlying volume growth (a seven-year high)",
+          "value": "8%",
+          "period": "FY26",
+          "sourceName": "Marico information update",
+          "sourceUrl": "https://marico.com/investorspdf/Information_Update_Q4FY26.pdf",
+          "sourceDate": "2026-05-05"
+        },
+        {
+          "label": "Godrej Consumer underlying volume growth",
+          "value": "6%",
+          "period": "FY26",
+          "sourceName": "Godrej Consumer press release",
+          "sourceUrl": "https://www.godrejcp.com/uploads/SE_Press_Release_Final_signed_54b3618a58.pdf",
+          "sourceDate": "2026-05-06"
+        },
+        {
+          "label": "Nestle India total sales growth",
+          "value": "14.9%",
+          "period": "FY26",
+          "sourceName": "Nestle India audited results",
+          "sourceUrl": "https://www.nestle.in/sites/g/files/pydnoa451/files/2026-04/AFRs31032026signed-1.pdf",
+          "sourceDate": "2026-04-21"
         }
       ],
       "gdpJobs": [
@@ -1176,6 +1390,30 @@
           "sourceName": "Ministry of Food Processing Industries, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
           "sourceDate": "2026-07-30"
+        },
+        {
+          "label": "Share of workers in trade, hotels and restaurants",
+          "value": "12.9%",
+          "period": "CY2025",
+          "sourceName": "MoSPI, PLFS annual report press note",
+          "sourceUrl": "https://www.mospi.gov.in/uploads/latestReleases/latest_release_1774607827733_3e8964a9-268b-4cc9-ad65-cfc8a9e32f08_Press_note_AR_PLFS_2025_23032025_V2.1_26032026_final.pdf",
+          "sourceDate": "2026-03-27"
+        },
+        {
+          "label": "Total employment, persons aged 15 and above",
+          "value": "56.2 crore",
+          "period": "Jul-Sep 2025",
+          "sourceName": "PIB, Economic Survey 2025-26",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2220800",
+          "sourceDate": "2026-01-30"
+        },
+        {
+          "label": "Services share of gross value added",
+          "value": "56.4%",
+          "period": "FY26, first advance estimate",
+          "sourceName": "PIB, Economic Survey 2025-26",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2220800",
+          "sourceDate": "2026-01-30"
         }
       ],
       "exportsFdi": [
@@ -1210,6 +1448,38 @@
           "sourceName": "Ministry of Food Processing Industries, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
           "sourceDate": "2026-07-30"
+        },
+        {
+          "label": "Cumulative FDI equity inflow into retail trading",
+          "value": "US$ 5,028.12 million (₹36,740.24 crore)",
+          "period": "Apr 2000 to Mar 2026",
+          "sourceName": "DPIIT FDI fact sheet",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/06/41192ca92c1de34eb064800fbffa0379.pdf",
+          "sourceDate": "2026-06-01"
+        },
+        {
+          "label": "FDI equity inflow into single-brand retail",
+          "value": "US$ 161.14 million",
+          "period": "CY2025",
+          "sourceName": "DPIIT",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/07/80e21324272b1aee3dbb34bbb3517d2b.pdf",
+          "sourceDate": "2026-07-01"
+        },
+        {
+          "label": "FDI equity inflow into multi-brand retail",
+          "value": "US$ 9.70 million",
+          "period": "CY2025",
+          "sourceName": "DPIIT",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/07/80e21324272b1aee3dbb34bbb3517d2b.pdf",
+          "sourceDate": "2026-07-01"
+        },
+        {
+          "label": "FDI equity inflow into cash-and-carry wholesale",
+          "value": "US$ 4,142.43 million",
+          "period": "CY2025",
+          "sourceName": "DPIIT",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/07/80e21324272b1aee3dbb34bbb3517d2b.pdf",
+          "sourceDate": "2026-07-01"
         }
       ],
       "policies": [
@@ -1247,6 +1517,27 @@
           "sourceName": "Ministry of Food Processing Industries, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2291793&reg=48&lang=2",
           "sourceDate": "2026-07-30"
+        },
+        {
+          "name": "FDI in multi-brand retail (Press Note 5, 2012)",
+          "what": "Foreign investment is capped at 51% with government approval, a minimum of US$ 100 million and half of it in back-end infrastructure within three years.",
+          "sourceName": "DPIIT Press Note 5 (2012)",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2025/07/384fbc020758137b3622fd8dd7bbf016.pdf",
+          "sourceDate": "2012-09-20"
+        },
+        {
+          "name": "Edible oil duty cut, May 2025",
+          "what": "Basic duty on crude palm, soybean and sunflower oil halved from 20% to 10%; effective duty fell from 27.5% to 16.5%.",
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/markets/commodities/india-slashes-import-duty-on-crude-edible-oils-to-curb-rising-food-prices-125053001844_1.html",
+          "sourceDate": "2025-05-30"
+        },
+        {
+          "name": "Edible oil duty cut, September 2026",
+          "what": "From 24 September 2026 duty on crude palm and soybean oil fell from 10% to 5% and on crude sunflower oil to 0%, with wholesale food inflation at 7.1% in August 2026.",
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/amp/economy/news/govt-cuts-import-duty-on-refined-palm-oil-and-soybean-oil-to-27-5-126092301504_1.html",
+          "sourceDate": "2026-09-23"
         }
       ],
       "drivers": [
@@ -1255,7 +1546,10 @@
         "Premiumisation and market development: HUL says premium soaps, bodywash and liquids grew double digit (HUL, March quarter 2026).",
         "Fast-growing digital channels: e-commerce value +57.7% and ITC quick commerce sales +57% (NielsenIQ; ITC).",
         "Modern trade expansion: volume up 17.5% in Q2 2026 (NielsenIQ).",
-        "Government push on processing: PLI sales of ₹1,08,854 crore and jobs above target (PIB)."
+        "Government push on processing: PLI sales of ₹1,08,854 crore and jobs above target (PIB).",
+        "The GST cut on soap, shampoo and toothpaste lifted FMCG value growth to 7.8% in Oct-Dec 2025 (NielsenIQ).",
+        "Cheaper edible oil: duty on crude palm and soybean fell to 5% from 24 Sep 2026, easing costs for biscuit, snack and oil makers (Business Standard).",
+        "Volume is returning for large players: Tata Consumer India +13%, Marico India +8% and Godrej Consumer +6% in FY26 (company releases)."
       ],
       "challenges": [
         "Weak volumes: market volume fell 2% and 68% of categories lost volume in April-June 2026 (NielsenIQ).",
@@ -1263,7 +1557,10 @@
         "Corner shops losing volume: traditional trade down 6%, which hurts the biggest distribution network (NielsenIQ).",
         "Cost volatility: HUL cited commodity and currency volatility from geopolitical tension and 'calibrated pricing actions' (HUL).",
         "Price-led value growth: value rose 0.8% only because price rose 2.8% while volumes fell (NielsenIQ).",
-        "Mass skin care stayed subdued even as premium grew (HUL, March quarter 2026)."
+        "Mass skin care stayed subdued even as premium grew (HUL, March quarter 2026).",
+        "Input costs rising again: HUL guided 8-10% material inflation for FY27 and took 2-5% price hikes (Business Standard, May 2026).",
+        "Small, stepwise price increases: Britannia saw about 1% price impact in Q1 FY27 and planned 1.5-2% more, mostly on Rs 5 and Rs 10 packs (Business Standard).",
+        "Fragmented retail: about 13 million kirana stores make distribution reach costly (Business Standard)."
       ],
       "players": {
         "structure": "A few large listed groups sell through a huge small-shop network. HUL turnover was ₹16,207 crore in one quarter and ITC FMCG was ₹24,210 crore in FY26; ITC alone reaches about 7 million outlets. The names below are well-known FMCG and retail employers, not a ranking by size; only HUL and ITC figures were verified here.",
@@ -1279,7 +1576,8 @@
           "Colgate-Palmolive India",
           "Reliance Retail",
           "Avenue Supermarts (DMart)",
-          "Lenskart"
+          "Lenskart",
+          "Colgate-Palmolive (India)"
         ]
       },
       "opsAngle": [
@@ -1289,7 +1587,10 @@
         "Cost shocks: HUL points to commodity and currency volatility; hedging, supplier diversification and local sourcing cut risk (HUL).",
         "Automation in warehousing: ITC runs 12 integrated facilities plus automated centres to optimise inventory (ITC, FY26).",
         "Demand sensing matters most after the GST cut: price changes shift demand quickly, so forecast and inventory policy must adjust within weeks (GST Council release).",
-        "Premium and fast-moving mixes behave differently: premium lines are low-volume and high-margin, so SKU rationalisation and shelf-space trade-offs matter (HUL)."
+        "Premium and fast-moving mixes behave differently: premium lines are low-volume and high-margin, so SKU rationalisation and shelf-space trade-offs matter (HUL).",
+        "With about 13 million kiranas, beat planning and distributor reach decide growth as much as the product does (Business Standard).",
+        "Britannia holds Rs 5 and Rs 10 price points and changes pack weight, so every price move becomes a packaging and line-changeover task (Business Standard).",
+        "DMart ran 500 stores at a 7.8% standalone EBITDA margin in FY26, which shows how tightly a low-price retailer must run its supply chain (company results)."
       ],
       "interviewNumbers": [
         {
@@ -1357,22 +1658,27 @@
       ],
       "conflicts": [
         "NielsenIQ numbers were read in a RetailIntel summary dated 27 Sep 2026, not in NielsenIQ's own report, so treat them as reported figures.",
-        "Search snippets on the kirana share of sales (81% to 79%, December 2024) and the 'about 13 million' kirana count came from secondary sources and are not used as facts here."
+        "Search snippets on the kirana share of sales (81% to 79%, December 2024) and the 'about 13 million' kirana count came from secondary sources and are not used as facts here.",
+        "Britannia FY26 revenue: ₹19,151.59 crore in the company's consolidated results against ₹18,858 crore in a news report; this page uses the company figure.",
+        "Kirana share of FMCG sales: about 85% (Business Standard, Oct 2024) against more than 90% (Business Standard, Jun 2025).",
+        "Godrej Consumer FY26: revenue from operations +8.5% (Business Standard) against consolidated sales +9% (company release); revenue and sales differ.",
+        "India retail size: $700 billion for 2019 (an Invest India blog) against $690 billion for 2021 (Invest India sector page); both are old.",
+        "Edible oil cut, September 2026: basic-duty cuts (10% to 5%) and effective-duty cuts are different bases in two Business Standard reports."
       ],
       "notFound": [
-        "Total size of the Indian FMCG market in ₹ crore from an official source: not found in pages opened.",
-        "Retail sector size, organised retail share and retail employment from an official source: not found.",
-        "FDI in multi-brand retail (reported as 51% with government approval): seen only in law-firm and educational pages, not on an official page opened.",
-        "Effective date of the GST changes (reported as 22 Sep 2025): the PIB text read does not state it; confirmed only in secondary pages.",
-        "Nestle India, Britannia and Tata Consumer FY26 results: company pages not opened.",
-        "HUL and DPIIT retail FDI inflow for recent years: not found (DPIIT PDF could not be read).",
-        "Edible-oil import duty change and Q1 FY27 price-hike commentary: pages blocked, not verified."
+        "Current (2025-26) total size of the FMCG market from NielsenIQ, Kantar or a ministry: not found; only IBEF and paid research sellers appeared.",
+        "Current organised-retail share and an original NielsenIQ or Kantar page with a kirana count: not found.",
+        "The original NielsenIQ Q2 2026 report (the channel figures still come from a RetailIntel summary).",
+        "Effective date of the GST changes (22 Sep 2025) on the CBIC rate notification page: the page would not open; the date is supported by PIB and the twin integrated-tax notification.",
+        "Customs notification numbers for the edible oil duty cuts: not found on CBIC.",
+        "FMCG's share of GDP and retail employment from an official source: not found; only the trade-sector share of workers is shown.",
+        "Full-year FY26 volume growth for Nestle India, Britannia, Dabur and Colgate: not disclosed in the pages opened."
       ]
     },
     {
       "id": "ecom",
       "name": "E-commerce and logistics",
-      "asOf": "2026-10-05",
+      "asOf": "2026-10-06",
       "overview": "E-commerce sells goods online and logistics is everything that moves them: trucks, trains, ports, warehouses and the last-mile rider. The two are tied together because an online order is only as good as the delivery behind it. For Ops students this is the most direct supply chain industry, and this page is strongest on the logistics side, where official data is available.",
       "bigIdea": "India is building a national logistics system (a policy, a data platform, freight corridors and bigger ports) while e-commerce and quick commerce push delivery to the doorstep, so the winners are firms that cut cost and time per parcel.",
       "flow": [
@@ -1409,6 +1715,12 @@
           "detail": "Goals: cut logistics costs to global benchmarks and reach the top 25 in the Logistics Performance Index by 2030 (DPIIT, on PIB)."
         },
         {
+          "date": "Jul 2024",
+          "title": "TCS on e-commerce sellers halved",
+          "detail": "Rate cut from 1% to 0.5% under Section 52 of the GST law (PIB).",
+          "future": false
+        },
+        {
           "date": "By Sep 2025",
           "title": "India ranked 38th in the World Bank LPI",
           "detail": "DPIIT credits the LEADS index for supporting the rise to 38th (PIB)."
@@ -1417,6 +1729,12 @@
           "date": "16 Sep 2025",
           "title": "ULIP crosses 160 crore transactions",
           "detail": "The Unified Logistics Interface Platform connects over 30 digital systems; the Logistics Data Bank tracked over 75 million EXIM containers across 101 inland container depots (PIB)."
+        },
+        {
+          "date": "20 Sep 2025",
+          "title": "NCAER-DPIIT logistics cost study launched",
+          "detail": "It puts logistics cost at 7.97% of GDP for 2023-24 (PIB).",
+          "future": false
         },
         {
           "date": "Nov 2025",
@@ -1432,6 +1750,18 @@
           "date": "9 Jun 2026",
           "title": "Port performance data published",
           "detail": "Major port capacity 1,726 MMTPA; cargo 915 MMT; vessel turnaround 48.8 hours against 94 hours in 2014 (PIB)."
+        },
+        {
+          "date": "23 Jul 2026",
+          "title": "Press Note 3 allows export-only inventory e-commerce",
+          "detail": "100% FDI under the automatic route for inventory models that export Indian-made goods (DPIIT).",
+          "future": false
+        },
+        {
+          "date": "Aug 2026",
+          "title": "Both dedicated freight corridors operating",
+          "detail": "Eastern (1,337 km) and Western (1,506 km) corridors, with 142 cargo terminals commissioned (PIB).",
+          "future": false
         },
         {
           "date": "2030",
@@ -1624,6 +1954,79 @@
           "sourceName": "DPIIT, Ministry of Commerce, on PIB (3 years of National Logistics Policy)",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2167224&reg=48&lang=2",
           "sourceDate": "2025-09-16"
+        },
+        {
+          "id": "qshare",
+          "kind": "bars",
+          "title": "Quick commerce market share",
+          "subtitle": "FY26, % share",
+          "unit": "%",
+          "items": [
+            {
+              "label": "Blinkit",
+              "value": 44,
+              "note": "900M orders"
+            },
+            {
+              "label": "Zepto",
+              "value": 25
+            },
+            {
+              "label": "Swiggy Instamart",
+              "value": 20
+            },
+            {
+              "label": "Others",
+              "value": 11
+            }
+          ],
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/industry/news/india-s-ecommerce-market-to-hit-345-bn-by-2030-dark-stores-to-triple-126090200785_1.html",
+          "sourceDate": "2026-09-02"
+        },
+        {
+          "id": "dfc",
+          "kind": "bars",
+          "title": "Dedicated freight corridors commissioned",
+          "subtitle": "2026, route kilometres",
+          "unit": "km",
+          "items": [
+            {
+              "label": "Western DFC (Dadri to JNPT)",
+              "value": 1506
+            },
+            {
+              "label": "Eastern DFC (Ludhiana to Sonnagar)",
+              "value": 1337
+            }
+          ],
+          "sourceName": "PIB",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2295944",
+          "sourceDate": "2026-08-07"
+        },
+        {
+          "id": "darkstores",
+          "kind": "columns",
+          "title": "Dark stores by platform",
+          "subtitle": "Q4 FY26, stores",
+          "unit": "stores",
+          "items": [
+            {
+              "label": "Blinkit",
+              "value": 2243
+            },
+            {
+              "label": "Zepto",
+              "value": 1139
+            },
+            {
+              "label": "Swiggy Instamart",
+              "value": 1038
+            }
+          ],
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/industry/news/india-s-ecommerce-market-to-hit-345-bn-by-2030-dark-stores-to-triple-126090200785_1.html",
+          "sourceDate": "2026-09-02"
         }
       ],
       "marketSize": [
@@ -1674,6 +2077,38 @@
           "sourceName": "DPIIT, Ministry of Commerce, on PIB (3 years of National Logistics Policy)",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2167224&reg=48&lang=2",
           "sourceDate": "2025-09-16"
+        },
+        {
+          "label": "E-commerce market size",
+          "value": "$125 billion",
+          "period": "CY2024",
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/industry/news/india-s-ecommerce-market-to-hit-345-bn-by-2030-dark-stores-to-triple-126090200785_1.html",
+          "sourceDate": "2026-09-02"
+        },
+        {
+          "label": "GeM gross merchandise value in the year",
+          "value": "₹5 lakh crore",
+          "period": "FY 2025-26",
+          "sourceName": "PIB",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2296138",
+          "sourceDate": "2026-08-08"
+        },
+        {
+          "label": "GeM cumulative gross merchandise value",
+          "value": "₹20 lakh crore",
+          "period": "as of August 2026",
+          "sourceName": "PIB",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2296138",
+          "sourceDate": "2026-08-08"
+        },
+        {
+          "label": "Dark stores in operation",
+          "value": "2,525",
+          "period": "CY2025",
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/industry/news/india-s-ecommerce-market-to-hit-345-bn-by-2030-dark-stores-to-triple-126090200785_1.html",
+          "sourceDate": "2026-09-02"
         }
       ],
       "growth": [
@@ -1708,6 +2143,38 @@
           "sourceName": "PIB backgrounder on infrastructure",
           "sourceUrl": "https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=158838&ModuleId=3&reg=5&lang=1",
           "sourceDate": "2026-06-09"
+        },
+        {
+          "label": "Delhivery express parcel volume growth",
+          "value": "72%",
+          "period": "Q4 FY26",
+          "sourceName": "The Economic Times",
+          "sourceUrl": "https://economictimes.indiatimes.com/markets/stocks/earnings/delhivery-q4-results-net-profit-flat-at-rs-72-4-crore-revenue-rises-30-yoy/articleshow/131137327.cms",
+          "sourceDate": "2026-05-16"
+        },
+        {
+          "label": "Adani Ports cargo volume growth",
+          "value": "11%",
+          "period": "FY26",
+          "sourceName": "The Economic Times (ETInfra)",
+          "sourceUrl": "https://infra.economictimes.indiatimes.com/news/ports-shipping/adani-ports-reports-9-profit-growth-in-q4-fy26-traffic-surges-past-500-mmt/130629062",
+          "sourceDate": "2026-04-30"
+        },
+        {
+          "label": "Mahindra Logistics consolidated revenue growth",
+          "value": "15%",
+          "period": "FY26",
+          "sourceName": "Mahindra Logistics press release",
+          "sourceUrl": "https://mahindralogistics.com/tabs/cms/files/Press_Release_Q4FY26.pdf",
+          "sourceDate": "2026-04-23"
+        },
+        {
+          "label": "TCI consolidated revenue growth",
+          "value": "9.4%",
+          "period": "FY26",
+          "sourceName": "Transport Corporation of India",
+          "sourceUrl": "https://tcil.com/wp-content/uploads/2026/06/Transport-Corporation-of-India-Ltd.-TCI-Announces-Strong-Growth-in-Q4-FY2026-Financial-Results.pdf",
+          "sourceDate": "2026-05-26"
         }
       ],
       "gdpJobs": [
@@ -1734,6 +2201,30 @@
           "sourceName": "PIB backgrounder on infrastructure",
           "sourceUrl": "https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=158838&ModuleId=3&reg=5&lang=1",
           "sourceDate": "2026-06-09"
+        },
+        {
+          "label": "Logistics cost as a share of GDP",
+          "value": "7.97%",
+          "period": "2023-24",
+          "sourceName": "PIB (NCAER-DPIIT study)",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2168995&reg=48&lang=2",
+          "sourceDate": "2025-09-20"
+        },
+        {
+          "label": "E-commerce projected share of GDP",
+          "value": "2.5%",
+          "period": "2030 projection",
+          "sourceName": "Business Standard",
+          "sourceUrl": "https://www.business-standard.com/industry/news/india-s-ecommerce-market-to-hit-345-bn-by-2030-dark-stores-to-triple-126090200785_1.html",
+          "sourceDate": "2026-09-02"
+        },
+        {
+          "label": "GeM registered micro and small enterprise sellers",
+          "value": "12.25 lakh",
+          "period": "August 2026",
+          "sourceName": "PIB",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2296138",
+          "sourceDate": "2026-08-08"
         }
       ],
       "exportsFdi": [
@@ -1760,6 +2251,38 @@
           "sourceName": "PIB backgrounder on infrastructure",
           "sourceUrl": "https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=158838&ModuleId=3&reg=5&lang=1",
           "sourceDate": "2026-06-09"
+        },
+        {
+          "label": "FDI cap for inventory-based e-commerce exporting Indian-made goods",
+          "value": "100% (automatic route)",
+          "period": "from Press Note 3, 23 July 2026",
+          "sourceName": "DPIIT",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/07/ceb0cae74fd4e83094dc6b50c3d53f92.pdf",
+          "sourceDate": "2026-07-23"
+        },
+        {
+          "label": "Private investment mobilised by the cargo terminal policy",
+          "value": "₹10,000 crore",
+          "period": "July 2026",
+          "sourceName": "PIB",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2295944",
+          "sourceDate": "2026-08-07"
+        },
+        {
+          "label": "Adani Ports annual cargo volume",
+          "value": "500.8 MMT",
+          "period": "FY26",
+          "sourceName": "The Economic Times (ETInfra)",
+          "sourceUrl": "https://infra.economictimes.indiatimes.com/news/ports-shipping/adani-ports-reports-9-profit-growth-in-q4-fy26-traffic-surges-past-500-mmt/130629062",
+          "sourceDate": "2026-04-30"
+        },
+        {
+          "label": "Delhivery express parcels in the year",
+          "value": "1 billion",
+          "period": "FY26",
+          "sourceName": "The Economic Times",
+          "sourceUrl": "https://economictimes.indiatimes.com/markets/stocks/earnings/delhivery-q4-results-net-profit-flat-at-rs-72-4-crore-revenue-rises-30-yoy/articleshow/131137327.cms",
+          "sourceDate": "2026-05-16"
         }
       ],
       "policies": [
@@ -1804,6 +2327,27 @@
           "sourceName": "PIB backgrounder on infrastructure",
           "sourceUrl": "https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=158838&ModuleId=3&reg=5&lang=1",
           "sourceDate": "2026-06-09"
+        },
+        {
+          "name": "Press Note 3 of 2026: FDI in export e-commerce",
+          "what": "Issued 23 July 2026: 100% FDI under the automatic route for inventory-based e-commerce entities that export only Indian-made goods.",
+          "sourceName": "DPIIT",
+          "sourceUrl": "https://www.dpiit.gov.in/static/uploads/2026/07/ceb0cae74fd4e83094dc6b50c3d53f92.pdf",
+          "sourceDate": "2026-07-23"
+        },
+        {
+          "name": "Gati Shakti Multi-Modal Cargo Terminal policy",
+          "what": "142 private cargo terminals with 224 MTPA capacity were commissioned by mid-2026 and handled 146 MT of rail freight in FY26.",
+          "sourceName": "PIB",
+          "sourceUrl": "https://pib.gov.in/PressReleasePage.aspx?PRID=2295944",
+          "sourceDate": "2026-08-07"
+        },
+        {
+          "name": "TCS on e-commerce sellers cut to 0.5%",
+          "what": "From 10 July 2024 the tax collected at source under Section 52 fell from 1% to 0.5% to ease cash flow for sellers on platforms.",
+          "sourceName": "PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2027982&reg=48&lang=2",
+          "sourceDate": "2024-06-22"
         }
       ],
       "drivers": [
@@ -1812,7 +2356,10 @@
         "Digital backbone: ULIP crossed 160 crore transactions and the Logistics Data Bank tracks EXIM containers (DPIIT).",
         "State-level policy push: 27 States and UTs have State Logistics Policies (DPIIT).",
         "More coastal movement: coastal cargo rose from 74 MMT to 215.29 MMT (PIB).",
-        "Open commerce rails: ONDC lets small sellers reach many buyer apps and lowers acquisition cost (DPIIT)."
+        "Open commerce rails: ONDC lets small sellers reach many buyer apps and lowers acquisition cost (DPIIT).",
+        "Quick-commerce build-out: dark stores at 2,525 in 2025 and projected to triple by 2030 (Business Standard).",
+        "Public procurement online: GeM reached ₹5 lakh crore of annual transactions in FY26 (PIB).",
+        "Parcel growth: Delhivery's express parcels grew 72% in Q4 FY26 (Economic Times)."
       ],
       "challenges": [
         "Infrastructure gaps, regulatory harmonisation and low digital literacy among smaller logistics operators remain (DPIIT, Sep 2025).",
@@ -1820,7 +2367,10 @@
         "Nine States still had logistics policies in draft (DPIIT, Sep 2025).",
         "Sector plans for steel, fertiliser and food processing logistics were still drafts (DPIIT).",
         "New cost for platforms: aggregators must pay 1-2% of turnover into a worker fund (PIB, Dec 2025).",
-        "Overall rail freight growth is only 3.25%, so more cargo must shift from road through terminals and corridors (PIB)."
+        "Overall rail freight growth is only 3.25%, so more cargo must shift from road through terminals and corridors (PIB).",
+        "Marketplaces face enforcement against deceptive design (dark patterns) under consumer-protection guidelines.",
+        "Quick-commerce economics depend on order density per dark store and on moving into higher-priced non-grocery items (Business Standard).",
+        "Small shippers pay more per unit to move goods than large corporate shippers, according to the NCAER study (PIB)."
       ],
       "players": {
         "structure": "Delivery runs on a mix of marketplaces, quick-commerce apps, courier and 3PL firms, and the railways and ports. No verified market-share or revenue figures for private players were found in official sources, so the names below are well-known employers, not a ranking.",
@@ -1836,7 +2386,9 @@
           "BigBasket",
           "Mahindra Logistics",
           "TCI",
-          "Adani Ports"
+          "Adani Ports",
+          "Transport Corporation of India",
+          "Blue Dart Express"
         ]
       },
       "opsAngle": [
@@ -1846,7 +2398,10 @@
         "Visibility tools exist: ULIP and the Logistics Data Bank give container-level tracking that planners can use for ETAs (DPIIT).",
         "Last-mile labour is now a regulated cost: platform payouts attract a 1-2% turnover contribution, which changes delivery economics (PIB).",
         "Dark stores and rural routes need different networks: a hub-and-spoke for slow parcels and many small nodes for 10-minute delivery.",
-        "Reverse logistics and returns are a hidden cost in e-commerce that a good plan must price in."
+        "Reverse logistics and returns are a hidden cost in e-commerce that a good plan must price in.",
+        "With both freight corridors commissioned and 142 cargo terminals running, planners can move containers rail-to-port faster and cut inland transit time (PIB).",
+        "Blinkit's 2,243 dark stores show that micro-hub density and neighbourhood routing, not line-haul scale, decide urban delivery cost (Business Standard).",
+        "Logistics cost at 7.97% of GDP is the official baseline, so improvement comes from rail-port integration and better utilisation, not from a hypothetical 14% (PIB)."
       ],
       "interviewNumbers": [
         {
@@ -1913,16 +2468,16 @@
         "Is returns handling the biggest unsolved cost problem in Indian e-commerce?"
       ],
       "conflicts": [
-        "The 16% of GDP logistics cost figure is quoted widely, but the PIB release read does not give it; the NCAER study to settle it was still being finalised, so it is not used as a fact."
+        "Logistics cost: the older figure of 13-14% (and 16%) of GDP in secondary reports differs from 7.97% in the NCAER-DPIIT study on PIB; this page uses the PIB figure.",
+        "Dark store counts range from about 2,000 to 2,525 in news, and 2,243 for Blinkit alone in Q4 FY26; figures differ by date and by who counts.",
+        "ONDC: a cumulative GMV of ₹18.4 lakh crore appeared in the Opus output against ONDC, but earlier search results gave the same number for GeM; it is not used. ONDC seller counts range from 5 lakh to 7.64 lakh across sources and are not used."
       ],
       "notFound": [
-        "Size of India's e-commerce and quick-commerce markets from an official source: only trade-press and IBEF figures were seen, so none are used.",
-        "Quick-commerce market shares and dark-store counts (reported by Datum, Reuters-cited): secondary only, not verified.",
         "GST on delivery and platform fees: not opened.",
-        "Press Note 3 of 2026 allowing inventory-based FDI e-commerce for exports (reported 23 July 2026): seen only on law-firm pages, not on an official page.",
-        "Gati Shakti Cargo Terminals (142 operating, 146 MT handled in FY2025-26) and Dedicated Freight Corridor completion: seen only in trade summaries, not on an opened PIB page.",
-        "ONDC and GeM latest transaction and seller counts: differing figures in search snippets; no opened official page.",
-        "Private player revenue and market share (Delhivery, Blue Dart, Amazon, Flipkart): company pages not opened."
+        "ONDC seller and transaction counts: sources disagree, so none are shown.",
+        "Combined revenue chart for Adani Ports, Delhivery, Mahindra Logistics, Blue Dart and TCI: dropped because one link cannot back all five figures.",
+        "Blue Dart FY26 revenue and quick-commerce platform results from company filings: not opened.",
+        "Dark-pattern guideline details (the 13 listed practices): not opened on the official page."
       ]
     },
     {
@@ -1934,7 +2489,7 @@
     {
       "id": "oilgas",
       "name": "Oil and gas",
-      "asOf": "2026-10-05",
+      "asOf": "2026-10-06",
       "overview": "Oil and gas covers finding crude, importing it, refining it into petrol, diesel, LPG and jet fuel, and moving it to millions of customers through pipelines, tankers and fuel stations. India produces little crude and imports most of what it burns, so this industry is really a giant supply chain problem: ships, refineries, storage and delivery, under price and geopolitical pressure.",
       "bigIdea": "India imports almost ten times the crude it produces, refines it into fuels at home and ships surplus out, so supply security (where crude and LPG come from, and how fast the system adapts) is the central story, as the March 2026 West Asia disruption showed.",
       "flow": [
@@ -1996,14 +2551,32 @@
           "detail": "About 47.4 MMSCMD of gas supply hit; domestic LPG output raised about 25% (PIB)."
         },
         {
+          "date": "Mar 2026",
+          "title": "Strategic petroleum reserve stands at 5.33 MMT",
+          "detail": "Three underground sites hold the reserve; a Phase II expansion of 6.5 MMT was described as under way (PIB).",
+          "future": false
+        },
+        {
+          "date": "24 Mar 2026",
+          "title": "Distribution Order notified",
+          "detail": "Controls and faster clearances for city gas pipelines to protect domestic supply (PIB).",
+          "future": false
+        },
+        {
           "date": "1 Apr 2026",
           "title": "Refining capacity stands at 267.1 MMTPA",
           "detail": "PPAC's installed capacity table (PPAC)."
         },
         {
+          "date": "30 Sep 2026",
+          "title": "PPAC sets gas price ceilings for the second half of FY27",
+          "detail": "US$ 9.89 per MMBtu for HP-HT fields and a US$ 7.00 cap on APM gas (PPAC).",
+          "future": false
+        },
+        {
           "date": "31 Mar 2027",
           "title": "Current gas price ceiling period ends",
-          "detail": "PPAC lists a gas price ceiling for 1 Oct 2026 to 31 Mar 2027; the value was not read.",
+          "detail": "PPAC's ceilings for 1 Oct 2026 to 31 Mar 2027 end: US$ 9.89 per MMBtu for HP-HT fields and US$ 7.00 for APM gas.",
           "future": true
         }
       ],
@@ -2299,6 +2872,50 @@
           "sourceName": "Ministry of Petroleum and Natural Gas briefing, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238525&reg=3&lang=1",
           "sourceDate": "2026-03-11"
+        },
+        {
+          "id": "spr",
+          "kind": "bars",
+          "title": "Strategic petroleum reserve caverns",
+          "subtitle": "2026, million tonnes",
+          "unit": "MMT",
+          "items": [
+            {
+              "label": "Padur (Karnataka)",
+              "value": 2.5
+            },
+            {
+              "label": "Mangaluru (Karnataka)",
+              "value": 1.5
+            },
+            {
+              "label": "Visakhapatnam (Andhra Pradesh)",
+              "value": 1.33
+            }
+          ],
+          "sourceName": "PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2243931&reg=20&lang=1",
+          "sourceDate": "2026-03-24"
+        },
+        {
+          "id": "lpgmix",
+          "kind": "columns",
+          "title": "Active domestic LPG customers",
+          "subtitle": "September 2026, lakh customers",
+          "unit": "lakh",
+          "items": [
+            {
+              "label": "Other customers",
+              "value": 2220.3
+            },
+            {
+              "label": "PMUY (Ujjwala) beneficiaries",
+              "value": 1057.2
+            }
+          ],
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
         }
       ],
       "marketSize": [
@@ -2349,6 +2966,46 @@
           "sourceName": "Ministry of Petroleum and Natural Gas briefing, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238525&reg=3&lang=1",
           "sourceDate": "2026-03-11"
+        },
+        {
+          "label": "Crude oil import bill (US dollars)",
+          "value": "$123.38 billion",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Crude oil import bill (rupees)",
+          "value": "₹10,92,248 crore",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Active domestic LPG customers",
+          "value": "32.78 crore",
+          "period": "September 2026",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Operational CNG stations",
+          "value": "9,096",
+          "period": "July 2026",
+          "sourceName": "PNGRB data in the PPAC snapshot",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "PNG connections nationwide",
+          "value": "1.76 crore",
+          "period": "July 2026",
+          "sourceName": "PNGRB data in the PPAC snapshot",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
         }
       ],
       "growth": [
@@ -2383,6 +3040,22 @@
           "sourceName": "PPAC, consumption of petroleum products",
           "sourceUrl": "https://ppac.gov.in/consumption/products-wise",
           "sourceDate": "2026-09-09"
+        },
+        {
+          "label": "BPCL consolidated net profit growth",
+          "value": "93.8%",
+          "period": "FY26",
+          "sourceName": "Bharat Petroleum results",
+          "sourceUrl": "https://www.bharatpetroleum.in/images/files/stexchresults26ss.pdf",
+          "sourceDate": "2026-05-19"
+        },
+        {
+          "label": "Reliance O2C revenue growth",
+          "value": "5.7%",
+          "period": "FY26",
+          "sourceName": "Reliance Industries media release",
+          "sourceUrl": "https://www.ril.com/sites/default/files/2026-04/24042026_Media_Release_RIL_Q4_FY2025-26_Financial_and_Operational_Performance.pdf",
+          "sourceDate": "2026-04-24"
         }
       ],
       "gdpJobs": [
@@ -2409,6 +3082,38 @@
           "sourceName": "PIB backgrounder on the Ethanol Blended Petrol programme",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2283376&reg=3&lang=1",
           "sourceDate": "2026-07-10"
+        },
+        {
+          "label": "Petroleum sector share of central government revenue",
+          "value": "14%",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Combined contribution to the exchequer",
+          "value": "₹8,17,540 crore",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Crude oil import dependency",
+          "value": "88.7%",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Petroleum subsidy as share of GDP",
+          "value": "0.08%",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
         }
       ],
       "exportsFdi": [
@@ -2443,6 +3148,38 @@
           "sourceName": "Ministry of Petroleum and Natural Gas briefing, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238525&reg=3&lang=1",
           "sourceDate": "2026-03-11"
+        },
+        {
+          "label": "Strategic petroleum reserve storage capacity",
+          "value": "5.33 MMT",
+          "period": "March 2026",
+          "sourceName": "PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2243931&reg=20&lang=1",
+          "sourceDate": "2026-03-24"
+        },
+        {
+          "label": "Indian crude basket average price",
+          "value": "$70.99 a barrel",
+          "period": "FY 2025-26",
+          "sourceName": "PPAC, Snapshot of India's Oil and Gas data",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=rep_studies/1790418308_Final_Snapshot_of_Indias_Oil_Gas_data_augpages.pdf",
+          "sourceDate": "2026-08-31"
+        },
+        {
+          "label": "Gas price ceiling for deepwater and HP-HT fields",
+          "value": "US$ 9.89 per MMBtu",
+          "period": "Oct 2026 to Mar 2027",
+          "sourceName": "PPAC notification",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=whatsnew/1790767903_Gas_Price_Ceiling_October2026-March2027.pdf",
+          "sourceDate": "2026-09-30"
+        },
+        {
+          "label": "Indian Oil crude refining throughput",
+          "value": "75.45 MMT",
+          "period": "FY26",
+          "sourceName": "Indian Oil annual report",
+          "sourceUrl": "https://iocl.com/download/IndianOil_IAR_Single07082026.pdf",
+          "sourceDate": "2026-08-07"
         }
       ],
       "policies": [
@@ -2480,6 +3217,27 @@
           "sourceName": "Ministry of Petroleum and Natural Gas briefing, on PIB",
           "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2238525&reg=3&lang=1",
           "sourceDate": "2026-03-11"
+        },
+        {
+          "name": "Natural Gas and Petroleum Products Distribution Order, 24 March 2026",
+          "what": "Under the Essential Commodities Act, it speeds up gas pipeline laying, requires delivery authentication and sets rationing quotas during the West Asia disruption.",
+          "sourceName": "PIB",
+          "sourceUrl": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2262414&reg=48&lang=2",
+          "sourceDate": "2026-05-18"
+        },
+        {
+          "name": "Gas price ceiling for deepwater and HP-HT fields",
+          "what": "PPAC fixed the ceiling at US$ 9.89 per MMBtu for October 2026 to March 2027 (notified 30 September 2026).",
+          "sourceName": "PPAC notification",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=whatsnew/1790767903_Gas_Price_Ceiling_October2026-March2027.pdf",
+          "sourceDate": "2026-09-30"
+        },
+        {
+          "name": "Domestic (APM) gas price ceiling for ONGC and Oil India",
+          "what": "For October 2026 the price is capped at US$ 7.00 per MMBtu although the formula gave US$ 11.22.",
+          "sourceName": "PPAC notification",
+          "sourceUrl": "https://ppac.gov.in/download.php?file=gasprice/1790767900_Domestic_Natural_Gas_Price_October_2026.pdf",
+          "sourceDate": "2026-09-30"
         }
       ],
       "drivers": [
@@ -2488,7 +3246,10 @@
         "Export earnings: 61.43 MT of fuels shipped out in FY2025-26 (PPAC).",
         "Ethanol blending: 20% reached, cutting crude needs and creating a ₹1 lakh crore a year financing wave (PIB).",
         "Diverse crude sourcing: about 40 supplier countries and 70% of imports arriving outside Hormuz (Ministry briefing).",
-        "Refineries ran at very high utilisation, in some cases above 100% (Ministry briefing)."
+        "Refineries ran at very high utilisation, in some cases above 100% (Ministry briefing).",
+        "Fast city gas rollout: 9,096 CNG stations and 1.76 crore PNG connections by July 2026 (PNGRB via PPAC).",
+        "Government revenue base: petroleum gave ₹8,17,540 crore to the exchequer, about 14% of central revenue, in FY2025-26 (PPAC).",
+        "Strategic reserve buffer of 5.33 MMT with a 6.5 MMT Phase II planned (PIB)."
       ],
       "challenges": [
         "Import dependence: 245.77 MT imported against 25.98 MT produced (PPAC).",
@@ -2496,7 +3257,10 @@
         "Gas supply shocks: 47.4 MMSCMD was hit by force majeure in March 2026, forcing cuts to industry (Ministry briefing).",
         "LPG import collapse: 807 thousand tonnes in March 2026 against 1,700 in February (PPAC).",
         "Demand softness: total consumption fell 2.8% in August 2026 (PPAC).",
-        "Controversy over E20: the government issued detailed FAQs after concerns from consumers and carmakers (PIB, July 2026)."
+        "Controversy over E20: the government issued detailed FAQs after concerns from consumers and carmakers (PIB, July 2026).",
+        "Import bill of ₹10,92,248 crore ($123.38 billion) with 88.7% import dependency in FY2025-26 (PPAC).",
+        "Gas price gap: the formula price of US$ 11.22 per MMBtu was capped at US$ 7.00 for October 2026, squeezing producer realisation (PPAC).",
+        "A reserve of 5.33 MMT is small against daily consumption of about 55 lakh barrels (PIB; PPAC)."
       ],
       "players": {
         "structure": "Refining is led by state-owned IOC, BPCL, HPCL and subsidiaries plus Reliance's two Jamnagar refineries (68.2 MMTPA together) and Nayara (20 MMTPA); ONGC and Oil India produce most crude. The names below are major employers, not a ranking by size.",
@@ -2512,7 +3276,10 @@
           "Numaligarh Refinery",
           "GAIL",
           "Chennai Petroleum (CPCL)",
-          "HPCL-Mittal Energy"
+          "HPCL-Mittal Energy",
+          "GAIL (India) Limited",
+          "Oil and Natural Gas Corporation",
+          "Hindustan Petroleum Corporation"
         ]
       },
       "opsAngle": [
@@ -2522,7 +3289,10 @@
         "Storage and inventory are the buffer: LPG imports dropping to 807 thousand tonnes in March shows why days of cover matter (PPAC).",
         "Product mix drives logistics: diesel is 94.7 MT and petrol 42.6 MT, so tanker, pipeline and depot flow plans centre on those two (PPAC).",
         "Blending changes fuel supply chains: E20 needs ethanol sourcing, storage and blending at depots across over one lakh outlets (PIB).",
-        "Export versus domestic: 61.43 MT of products were exported, so refiners balance export margins against domestic availability (PPAC)."
+        "Export versus domestic: 61.43 MT of products were exported, so refiners balance export margins against domestic availability (PPAC).",
+        "With 88.7% crude import dependency, planners must coordinate reserve drawdowns with pipeline throughput so refineries keep running when shipping is disrupted (PPAC).",
+        "Moving households from LPG cylinders to piped gas (1.76 crore connections) removes bottling and cylinder-delivery bottlenecks (PNGRB).",
+        "Capped gas prices change fuel-mix economics for fertiliser and city gas users, so sourcing plans need price-band scenarios (PPAC)."
       ],
       "interviewNumbers": [
         {
@@ -2591,17 +3361,15 @@
       "conflicts": [
         "Search summaries quote refining capacity of 256.8 MMTPA with 22 refineries; the PPAC table opened for 1 April 2026 totals 267.116 MMTPA, so the page uses PPAC. The older number probably predates a capacity addition.",
         "Crude production 27.95 MT includes condensate; crude alone is 25.98 MT. The page uses 25.98 MT for the import comparison.",
-        "PPAC's FY2025-26 data are provisional; growth rates on this page are calculated by dividing PPAC's two annual totals, not published by PPAC."
+        "PPAC's FY2025-26 data are provisional; growth rates on this page are calculated by dividing PPAC's two annual totals, not published by PPAC.",
+        "Crude imports for FY2025-26: PPAC's snapshot table rounds to 245.8 MMT while the monthly report gives 245.38 MMT; this page uses the 245.77 MT total from PPAC's import-export table.",
+        "ONGC profit growth (about 30%) was cited only on an aggregator site, so it is not used; the O2C revenue and BPCL profit figures come from company releases."
       ],
       "notFound": [
-        "Share of oil and gas in GDP, jobs and government revenue from an official page: not found.",
-        "India's crude import bill in dollars and rupees for FY2025-26: not opened (only tonnes found).",
-        "Strategic petroleum reserve capacity (reported as 5.33 MMT): seen only in secondary summaries.",
-        "LPG consumer count (reported as 33.5 crore) and city gas network size: secondary or unopened pages.",
-        "The Natural Gas and Petroleum Products Distribution Order dated 24 March 2026: seen only in a search summary.",
-        "Reliance, ONGC, IOC, BPCL and HPCL results: company pages not opened.",
-        "Retail price and under-recovery details: the daily price PDFs and the gas price ceiling value were not read.",
-        "Hormuz and West Asia status after March 2026: the PIB briefings opened are from March only."
+        "Hormuz and West Asia status after March 2026: the PIB briefings opened are from March only.",
+        "Revenue of IOCL, Reliance, ONGC, BPCL, HPCL and GAIL: a combined chart was dropped because one company link cannot back all six figures.",
+        "ONGC and HPCL FY26 profit and throughput from the companies' own filings: not opened.",
+        "Retail petrol and diesel price trends and OMC margin data: PPAC daily PDFs not read."
       ]
     },
     {
