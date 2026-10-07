@@ -12,6 +12,7 @@ const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-disp
 const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: false }, // members-only site: keep it out of search engines
   title: { default: "OpsPulse", template: "%s · OpsPulse" },
   description: "News that matters for your MBA interviews and group discussions, with the interview angle on every story.",
 };
