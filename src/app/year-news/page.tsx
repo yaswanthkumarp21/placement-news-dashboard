@@ -2,7 +2,7 @@ import Link from "next/link";
 import { TileCard } from "@/components/TileCard";
 import { MdBlock } from "@/components/MdInline";
 import { loadArchive } from "@/lib/archive";
-import { loadTiles } from "@/lib/tiles";
+import { inRoster, loadTiles } from "@/lib/tiles";
 
 export const metadata = { title: "Year News" };
 export const dynamic = "force-dynamic";
@@ -12,7 +12,7 @@ const monthLabel = (m: string) => new Date(`${m}-01T00:00:00`).toLocaleDateStrin
 
 export default async function YearNews({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
-  const docs = loadArchive();
+  const docs = loadArchive().filter((d) => inRoster(d.slug));
   const all = loadTiles().sort((a, b) => (b.date ?? "").localeCompare(a.date ?? "") || b.score - a.score);
   const q = (sp.q ?? "").trim().toLowerCase();
 

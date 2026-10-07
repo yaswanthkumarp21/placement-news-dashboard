@@ -1,3 +1,4 @@
+import { guestCompanies } from "@/lib/guest";
 import { loadArchive, type ArchiveEntry } from "./archive";
 
 /** A story as the UI shows it: headline, company, three inference bullets. Serializable (sent to client components). */
@@ -39,6 +40,13 @@ const ALIAS: Record<string, string> = {
   "wipro-consumer-care-lighting": "wipro-consumer-care",
 };
 
+let rosterIds: Set<string> | null = null;
+/** True when the archive company is on the final roster (data/roles.csv). Research files also cover names that were dropped from the list. */
+export function inRoster(slug: string): boolean {
+  rosterIds ??= new Set(guestCompanies().map((c) => c.id));
+  return rosterIds.has(ALIAS[slug] ?? slug);
+}
+
 const ABBR = /\b(vs|e\.g|i\.e|approx|Rs|Cr|No|Mr|Dr|etc|St|Ltd|Inc|Co)\.$/i;
 
 /** Splits the "why it matters" paragraph into up to 3 bullets. (Placeholder until the prompt returns 3 bullets.) */
@@ -77,6 +85,7 @@ export function loadTiles(): Tile[] {
   const tiles: Tile[] = [];
   for (const d of loadArchive()) {
     for (const e of d.entries) {
+      if (!inRoster(e.slug)) continue;
       const bullets = toBullets(e.why);
       tiles.push({
         id: e.id,
