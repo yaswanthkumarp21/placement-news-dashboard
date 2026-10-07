@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AuthMenu } from "@/components/AuthMenu";
 import { Logo } from "@/components/Logo";
 
 const TABS = [
@@ -10,7 +11,7 @@ const TABS = [
   { href: "/year-news", label: "Year News" },
 ];
 
-export function PnHeader() {
+export function PnHeader({ authOn = false }: { authOn?: boolean }) {
   const path = usePathname();
   const [theme, setTheme] = useState<"light" | "dark" | null>(null);
   useEffect(() => {
@@ -38,6 +39,7 @@ export function PnHeader() {
           <nav>
             <Link className="pn-navlink" href="/saved">Saved</Link>
             <Link className="pn-navlink" href="/account">My companies</Link>
+            {authOn ? <AuthMenu /> : null}
             <button className="pn-theme" onClick={toggleTheme} aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"} title={theme === "light" ? "Dark theme" : "Light theme"}>
               {theme === "light" ? "☾" : "☀"}
             </button>

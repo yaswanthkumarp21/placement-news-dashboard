@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SUPABASE_KEY, SUPABASE_URL, supabaseConfigured } from "@/lib/supabase/env";
 import { AUTH_DISABLED } from "@/lib/guest";
 
-/** Keeps the Supabase session fresh and sends signed-out visitors to /login. Only runs on the paths below. */
+/** Keeps the Supabase session fresh and sends signed-out visitors to /login for the admin pages. Everything else is open: guests keep their picks in the browser, signed-in users sync to their account. */
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   if (!supabaseConfigured || AUTH_DISABLED) return response;
@@ -31,5 +31,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/saved/:path*", "/manage/:path*", "/login"],
+  matcher: ["/manage/:path*", "/login"],
 };

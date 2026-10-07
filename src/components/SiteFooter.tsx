@@ -1,5 +1,5 @@
-// Set the Instagram handle (without @) to show its link in the footer; leave empty to hide it.
-const INSTAGRAM = "";
+// Instagram handle (without @); leave empty to hide the link.
+const INSTAGRAM = "yash_inprogress";
 const GITHUB = "yaswanthkumarp21";
 const OWNER = "Yash";
 

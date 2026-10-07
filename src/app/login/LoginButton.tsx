@@ -16,7 +16,8 @@ export function LoginButton({ next }: { next: string }) {
     <button
       onClick={go}
       disabled={busy}
-      style={{ padding: "12px 20px", fontSize: 16, borderRadius: 8, border: "1px solid #8886", cursor: "pointer", width: "100%" }}
+      className="pn-primary"
+      style={{ width: "100%" }}
     >
       {busy ? "Redirecting to Google..." : "Sign in with Google"}
     </button>
