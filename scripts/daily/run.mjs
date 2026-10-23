@@ -25,8 +25,10 @@ const SUPABASE_URL = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABA
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 const OR_KEY = process.env.OPENROUTER_API_KEY || "";
 const MODELS = [
-  process.env.OPENROUTER_MODEL || "nvidia/nemotron-3.5-lightning:free",
-  process.env.OPENROUTER_MODEL_BACKUP || "nvidia/nemotron-3-super-120b-a12b:free",
+  // Oct 2026: nemotron-3.5-lightning kept timing out and nemotron-3-super went offline (HTTP 404), so every story stayed pending.
+  process.env.OPENROUTER_MODEL || "google/gemma-4-31b-it:free",
+  process.env.OPENROUTER_MODEL_BACKUP || "poolside/laguna-s-2.1:free",
+  "nvidia/nemotron-3-ultra-550b-a55b:free",
 ];
 
 const stats = { companies: 0, found: 0, clustered: 0, alreadyHave: 0, newItems: 0, retried: 0, enriched: 0, irrelevant: 0, pending: 0, aiRequests: 0, feedErrors: 0, written: 0, offTopic: 0, capped: 0 };
@@ -301,7 +303,7 @@ async function main() {
   if (!DRY) {
     const since = new Date(Date.now() - 14 * 86400000).toISOString();
     existing = new Set((await sbGet(`articles?select=dedupe_key&view=eq.daily&fetched_at=gte.${since}&limit=10000`)).map((r) => r.dedupe_key));
-    retry = await sbGet(`articles?select=dedupe_key,company_id,headline,source_name,source_url,published_at,industry,also_covered&view=eq.daily&status=eq.pending&limit=60`);
+    retry = await sbGet(`articles?select=dedupe_key,company_id,headline,source_name,source_url,published_at,industry,also_covered&view=eq.daily&status=eq.pending&order=published_at.desc&limit=200`);
   }
   const fresh = items.filter((it) => !existing.has(it.key));
   stats.alreadyHave = items.length - fresh.length;
@@ -351,6 +353,11 @@ async function enrichAndStore(queue, noAI) {
     }
   }
   for (const it of queue) if (it.status !== "done") { it.status = "pending"; it.bullets = it.bullets || []; stats.pending++; }
+  // A run where the AI was needed but produced nothing must not look green: the stories stay safely pending, but the run is marked failed so it is noticed.
+  if (!noAI && todo.length > 0 && stats.enriched + stats.irrelevant === 0) {
+    log(`::error::AI step produced no summaries for ${todo.length} stories (all models failed). Check the model names and OPENROUTER_API_KEY.`);
+    process.exitCode = 1;
+  }
 
   // 3b. the same event under different headlines gets the same event label: keep the first, fold the rest into "also covered"
   {
